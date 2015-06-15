@@ -3,130 +3,69 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', [
-  'ionic',
-  'ngCordova',
-  'ionic.service.core',
-  'ionic.service.push',
-  'ionic.service.deploy',
-  'starter.controllers'
-])
+angular.module('starter', ['ionic', 'starter.controllers'])
 
-.config(['$ionicAppProvider', function($ionicAppProvider) {
-  // Identify app
-  $ionicAppProvider.identify({
-    // The App ID (from apps.ionic.io) for the server
-    app_id: 'a8282595',
-    // The public API key all services will use for this app
-    api_key: '3ea93e774801bff9a62ae8b0f817f175a71281f58f037621',
-    // The GCM project ID (project number) from your Google Developer Console (un-comment if used)
-    // gcm_id: 'GCM_ID'
-  });
-}])
-
-.run(function($rootScope, $ionicDeploy, $ionicPlatform, $cordovaStatusbar) {
-
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-
-    // Hide the accessory bar by default
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
-
-    // Color the iOS status bar text to white
     if (window.StatusBar) {
-      $cordovaStatusbar.overlaysWebView(true);
-      $cordovaStatusBar.style(1); //Light
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
     }
-
-    // Default update checking
-    $rootScope.updateOptions = {
-      interval: 2 * 60 * 1000
-    };
-
-    // Watch Ionic Deploy service for new code
-    $ionicDeploy.watch($rootScope.updateOptions).then(function() {}, function() {}, function(hasUpdate) {
-      $rootScope.lastChecked = new Date();
-      console.log('WATCH RESULT', hasUpdate);
-    });
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
   $stateProvider
 
-  // setup an abstract state for the tabs directive
-  .state('tab', {
-    url: "/tab",
+  .state('app', {
+    url: "/app",
     abstract: true,
-    templateUrl: "templates/tabs.html"
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
   })
 
-  // Each tab has its own nav history stack:
-
-  // Welcome tab
-  .state('tab.home', {
-    url: '/home',
+  .state('app.search', {
+    url: "/search",
     views: {
-      'tab-home': {
-        templateUrl: 'templates/tab-home.html',
-        controller: 'HomeCtrl'
+      'menuContent': {
+        templateUrl: "templates/search.html"
       }
     }
   })
 
-  // Ionic User tab
-  .state('tab.user', {
-    url: '/user',
+  .state('app.browse', {
+    url: "/browse",
     views: {
-      'tab-user': {
-        templateUrl: 'templates/tab-user.html',
-        controller: 'UserCtrl'
+      'menuContent': {
+        templateUrl: "templates/browse.html"
       }
     }
   })
-
-  // Ionic Push tab
-  .state('tab.push', {
-    url: '/push',
-    views: {
-      'tab-push': {
-        templateUrl: 'templates/tab-push.html',
-        controller: 'PushCtrl'
+    .state('app.playlists', {
+      url: "/playlists",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/playlists.html",
+          controller: 'PlaylistsCtrl'
+        }
       }
-    }
-  })
+    })
 
-  // Ionic Deploy tab
-  .state('tab.deploy', {
-    url: '/deploy',
+  .state('app.single', {
+    url: "/playlists/:playlistId",
     views: {
-      'tab-deploy': {
-        templateUrl: 'templates/tab-deploy.html',
-        controller: 'DeployCtrl'
-      }
-    }
-  })
-
-  // Ionic Analytics tab
-  .state('tab.analytics', {
-    url: '/analytics',
-    views: {
-      'tab-analytics': {
-        templateUrl: 'templates/tab-analytics.html',
-        controller: 'AnalyticsCtrl'
+      'menuContent': {
+        templateUrl: "templates/playlist.html",
+        controller: 'PlaylistCtrl'
       }
     }
   });
-
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
-
+  $urlRouterProvider.otherwise('/app/playlists');
 });

@@ -1,2 +1,0 @@
-# ioFinance
-testing ionic
