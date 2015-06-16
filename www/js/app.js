@@ -61,8 +61,18 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     url: "/transactions",
     views: {
       'menuContent': {
-        templateUrl: "templates/transaction.html",
+        templateUrl: "templates/transactions.html",
         controller: 'TransactionCtrl'
+      }
+    }
+  })
+  
+    .state('app.accounts', {
+    url: "/accounts",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/accounts.html",
+        controller: 'AccountsCtrl'
       }
     }
   })

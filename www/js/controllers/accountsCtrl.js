@@ -1,4 +1,4 @@
-angular.module("finance").controller("accountCtrl", function ($scope, AccountRepository, Sync) {
+angular.module("finance").controller("AccountsCtrl", function ($scope, AccountRepository, Sync) {
 	$scope.itens = AccountRepository.getAll();
 	$scope.newItem = new Account();
 	$scope.addItem = addItem;
