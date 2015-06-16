@@ -1,0 +1,13 @@
+<ion-view view-title="Contas">
+  <ion-content>
+    <div class="list">
+      <input type="hidden" ng-model="item.guid"></input>
+      <label class="item item-input">
+        <span class="input-label">Nome</span>
+        <input type="text" ng-model="item.name">
+      </label>
+      <button class="button button-block button-positive" ng-click="addItem(item)">Salvar</button>
+      <button class="button button-block button-stable" ng-click="back()">Voltar</button>
+    </div>
+  </ion-content>
+</ion-view>
