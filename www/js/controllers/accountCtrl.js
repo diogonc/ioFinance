@@ -1,26 +1,37 @@
-angular.module("finance").controller("AccountCtrl", function ($scope, $location, AccountRepository) {
-	$scope.itens = AccountRepository.getAll();
-	$scope.item = new Account();
+angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, $location, AccountRepository) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
+	$scope.item = {};
+	$scope.ehEdicao = false;
+	$scope.valid = true;
+	$scope.errors = [];
+
+	var guid = $stateParams.Id;
+	if (guid !== '0') {
+		var item = AccountRepository.get(guid);
+		$scope.item = item;
+		$scope.ehEdicao = true;
+	}
 
 	function addItem(newItem) {
 		var item = new Account(newItem);
-		if(item.valid){	
+		if (item.valid) {
 			AccountRepository.save(item);
-			$scope.newItem = new Account();
+			$scope.item = {};
+			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;
+		$scope.errors = item.errors;		
 	};
-	
-	function deleteItem(item){
+
+	function deleteItem(item) {
 		AccountRepository.delete(item);
-		$scope.newItem = new Account();
+		$scope.item = {};
+		back();
 	}
-	
-	function back(){
+
+	function back() {
 		$location.path('app/accounts');
 	}
 });

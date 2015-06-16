@@ -1,17 +1,10 @@
 angular.module("finance").controller("AccountListCtrl", function ($scope, $location, AccountRepository, Sync) {
 	$scope.itens = AccountRepository.getAll();
-	$scope.editItem = editItem;
 	$scope.import = importData;
 	$scope.novo = novo;
 
-console.log($scope.itens);
 	function novo(){
 		$location.path('app/accounts/0');
-	};
-
-	function editItem(item) {
-		$scope.newItem.guid = item.guid;
-		$scope.newItem.name = item.name;
 	};
 	
 	function importData(){

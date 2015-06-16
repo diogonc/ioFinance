@@ -24,8 +24,11 @@ var Repository = function(keyName, storage){
   
   self.delete = function(item){
     var index = findIndex(item.guid);
-    itens.splice(index, 1);
-    storage.setItem(self.key, itens);
+    if(index >= 0 )
+    {
+      itens.splice(index, 1);
+      storage.setItem(self.key, itens);  
+    }    
   };
   
   self.get = function(guid){
