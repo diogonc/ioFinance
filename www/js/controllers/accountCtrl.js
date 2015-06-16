@@ -6,7 +6,7 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 	$scope.ehEdicao = false;
 	$scope.valid = true;
 	$scope.errors = [];
-
+	
 	var guid = $stateParams.Id;
 	if (guid !== '0') {
 		var item = AccountRepository.get(guid);
