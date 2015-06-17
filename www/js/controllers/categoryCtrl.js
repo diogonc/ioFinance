@@ -1,35 +1,38 @@
-angular.module("finance").controller("categoryCtrl", function ($scope, CategoryRepository) {
-	$scope.itens = CategoryRepository.getAll();
-	$scope.types = [
-		{value :'credit', text: 'Crédito'},
-		{value :'debit', text: 'Débito'},
-		{value :'creditTransfer', text: 'Transferência de crédito'},
-		{value :'debitTransfer', text: 'Transferência de débito'}	
-	];
-	$scope.newItem = new Category();
+angular.module("finance").controller("CategoryCtrl", function ($scope, $location, $stateParams, CategoryRepository) {
+	$scope.types = ['Crédito', 'Débito', 'Transferência de crédito', 'Transferência de débito'];	
 	$scope.addItem = addItem;
-	$scope.editItem = editItem;
 	$scope.deleteItem = deleteItem;
+	$scope.back = back;
+	$scope.item = {};
+	$scope.ehEdicao = false;
+	$scope.valid = true;
+	$scope.errors = [];
+	
+	var guid = $stateParams.Id;
+	if (guid !== '0') {
+		var item = CategoryRepository.get(guid);
+		$scope.item = item;
+		$scope.ehEdicao = true;
+	}
 
 	function addItem(newItem) {
-		console.log(newItem);
 		var item = new Category(newItem);
-		if(item.valid){	
+		if (item.valid) {
 			CategoryRepository.save(item);
-			$scope.newItem = new Category();
+			$scope.item = {};
+			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;
+		$scope.errors = item.errors;		
 	};
 
-	function editItem(item) {
-		$scope.newItem.guid = item.guid;
-		$scope.newItem.name = item.name;
-		$scope.newItem.type = item.type;
-	}
-	
-	function deleteItem(item){
+	function deleteItem(item) {
 		CategoryRepository.delete(item);
-		$scope.newItem = new Category();
+		$scope.item = {};
+		back();
+	}
+
+	function back() {
+		$location.path('app/categories');
 	}
 });

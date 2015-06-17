@@ -1,9 +1,9 @@
 angular.module("finance").controller("AccountListCtrl", function ($scope, $location, AccountRepository, Sync) {
 	$scope.itens = AccountRepository.getAll();
 	$scope.import = importData;
-	$scope.novo = novo;
+	$scope.newItem = newItem;
 
-	function novo(){
+	function newItem(){
 		$location.path('app/accounts/0');
 	};
 	

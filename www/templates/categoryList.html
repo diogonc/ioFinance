@@ -1,11 +1,11 @@
-<ion-view view-title="Contas">
+<ion-view view-title="Categorias">
     <ion-content>
         <button class="button button-block button-positive" ng-click="newItem()">
           Novo
         </button>
         <ion-list>
-            <ion-item ng-repeat="item in itens" href="#/app/accounts/{{item.guid}}">
-            {{item.name}}
+            <ion-item ng-repeat="item in itens" href="#/app/categories/{{item.guid}}">
+            {{item.name}} {{item.type}}
             </ion-item>
         </ion-list>
     </ion-content>

@@ -30,43 +30,7 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     controller: 'AppCtrl'
   })
 
-    .state('app.search', {
-    url: "/search",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/search.html"
-      }
-    }
-  })
 
-    .state('app.browse', {
-    url: "/browse",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/browse.html"
-      }
-    }
-  })
-    .state('app.playlists', {
-    url: "/playlists",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/playlists.html",
-        controller: 'PlaylistsCtrl'
-      }
-    }
-  })
-  
-  .state('app.transactions', {
-    url: "/transactions",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/transactions.html",
-        controller: 'TransactionCtrl'
-      }
-    }
-  })
-  
     .state('app.accounts', {
     url: "/accounts",
     views: {
@@ -76,8 +40,8 @@ angular.module('finance', ['ionic', 'finance.controllers'])
       }
     }
   })
-  
-  .state('app.account', {
+
+    .state('app.account', {
     url: "/accounts/:Id",
     views: {
       'menuContent': {
@@ -87,16 +51,26 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     }
   })
   
-    .state('app.single', {
-    url: "/playlists/:playlistId",
+  .state('app.categories', {
+    url: "/categories",
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/categoryList.html",
+        controller: 'CategoryListCtrl'
       }
     }
-  });
+  })
+
+    .state('app.categorie', {
+    url: "/categories/:Id",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/category.html",
+        controller: 'CategoryCtrl'
+      }
+    }
+  })
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/accounts');
 });

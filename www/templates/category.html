@@ -1,0 +1,23 @@
+<ion-view view-title="Categorias">
+  <ion-content>
+    <ion-list ng-hide="valid">
+      <ion-item ng-repeat="error in errors" class="error">{{error}}</ion-item>
+    </ion-list>
+    <form>
+      <div class="list">
+        <input type="hidden" ng-model="item.guid"></input>
+        <label class="item item-input">
+          <span class="input-label">Nome</span>
+          <input type="text" ng-model="item.name">
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">Tipo</div>
+          <select ng-model="item.type" ng-options="type for type in types"></select>
+        </label>
+        <button class="button button-block button-positive" ng-click="addItem(item)">Salvar</button>
+        <button class="button button-block button-assertive" ng-click="deleteItem(item)" ng-show="ehEdicao">Excluir</button>
+        <button class="button button-block button-stable" ng-click="back()">Voltar</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
