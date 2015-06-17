@@ -8,7 +8,7 @@ angular.module('finance').factory('Sync', function($http, AccountRepository) {
       token: token,
       propertyId: propertyId
     }
-    return $http.get(baseUrl + 'getAccounts?login=username&token=40bd001563085fc35165329ea1ff5c5ecbdbbeef&propertyId=1').then(function(response) {
+    return $http.get(baseUrl + 'getAccounts', data).then(function(response) {
       var dataConverted =  sync.convertAccount(response.data);
       AccountRepository.updateAllData(dataConverted);
     });

@@ -4,6 +4,7 @@ var Repository = function(keyName, storage){
   self.key = keyName;  
     
   self.getAll = function(){
+    itens = storage.getItem(keyName);
     return itens;
   };
   
