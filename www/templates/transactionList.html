@@ -1,0 +1,12 @@
+<ion-view view-title="Lançamentos">
+    <ion-content>
+        <button class="button button-block button-positive" ng-click="newItem()">
+          Novo
+        </button>
+        <ion-list>
+            <ion-item ng-repeat="item in itens" href="#/app/transactions/{{item.guid}}">
+            {{item.description}} {{item.value}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

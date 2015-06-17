@@ -4,6 +4,7 @@ angular.module("finance").factory("TransactionRepository", function () {
 	return {
 		getAll: transactionRepository.getAll,
 		save: transactionRepository.save,
-		delete: transactionRepository.delete
+		delete: transactionRepository.delete,
+		get: transactionRepository.get
 	}
 });

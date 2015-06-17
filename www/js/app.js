@@ -71,6 +71,26 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     }
   })
   
+  .state('app.transactions', {
+    url: "/transactions",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/transactionList.html",
+        controller: 'TransactionListCtrl'
+      }
+    }
+  })
+
+    .state('app.transaction', {
+    url: "/transactions/:Id",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/transaction.html",
+        controller: 'TransactionCtrl'
+      }
+    }
+  })
+  
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/accounts');
+  $urlRouterProvider.otherwise('/app/transactions/0');
 });
