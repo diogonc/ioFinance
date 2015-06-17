@@ -1,36 +1,16 @@
-angular.module('finance').factory('Sync', function($http) {
-   $http.defaults.headers.common.Authorization = 'login YmVlcDpi' ;
-  var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
-  //var baseUrl = 'http://localhost:50164/Sync/';  
+angular.module('finance').factory('Sync', function($http, AccountRepository) {
+  //var baseUrl = 'http://diogonc.azurewebsites.net/SyncPost/';
+  var baseUrl = 'http://localhost:50164/SyncPost/';  
     
   function getAccounts(username, token, propertyId) {
-    var config = {
-      headers :{
-        user:username,
-        token: token
-    }};
-    
-    return $http.get(baseUrl + 'getAccounts?propertyId='+propertyId, config).then(function(response) {
-      var data = response.data;
-      data = [
-            {
-                "Name": "Cartão de crédito financiamento",
-                "Property": {
-                    "Name": "Piazza do Bosque",
-                    "Id": 1
-                },
-                "Id": 12
-            },
-            {
-                "Name": "Cartão de crédito inativo Diogo",
-                "Property": {
-                    "Name": "Piazza do Bosque",
-                    "Id": 1
-                },
-                "Id": 6
-            }
-        ];
-        return sync.convertAccount(data);
+    var data = {
+      login: username,
+      token: token,
+      propertyId: propertyId
+    }
+    return $http.get(baseUrl + 'getAccounts?login=username&token=40bd001563085fc35165329ea1ff5c5ecbdbbeef&propertyId=1').then(function(response) {
+      var dataConverted =  sync.convertAccount(response.data);
+      AccountRepository.updateAllData(dataConverted);
     });
   };
   

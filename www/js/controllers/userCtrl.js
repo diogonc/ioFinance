@@ -1,29 +1,37 @@
-angular.module("finance").controller("userCtrl", function ($scope, UserRepository) {
-	$scope.itens = UserRepository.getAll();
-	$scope.newItem = new User();
+angular.module("finance").controller("UserCtrl", function ($scope, $stateParams, $location,  UserRepository) {
 	$scope.addItem = addItem;
-	$scope.editItem = editItem;
 	$scope.deleteItem = deleteItem;
+	$scope.back = back;
+	$scope.item = {};
+	$scope.ehEdicao = false;
+	$scope.valid = true;
+	$scope.errors = [];
+	
+	var guid = $stateParams.Id;
+	if (guid !== '0') {
+		var item = UserRepository.get(guid);
+		$scope.item = item;
+		$scope.ehEdicao = true;
+	}
 
 	function addItem(newItem) {
 		var item = new User(newItem);
-		if(item.valid){	
+		if (item.valid) {
 			UserRepository.save(item);
-			$scope.newItem = new User();
+			$scope.item = {};
+			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;
+		$scope.errors = item.errors;		
 	};
 
-	function editItem(item) {
-		$scope.newItem.guid = item.guid;
-		$scope.newItem.login = item.login;
-		$scope.newItem.password = item.password;
-		$scope.newItem.property = item.property;
-	}
-	
-	function deleteItem(item){
+	function deleteItem(item) {
 		UserRepository.delete(item);
-		$scope.newItem = new User();
+		$scope.item = {};
+		back();
+	}
+
+	function back() {
+		$location.path('app/users');
 	}
 });

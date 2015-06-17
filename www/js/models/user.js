@@ -9,14 +9,12 @@ var User = function (newItem) {
 		if (self.valid) {
 			self.guid = newItem.guid;
 			self.login = newItem.login;
-			self.password = hash(newItem.password);
-			self.property = newItem.property;
+			self.token = hash(newItem.password);
 		}
 	}
 	else {
 		self.login = '';
 		self.password = '';
-		self.property = 0;
 	}
 
 	function validate(item) {
@@ -25,14 +23,10 @@ var User = function (newItem) {
 
 		if (typeof item.password === 'undefined' || item.password === '')
 			self.errors.push("Senha é obrigatória");
-
-		if (typeof item.property === 'undefined' || item.property === 0)
-			self.errors.push("Propriedade é obrigatória");
-
 		self.valid = self.errors.length === 0;
 	}
-	
-	function hash(text){
+
+	function hash(text) {
 		var shaObj = new jsSHA("SHA-1", "TEXT");
 		shaObj.update(text);
 		return shaObj.getHash("HEX");

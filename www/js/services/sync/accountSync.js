@@ -10,11 +10,12 @@ sync.convertAccount = function (serverData) {
 		result.push(item);
 	}
 
+console.log(result);
 	return result;
 
 	function convertItem(serverItem) {
 		return {
-			guid: serverItem.Id,
+			guid: String(serverItem.Id),
 			name: serverItem.Name
 		};
 	}

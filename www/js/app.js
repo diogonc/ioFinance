@@ -30,6 +30,25 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     controller: 'AppCtrl'
   })
 
+  .state('app.users', {
+    url: "/users",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/userList.html",
+        controller: 'UserListCtrl'
+      }
+    }
+  })
+
+    .state('app.user', {
+    url: "/users/:Id",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/user.html",
+        controller: 'UserCtrl'
+      }
+    }
+  })
 
     .state('app.accounts', {
     url: "/accounts",
