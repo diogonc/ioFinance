@@ -7,6 +7,10 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 	$scope.valid = true;
 	$scope.errors = [];
 	
+	$scope.$on('$ionicView.enter', function() {
+		console.log('detail opened!');
+	});
+	
 	var guid = $stateParams.Id;
 	if (guid !== '0') {
 		var item = AccountRepository.get(guid);
