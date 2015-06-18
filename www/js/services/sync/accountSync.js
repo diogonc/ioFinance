@@ -10,7 +10,6 @@ sync.convertAccount = function (serverData) {
 		result.push(item);
 	}
 
-console.log(result);
 	return result;
 
 	function convertItem(serverItem) {
