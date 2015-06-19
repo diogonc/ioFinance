@@ -1,5 +1,5 @@
 angular.module("finance").controller("AccountListCtrl", function ($scope, $location, AccountRepository) {
-	$scope.itens = AccountRepository.getAll();
+	$scope.itens = [];
 	$scope.newItem = newItem;
 	
 	function newItem(){

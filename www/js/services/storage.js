@@ -1,4 +1,4 @@
-var store = {
+var storage = {
 	getItem: function(key){
 		var data = JSON.parse(localStorage.getItem(key));
 		if (typeof data === 'undefined' || data === null)

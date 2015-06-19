@@ -1,5 +1,5 @@
 angular.module("finance").factory("UserRepository", function(){
-	var userRepository = new Repository('user', store);
+	var userRepository = new Repository('user', storage);
 				
 	return {
 		getAll: userRepository.getAll,

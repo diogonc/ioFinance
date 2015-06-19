@@ -1,13 +1,22 @@
 angular.module("finance").controller("UserListCtrl", function ($scope, $location, UserRepository, Sync) {
 	$scope.itens = UserRepository.getAll();
 	$scope.newItem = newItem;
-	$scope.importAccounts = importAccounts;
+	$scope.importData = importData;
 
 	function newItem(){
 		$location.path('app/users/0');
 	};
 	
-	function importAccounts(){
-		var data = Sync.getAccounts('username', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1);
+	function importData(){
+		var credentials = $scope.itens[0];
+		var username = credentials.login;
+		var token = credentials.token;
+		var propertyId = 1;
+		
+		Sync.getAccounts(username, token, propertyId);
+		Sync.getCategories(username, token, propertyId);
+		Sync.getTransactions(username, token, propertyId);
+		
+		console.log('sucesso');
 	};
 });
