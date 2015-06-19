@@ -20,9 +20,9 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
   });
 })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.config(function ($stateProvider, $urlRouterProvider) {
 
+  $stateProvider
     .state('app', {
     url: "/app",
     abstract: true,

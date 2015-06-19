@@ -7,8 +7,11 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       login: username,
       token: token,
       propertyId: propertyId
-    }
-    return $http.get(baseUrl + 'getAccounts', {params : params}).then(function(response) {
+    };
+    return $http.post(baseUrl + 'getAccounts', params).then(function(response) {
+      if(response.data === 'usuário inválido')
+        return;
+
       var dataConverted =  accountSync.convertAccount(response.data);
       AccountRepository.updateAllData(dataConverted);
     });
@@ -20,7 +23,10 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       token: token,
       propertyId: propertyId
     }
-    return $http.get(baseUrl + 'getCategories', {params : params}).then(function(response) {
+    return $http.post(baseUrl + 'getCategories', params).then(function(response) {
+      if(response.data === 'usuário inválido')
+        return;
+
       var dataConverted =  categorySync.convertCategory(response.data);
       CategoryRepository.updateAllData(dataConverted);
     });
@@ -32,7 +38,10 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       token: token,
       propertyId: propertyId
     }
-    return $http.get(baseUrl + 'getTransactions', {params : params}).then(function(response) {
+    return $http.post(baseUrl + 'getTransactions', params).then(function(response) {
+      if(response.data === 'usuário inválido')
+        return;
+
       var dataConverted =  transactionSync.convertTransaction(response.data);
       TransactionRepository.updateAllData(dataConverted);
     });
