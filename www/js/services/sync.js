@@ -1,6 +1,6 @@
 angular.module('finance').factory('Sync', function($http, AccountRepository, CategoryRepository, TransactionRepository) {
-  var baseUrl = 'http://diogonc.azurewebsites.net/SyncPost/';
-  //var baseUrl = 'http://localhost:50164/SyncPost/';  
+  var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
+  //var baseUrl = 'http://localhost:50164/Sync/';  
     
   function getAccounts(username, token, propertyId) {
     var params = {
@@ -8,7 +8,7 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       token: token,
       propertyId: propertyId
     };
-    return $http.post(baseUrl + 'getAccounts', params).then(function(response) {
+    return $http.get(baseUrl + 'getAccounts', {headers: params}).then(function(response) {
       if(response.data === 'usuário inválido')
         return;
 
@@ -23,7 +23,7 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       token: token,
       propertyId: propertyId
     }
-    return $http.post(baseUrl + 'getCategories', params).then(function(response) {
+    return $http.get(baseUrl + 'getCategories', {headers: params}).then(function(response) {
       if(response.data === 'usuário inválido')
         return;
 
@@ -38,7 +38,7 @@ angular.module('finance').factory('Sync', function($http, AccountRepository, Cat
       token: token,
       propertyId: propertyId
     }
-    return $http.post(baseUrl + 'getTransactions', params).then(function(response) {
+    return $http.get(baseUrl + 'getTransactions', {headers: params}).then(function(response) {
       if(response.data === 'usuário inválido')
         return;
 
