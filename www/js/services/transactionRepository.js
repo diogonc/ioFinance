@@ -15,7 +15,12 @@ angular.module("finance").factory("TransactionRepository", function () {
 			if (yearOfTransaction === year && monthOfTransaction === month - 1)
 				filteredItens.push(transaction);
 		}
-		return filteredItens;
+		
+		var orderedItens = filteredItens.sort(function(item, anotherItem){
+			return new Date(anotherItem.date) - new Date(item.date);
+		});
+
+		return orderedItens;
 	}
 
 	return {

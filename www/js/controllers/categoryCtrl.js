@@ -1,4 +1,4 @@
-angular.module("finance").controller("CategoryCtrl", function ($scope, $location, $stateParams, CategoryRepository) {
+angular.module("finance").controller("CategoryCtrl", function ($scope, $location, $stateParams, toastr, CategoryRepository) {
 	$scope.types = ['Crédito', 'Débito', 'Transferência de crédito', 'Transferência de débito'];	
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
@@ -20,6 +20,7 @@ angular.module("finance").controller("CategoryCtrl", function ($scope, $location
 		if (item.valid) {
 			CategoryRepository.save(item);
 			$scope.item = {};
+			toastr.success('Registro gravado com sucesso!');
 			back();
 		}
 		$scope.valid = item.valid;

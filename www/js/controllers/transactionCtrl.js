@@ -1,4 +1,4 @@
-angular.module("finance").controller("TransactionCtrl", function ($scope, $location, $stateParams, TransactionRepository, AccountRepository, CategoryRepository) {
+angular.module("finance").controller("TransactionCtrl", function ($scope, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository) {
 	$scope.itens = TransactionRepository.getAll();
 	$scope.categories = CategoryRepository.getAll();
 	$scope.accounts = AccountRepository.getAll();
@@ -27,10 +27,11 @@ angular.module("finance").controller("TransactionCtrl", function ($scope, $locat
 		if (item.valid) {
 			TransactionRepository.save(item);
 			$scope.item = {};
+			toastr.success('Registro gravado com sucesso!');
 			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;		
+		$scope.errors = item.errors;
 	};
 	
 	function deleteItem(item) {

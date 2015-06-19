@@ -6,6 +6,7 @@
         <ion-list>
             <ion-item ng-repeat="item in itens" href="#/app/categories/{{item.guid}}">
             {{item.name}} {{item.type}}
+            <i class="icon ion-arrow-graph-up-right" ng-show="{{item.changed}}"></i>
             </ion-item>
         </ion-list>
     </ion-content>

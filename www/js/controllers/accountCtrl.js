@@ -1,4 +1,4 @@
-angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, $location, AccountRepository) {
+angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, toastr, $location, AccountRepository) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
@@ -19,6 +19,7 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 		if (item.valid) {
 			AccountRepository.save(item);
 			$scope.item = {};
+			toastr.success('Registro gravado com sucesso!');
 			back();
 		}
 		$scope.valid = item.valid;

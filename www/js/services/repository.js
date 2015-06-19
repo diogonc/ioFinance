@@ -11,6 +11,7 @@ var Repository = function(keyName, storage){
   self.save = function(item){
     var itemToAdd = copy(item);
             
+      itemToAdd.changed = true;
     if(typeof itemToAdd.guid === 'undefined' ){
       itemToAdd.guid = generateGuid();
       itens.push(itemToAdd);

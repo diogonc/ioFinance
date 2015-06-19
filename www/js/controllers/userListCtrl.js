@@ -1,4 +1,4 @@
-angular.module("finance").controller("UserListCtrl", function ($scope, $location, UserRepository, Sync) {
+angular.module("finance").controller("UserListCtrl", function ($scope, $location, toastr, UserRepository, Sync) {
 	$scope.itens = UserRepository.getAll();
 	$scope.newItem = newItem;
 	$scope.importData = importData;
@@ -17,6 +17,6 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 		Sync.getCategories(username, token, propertyId);
 		Sync.getTransactions(username, token, propertyId);
 		
-		console.log('sucesso');
+		toastr.success('Dados importados com sucesso!');
 	};
 });
