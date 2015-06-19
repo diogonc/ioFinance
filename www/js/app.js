@@ -111,5 +111,5 @@ angular.module('finance', ['ionic', 'finance.controllers'])
   })
   
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/app/transactions/0');
+  $urlRouterProvider.otherwise('/app/transactions/0');
 });
