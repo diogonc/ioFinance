@@ -1,8 +1,25 @@
 angular.module("finance").factory("TransactionRepository", function () {
 	var transactionRepository = new Repository('transaction', storage);
 
+	var getAll = function (year, month) {
+		var filteredItens = [];
+		var itens = transactionRepository.getAll();
+		var length = itens.length;
+
+		for (var index = 0; index < length; index++) {
+			var transaction = itens[index];
+			var date = new Date(transaction.date);
+			var monthOfTransaction = date.getMonth();
+			var yearOfTransaction = date.getFullYear();
+
+			if (yearOfTransaction === year && monthOfTransaction === month - 1)
+				filteredItens.push(transaction);
+		}
+		return filteredItens;
+	}
+
 	return {
-		getAll: transactionRepository.getAll,
+		getAll: getAll,
 		save: transactionRepository.save,
 		delete: transactionRepository.delete,
 		get: transactionRepository.get,

@@ -80,7 +80,7 @@ angular.module('finance', ['ionic', 'finance.controllers'])
     }
   })
 
-    .state('app.categorie', {
+    .state('app.category', {
     url: "/categories/:Id",
     views: {
       'menuContent': {
@@ -91,7 +91,7 @@ angular.module('finance', ['ionic', 'finance.controllers'])
   })
   
   .state('app.transactions', {
-    url: "/transactions",
+    url: "/transactions?year&month",
     views: {
       'menuContent': {
         templateUrl: "templates/transactionList.html",
@@ -111,5 +111,5 @@ angular.module('finance', ['ionic', 'finance.controllers'])
   })
   
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/transactions/0');
+  //$urlRouterProvider.otherwise('/app/transactions/0');
 });
