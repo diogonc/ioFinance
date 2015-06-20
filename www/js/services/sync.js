@@ -27,7 +27,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveAccount', element, { headers: params }).then(function (response) {
         if(response.data === 'OK')
-          toastr.success('conta '+element.name+' salva!');
+          toastr.success('conta '+element.Name+' salva!');
       });
     }, this);
   };
@@ -57,7 +57,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveCategory', element, { headers: params }).then(function (response) {
         if(response.data === 'OK')
-          toastr.success('categoria '+element.name+' salva!');
+          toastr.success('categoria '+element.Name+' salva!');
       });
     }, this);
   };
