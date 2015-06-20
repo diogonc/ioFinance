@@ -25,6 +25,7 @@ angular.module("finance").factory("TransactionRepository", function () {
 
 	return {
 		getAll: getAll,
+		getAllTransactions: transactionRepository.getAll,
 		save: transactionRepository.save,
 		delete: transactionRepository.delete,
 		get: transactionRepository.get,

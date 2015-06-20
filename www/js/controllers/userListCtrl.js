@@ -13,10 +13,13 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 		var token = credentials.token;
 		var propertyId = 1;
 		
-		Sync.getAccounts(username, token, propertyId);
-		Sync.getCategories(username, token, propertyId);
-		Sync.getTransactions(username, token, propertyId);
+//		Sync.saveAccounts(username, token, propertyId);
+//		Sync.saveCategories(username, token, propertyId);
+		Sync.saveTransactions(username, token, propertyId);
+//		Sync.getAccounts(username, token, propertyId);
+//		Sync.getCategories(username, token, propertyId);
+//		Sync.getTransactions(username, token, propertyId);
 		
-		toastr.success('Dados importados com sucesso!');
+		toastr.success('Dados sicronizados com sucesso!');
 	};
 });

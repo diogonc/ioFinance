@@ -21,9 +21,41 @@ transactionSync.convertTransaction = function (serverData) {
 			account: accountSync.convertItem(serverItem.Account)
 		};
 
-		function convertDate(serverDate){
+		function convertDate(serverDate) {
 			var dateInNumbers = parseInt(serverDate.match(/\d+/)[0]);
 			return new Date(dateInNumbers);
 		}
+	}
+};
+
+transactionSync.convertToPost = function (itens) {
+	var result = [];
+	var quantityOfItens = itens.length;
+
+	for (var i = 0; i < quantityOfItens; i++) {
+		var localItem = itens[i];
+		if (localItem.changed) {
+			var item = this.convertItemToPost(localItem);
+			result.push(item);
+		}
+	}
+	console.log(result);
+	return result;
+};
+
+transactionSync.convertItemToPost = function (item) {
+	return {
+		Id: item.guid,
+		Description: item.description,
+		Date: convertDate(item.date),
+		Value: String(item.value),
+		CategoryId: item.category.guid,
+		AccountId: item.account.guid
+	};
+
+	function convertDate(localDate) {
+		var date = new Date(localDate);
+		var serverDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay();
+		return serverDate;
 	}
 };

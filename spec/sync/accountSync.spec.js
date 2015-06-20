@@ -30,4 +30,14 @@ describe('account sync test', function() {
      expect(result[0].name).toBe(serverData[0].Name);
      expect(result.length).toBe(2);
   });
+  
+  it('should convert data to post', function() {
+    var account = new Account({name:'nome', guid:'3'});
+        
+    var result = sync.convertAccount(serverData); 
+    
+     expect(result[0].guid).toBe(serverData[0].Id);
+     expect(result[0].name).toBe(serverData[0].Name);
+     expect(result.length).toBe(2);
+  });
 });
