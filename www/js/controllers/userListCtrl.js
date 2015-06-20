@@ -2,6 +2,7 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 	$scope.itens = UserRepository.getAll();
 	$scope.newItem = newItem;
 	$scope.importData = importData;
+	$scope.exportData = exportData;
 
 	function newItem(){
 		$location.path('app/users/0');
@@ -13,13 +14,21 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 		var token = credentials.token;
 		var propertyId = 1;
 		
-//		Sync.saveAccounts(username, token, propertyId);
-//		Sync.saveCategories(username, token, propertyId);
-		Sync.saveTransactions(username, token, propertyId);
-//		Sync.getAccounts(username, token, propertyId);
-//		Sync.getCategories(username, token, propertyId);
-//		Sync.getTransactions(username, token, propertyId);
+		Sync.getAccounts(username, token, propertyId);
+		Sync.getCategories(username, token, propertyId);
+		Sync.getTransactions(username, token, propertyId);
 		
 		toastr.success('Dados sicronizados com sucesso!');
 	};
+
+	function exportData(){
+		var credentials = $scope.itens[0];
+		var username = credentials.login;
+		var token = credentials.token;
+		var propertyId = 1;
+		
+		Sync.saveAccounts(username, token, propertyId);
+		Sync.saveCategories(username, token, propertyId);
+		Sync.saveTransactions(username, token, propertyId);
+	}
 });

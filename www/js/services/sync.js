@@ -1,4 +1,4 @@
-angular.module('finance').factory('Sync', function ($http, AccountRepository, CategoryRepository, TransactionRepository) {
+angular.module('finance').factory('Sync', function ($http, toastr, AccountRepository, CategoryRepository, TransactionRepository) {
   var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
   //var baseUrl = 'http://localhost:50164/Sync/';  
     
@@ -26,6 +26,8 @@ angular.module('finance').factory('Sync', function ($http, AccountRepository, Ca
     var data = accountSync.convertToPost(AccountRepository.getAll());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveAccount', element, { headers: params }).then(function (response) {
+        if(response.data === 'OK')
+          toastr.success('conta '+element.name+' salva!');
       });
     }, this);
   };
@@ -54,6 +56,8 @@ angular.module('finance').factory('Sync', function ($http, AccountRepository, Ca
     var data = categorySync.convertToPost(CategoryRepository.getAll());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveCategory', element, { headers: params }).then(function (response) {
+        if(response.data === 'OK')
+          toastr.success('categoria '+element.name+' salva!');
       });
     }, this);
   };
@@ -82,6 +86,8 @@ angular.module('finance').factory('Sync', function ($http, AccountRepository, Ca
     var data = transactionSync.convertToPost(TransactionRepository.getAllTransactions());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
+        if(response.data === 'OK')
+          toastr.success('lançamento '+element.Value+' salvo!');
       });
     }, this);
   };

@@ -6,6 +6,9 @@
         <button class="button button-block button-positive" ng-click="importData()">
           Importar dados
         </button>
+        <button class="button button-block button-positive" ng-click="exportData()">
+          Exportar dados
+        </button>
         <ion-list>
             <ion-item ng-repeat="item in itens" href="#/app/users/{{item.guid}}">
             {{item.login}}

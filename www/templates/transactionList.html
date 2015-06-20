@@ -14,7 +14,7 @@
         </form>
         <ion-list>
             <ion-item ng-repeat="item in itens" href="#/app/transactions/{{item.guid}}">
-                R$ {{item.value | number: 2 }} em {{ item.date | date: 'dd/MM/yyyy' }} - {{item.category.name}}
+                R$ {{item.value | number: 2 }} - {{item.category.name}}
                 <i class="icon ion-arrow-graph-up-right" ng-show="{{item.changed}}"></i>
             </ion-item>
         </ion-list>

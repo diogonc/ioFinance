@@ -55,7 +55,7 @@ transactionSync.convertItemToPost = function (item) {
 
 	function convertDate(localDate) {
 		var date = new Date(localDate);
-		var serverDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay();
+		var serverDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 		return serverDate;
 	}
 };

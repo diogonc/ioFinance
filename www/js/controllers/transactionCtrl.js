@@ -1,4 +1,5 @@
 angular.module("finance").controller("TransactionCtrl", function ($scope, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository) {
+	$scope.convertDate = convertDate;
 	$scope.itens = TransactionRepository.getAll();
 	$scope.categories = CategoryRepository.getAll();
 	$scope.accounts = AccountRepository.getAll();
@@ -17,7 +18,7 @@ angular.module("finance").controller("TransactionCtrl", function ($scope, $locat
 		$scope.item.category = item.category;
 		$scope.item.description = item.description;
 		$scope.item.account = item.account;
-		$scope.item.date = new Date(item.date);
+		$scope.item.date = convertDate(item.date);
 		$scope.item.value = item.value;
 		$scope.ehEdicao = true;
 	}
@@ -42,5 +43,12 @@ angular.module("finance").controller("TransactionCtrl", function ($scope, $locat
 
 	function back() {
 		$location.path('app/transactions');
+	}
+
+	//'2015-06-19T00:00:00.000Z'
+	function convertDate(dateInString){
+		var dateStringPart = dateInString.split('T')[0];
+		var dateParts = dateStringPart.split('-');
+		return new Date(dateParts[0], dateParts[1]-1, dateParts[2]);
 	}
 });
