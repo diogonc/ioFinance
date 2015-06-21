@@ -1,11 +1,28 @@
 angular.module('finance.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, Sync, UserRepository) {
+ 	$scope.importData = importData;
+	$scope.exportData = exportData;
   
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  	function importData(){
+		var credentials = UserRepository.getAll()[0];
+		var username = credentials.login;
+		var token = credentials.token;
+		var propertyId = 1;
+		
+		Sync.getAccounts(username, token, propertyId);
+		Sync.getCategories(username, token, propertyId);
+		Sync.getTransactions(username, token, propertyId);
+	};
+
+	function exportData(){
+		var credentials = UserRepository.getAll()[0];
+		var username = credentials.login;
+		var token = credentials.token;
+		var propertyId = 1;
+		
+		Sync.saveAccounts(username, token, propertyId);
+		Sync.saveCategories(username, token, propertyId);
+		Sync.saveTransactions(username, token, propertyId);
+	}
 });

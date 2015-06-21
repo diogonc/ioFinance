@@ -14,6 +14,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
 
       var dataConverted = accountSync.convertAccount(response.data);
       AccountRepository.updateAllData(dataConverted);
+      toastr.success('contas atualizadas!');
     });
   };
 
@@ -44,6 +45,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
 
       var dataConverted = categorySync.convertCategory(response.data);
       CategoryRepository.updateAllData(dataConverted);
+      toastr.success('categorias atualizadas!');
     });
   };
 
@@ -74,6 +76,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
 
       var dataConverted = transactionSync.convertTransaction(response.data);
       TransactionRepository.updateAllData(dataConverted);
+      toastr.success('lançamentos atualizados!');
     });
   };
 
