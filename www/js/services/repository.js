@@ -2,7 +2,6 @@ var Repository = function (keyName, storage) {
   var self = this;
   var itens = storage.getItem(keyName);
   var deletedKey = keyName + '-deleted';
-  var deleted = storage.getItem(deletedKey);
   self.key = keyName;
 
   self.getAll = function () {
@@ -11,8 +10,7 @@ var Repository = function (keyName, storage) {
   };
   
   self.getAllDeleted = function(){
-    itens = storage.getItem(deletedKey);
-    return itens;
+    return storage.getItem(deletedKey);
   };
 
   self.save = function (item) {
@@ -34,7 +32,8 @@ var Repository = function (keyName, storage) {
   self.delete = function (item) {
     var index = findIndex(item.guid);
     if (index >= 0) {
-      deleted.push(itens[index]);
+      var deleted = self.getAllDeleted();
+      deleted.push(copy(itens[index]));
       itens.splice(index, 1);
       storage.setItem(deletedKey, deleted);
       storage.setItem(self.key, itens);
@@ -50,6 +49,7 @@ var Repository = function (keyName, storage) {
     var data = copy(serverData);
     itens = data;
     storage.setItem(self.key, itens);
+    storage.setItem(deletedKey, []);
   };
 
   function findIndex(guid) {

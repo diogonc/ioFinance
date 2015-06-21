@@ -99,11 +99,11 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
       token: token,
       propertyId: propertyId
     };
-    var data = transactionSync.convertToPost(TransactionRepository.getAllTransactions());
+    var data = transactionSync.convertToDelete(TransactionRepository.getAllDeleted());
     data.forEach(function (element) {
-      return $http.post(baseUrl + 'deleteTransaction', element, { headers: params }).then(function (response) {
+      return $http.post(baseUrl + 'DeleteTransaction', element, { headers: params }).then(function (response) {
         if (response.data === 'OK')
-          toastr.success('lançamento ' + element.Value + ' excluido!');
+          toastr.success('lançamento excluido!');
       });
     }, this);
   };

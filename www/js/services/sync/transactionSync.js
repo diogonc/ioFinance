@@ -62,20 +62,18 @@ transactionSync.convertItemToPost = function (item) {
 transactionSync.convertToDelete = function(itens){
 	var result = [];
 	var quantityOfItens = itens.length;
-
+console.log(itens);
 	for (var i = 0; i < quantityOfItens; i++) {
 		var localItem = itens[i];
-		if (localItem.changed) {
-			var item = this.convertItemToDelete(localItem);
-			result.push(item);
-		}
+		var item = this.convertItemToDelete(localItem);
+		result.push(item);
 	}
 	return result;
 };
 
 transactionSync.convertItemToDelete = function (item) {
 	return {
-		Id: item.guid
+		transactionId: item.guid
 	};
 };
 
