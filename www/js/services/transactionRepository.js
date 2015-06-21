@@ -21,10 +21,11 @@ angular.module("finance").factory("TransactionRepository", function () {
 		});
 
 		return orderedItens;
-	}
+	};
 
 	return {
 		getAll: getAll,
+		getAllDeleted: transactionRepository.getAllDeleted,
 		getAllTransactions: transactionRepository.getAll,
 		save: transactionRepository.save,
 		delete: transactionRepository.delete,

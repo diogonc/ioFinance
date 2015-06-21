@@ -26,8 +26,8 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     var data = accountSync.convertToPost(AccountRepository.getAll());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveAccount', element, { headers: params }).then(function (response) {
-        if(response.data === 'OK')
-          toastr.success('conta '+element.Name+' salva!');
+        if (response.data === 'OK')
+          toastr.success('conta ' + element.Name + ' salva!');
       });
     }, this);
   };
@@ -56,8 +56,8 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     var data = categorySync.convertToPost(CategoryRepository.getAll());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveCategory', element, { headers: params }).then(function (response) {
-        if(response.data === 'OK')
-          toastr.success('categoria '+element.Name+' salva!');
+        if (response.data === 'OK')
+          toastr.success('categoria ' + element.Name + ' salva!');
       });
     }, this);
   };
@@ -76,7 +76,7 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
       TransactionRepository.updateAllData(dataConverted);
     });
   };
-  
+
   function saveTransactions(username, token, propertyId) {
     var params = {
       login: username,
@@ -86,8 +86,24 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     var data = transactionSync.convertToPost(TransactionRepository.getAllTransactions());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
-        if(response.data === 'OK')
-          toastr.success('lançamento '+element.Value+' salvo!');
+        if (response.data === 'OK')
+          toastr.success('lançamento ' + element.Value + ' salvo!');
+      });
+    }, this);
+    deleteTransactions(username, token, propertyId);
+  };
+  
+  function deleteTransactions(username, token, propertyId) {
+    var params = {
+      login: username,
+      token: token,
+      propertyId: propertyId
+    };
+    var data = transactionSync.convertToPost(TransactionRepository.getAllTransactions());
+    data.forEach(function (element) {
+      return $http.post(baseUrl + 'deleteTransaction', element, { headers: params }).then(function (response) {
+        if (response.data === 'OK')
+          toastr.success('lançamento ' + element.Value + ' excluido!');
       });
     }, this);
   };

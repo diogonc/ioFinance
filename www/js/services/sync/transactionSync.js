@@ -39,7 +39,6 @@ transactionSync.convertToPost = function (itens) {
 			result.push(item);
 		}
 	}
-	console.log(result);
 	return result;
 };
 
@@ -59,3 +58,24 @@ transactionSync.convertItemToPost = function (item) {
 		return serverDate;
 	}
 };
+
+transactionSync.convertToDelete = function(itens){
+	var result = [];
+	var quantityOfItens = itens.length;
+
+	for (var i = 0; i < quantityOfItens; i++) {
+		var localItem = itens[i];
+		if (localItem.changed) {
+			var item = this.convertItemToDelete(localItem);
+			result.push(item);
+		}
+	}
+	return result;
+};
+
+transactionSync.convertItemToDelete = function (item) {
+	return {
+		Id: item.guid
+	};
+};
+
