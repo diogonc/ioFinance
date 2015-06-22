@@ -30,6 +30,7 @@ angular.module("finance").factory("TransactionRepository", function () {
 		save: transactionRepository.save,
 		delete: transactionRepository.delete,
 		get: transactionRepository.get,
-		updateAllData: transactionRepository.updateAllData 
+		updateAllData: transactionRepository.updateAllData,
+		changeId: transactionRepository.changeId 
 	}
 });

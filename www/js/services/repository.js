@@ -1,12 +1,10 @@
 var Repository = function (keyName, storage) {
   var self = this;
-  var itens = storage.getItem(keyName);
-  var deletedKey = keyName + '-deleted';
+   var deletedKey = keyName + '-deleted';
   self.key = keyName;
 
   self.getAll = function () {
-    itens = storage.getItem(keyName);
-    return itens;
+    return storage.getItem(keyName);
   };
   
   self.getAllDeleted = function(){
@@ -15,7 +13,7 @@ var Repository = function (keyName, storage) {
 
   self.save = function (item) {
     var itemToAdd = copy(item);
-
+    var itens = self.getAll();
     itemToAdd.changed = true;
     if (typeof itemToAdd.guid === 'undefined') {
       itemToAdd.guid = generateGuid();
@@ -28,8 +26,18 @@ var Repository = function (keyName, storage) {
     storage.setItem(self.key, itens);
     return copy(itemToAdd);
   };
+  
+  self.changeId = function(guid, id){
+    var itens = self.getAll();
+    var index = findIndex(guid);
+    var item = itens[index];
+    item.guid = id;
+    item.changed = false;
+    storage.setItem(self.key, itens);
+  };
 
   self.delete = function (item) {
+    var itens = self.getAll();
     var index = findIndex(item.guid);
     if (index >= 0) {
       var deleted = self.getAllDeleted();
@@ -41,11 +49,13 @@ var Repository = function (keyName, storage) {
   };
 
   self.get = function (guid) {
+    var itens = self.getAll();
     var index = findIndex(guid);
     return itens[index];
   };
 
   self.updateAllData = function (serverData) {
+    var itens = self.getAll();
     var data = copy(serverData);
     itens = data;
     storage.setItem(self.key, itens);
@@ -53,6 +63,7 @@ var Repository = function (keyName, storage) {
   };
 
   function findIndex(guid) {
+    var itens = self.getAll();
     var length = itens.length;
     for (var i = 0; i < length; i++) {
       if (itens[i].guid === guid)
