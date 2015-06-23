@@ -7,8 +7,8 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">        </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
-        <i class="icon ion-upload atualizar" ng-click="exportData()"></i>
-        <i class="icon ion-cloud atualizar download" ng-click="importData()"></i>        
+        <i class="icon ion-upload atualizar" ng-show='hasUser()' ng-click="exportData()"></i>
+        <i class="icon ion-cloud atualizar download" ng-show='hasUser()' ng-click="importData()"></i>        
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>

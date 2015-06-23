@@ -1,5 +1,5 @@
 var fs = require('fs');
-var file = fs.readFileSync('www/js/services/sync/accountSync.js','utf-8');
+var file = fs.readFileSync('www/js/services/sync/converter/accountConverter.js','utf-8');
 eval(file);
 
 var serverData = [

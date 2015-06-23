@@ -23,12 +23,17 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
       propertyId: propertyId
     };
     var data = transactionConverter.convertToPost(TransactionRepository.getAllTransactions());
+    var numberOfItens = data.length;
+    var itensSaved = 0;
+    toastr.success('Preparando para atualizar '+numberOfItens+' registros!');
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
+        itensSaved++;
         onSaveTransaction(element, response);
+        if(itensSaved === numberOfItens)
+          deleteTransactions(username, token, propertyId, baseUrl);
       });
     }, this);
-    deleteTransactions(username, token, propertyId, baseUrl);
   };
 
   function onSaveTransaction(element, response) {
@@ -39,7 +44,7 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     else {
       toastr.warning(response.data.Message);
     }
-  }
+  };
 
   function deleteTransactions(username, token, propertyId, baseUrl) {
     var params = {
@@ -48,11 +53,16 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
       propertyId: propertyId
     };
     var data = transactionConverter.convertToDelete(TransactionRepository.getAllDeleted());
+    var numberOfItens = data.length;
+    var itensSaved = 0;
     data.forEach(function (element) {
       return $http.post(baseUrl + 'DeleteTransaction', element, { headers: params }).then(function (response) {
+        itensSaved++;
         if (response.data.Status === 'OK')
           toastr.success('lançamento excluido!');
-        TransactionRepository.clearDeleted();
+          
+        if(itensSaved === numberOfItens)  
+          TransactionRepository.clearDeleted();
       });
     }, this);
   };

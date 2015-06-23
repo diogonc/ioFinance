@@ -4,7 +4,7 @@ eval(repositoryFile);
 
 var Storage =  function(){
   this.itens = [];
-  this.getItem = function(key){ return this.itens};
+  this.getItem = function(key){ return this.itens;};
   this.setItem = function(key, value){ this.itens = JSON.parse(JSON.stringify(value));};
 };
 
@@ -45,7 +45,7 @@ describe('Repository', function() {
   });
   
   it('should delete an item', function(){
-    var item = {name: 'test'};
+    var item = {name: 'test', guid: '234'};
     repository.save(item);
     var itemToDelete = repository.getAll()[0];
 
@@ -75,13 +75,6 @@ describe('Repository', function() {
     expect(repositoryData.length).toBe(2);    
   });
   
- // it('should use diferent repositories', function(){
-  //  var repo2 = new Repo('repo2', storage);
-  //  
-  //  expect(repo2.Name).toBe('repo2'); 
-  //  expect(repo.Name).toBe('repoName');
-  //  expect(repo.GetAll()).toBe(['repoName']);
- // });
 });
 
 
