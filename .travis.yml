@@ -1,0 +1,4 @@
+language: node_js
+scripts:
+    - npm i -g jasmine
+    - jasmine
