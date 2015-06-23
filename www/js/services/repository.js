@@ -61,6 +61,10 @@ var Repository = function (keyName, storage) {
     storage.setItem(self.key, itens);
     storage.setItem(deletedKey, []);
   };
+  
+  self.clearDeleted = function(){
+    storage.setItem(deletedKey, []);
+  };
 
   function findIndex(guid) {
     var itens = self.getAll();

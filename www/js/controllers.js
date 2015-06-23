@@ -1,6 +1,4 @@
-angular.module('finance.controllers', [])
-
-	.controller('AppCtrl', function ($scope, $ionicModal, $timeout, toastr, Sync, UserRepository, TransactionRepository) {
+angular.module('finance.controllers', []).controller('AppCtrl', function ($scope, $ionicModal, $timeout, toastr, Sync, UserRepository, TransactionRepository) {
 	$scope.importData = importData;
 	$scope.exportData = exportData;
 
@@ -32,7 +30,7 @@ angular.module('finance.controllers', [])
 		if (response.data.Status === 'OK')
 		{
 			toastr.success(response.data.Message);
-			TransactionRepository.changeId(element.Id, response.data.Item.Id);
+			TransactionRepository.changeId(element.Id, String(response.data.Item.Id));
 		}
 		else{
 			toastr.warning(response.data.Message);

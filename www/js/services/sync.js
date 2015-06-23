@@ -1,6 +1,6 @@
 angular.module('finance').factory('Sync', function ($http, toastr, AccountRepository, CategoryRepository, TransactionRepository) {
-  //var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
-  var baseUrl = 'http://localhost:50164/Sync/';  
+  var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
+  //var baseUrl = 'http://localhost:50164/Sync/';  
     
   function getAccounts(username, token, propertyId) {
     var params = {
@@ -104,8 +104,9 @@ angular.module('finance').factory('Sync', function ($http, toastr, AccountReposi
     var data = transactionSync.convertToDelete(TransactionRepository.getAllDeleted());
     data.forEach(function (element) {
       return $http.post(baseUrl + 'DeleteTransaction', element, { headers: params }).then(function (response) {
-        if (response.data === 'OK')
+        if (response.data.Status === 'OK')
           toastr.success('lançamento excluido!');
+          TransactionRepository.clearDeleted();
       });
     }, this);
   };
