@@ -1,13 +1,13 @@
 var Repository = function (keyName, storage) {
   var self = this;
-   var deletedKey = keyName + '-deleted';
+  var deletedKey = keyName + '-deleted';
   self.key = keyName;
 
   self.getAll = function () {
     return storage.getItem(keyName);
   };
-  
-  self.getAllDeleted = function(){
+
+  self.getAllDeleted = function () {
     return storage.getItem(deletedKey);
   };
 
@@ -26,8 +26,8 @@ var Repository = function (keyName, storage) {
     storage.setItem(self.key, itens);
     return copy(itemToAdd);
   };
-  
-  self.changeId = function(guid, id){
+
+  self.changeId = function (guid, id) {
     var itens = self.getAll();
     var index = findIndex(guid);
     var item = itens[index];
@@ -39,6 +39,7 @@ var Repository = function (keyName, storage) {
   self.delete = function (item) {
     var itens = self.getAll();
     var index = findIndex(item.guid);
+
     if (index >= 0) {
       var deleted = self.getAllDeleted();
       deleted.push(copy(itens[index]));
@@ -61,8 +62,8 @@ var Repository = function (keyName, storage) {
     storage.setItem(self.key, itens);
     storage.setItem(deletedKey, []);
   };
-  
-  self.clearDeleted = function(){
+
+  self.clearDeleted = function () {
     storage.setItem(deletedKey, []);
   };
 

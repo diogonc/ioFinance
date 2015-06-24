@@ -4,8 +4,13 @@ eval(repositoryFile);
 
 var Storage =  function(){
   this.itens = [];
-  this.getItem = function(key){ return this.itens;};
-  this.setItem = function(key, value){ this.itens = JSON.parse(JSON.stringify(value));};
+  this.getItem = function(key){
+     if (typeof this.itens[key] === 'undefined' || this.itens[key] === null)
+			 this.itens[key] = [];
+       
+     return this.itens[key];
+  };
+  this.setItem = function(key, value){ this.itens[key] = JSON.parse(JSON.stringify(value));};
 };
 
 describe('Repository', function() {
@@ -45,7 +50,7 @@ describe('Repository', function() {
   });
   
   it('should delete an item', function(){
-    var item = {name: 'test', guid: '234'};
+    var item = {name: 'test'};
     repository.save(item);
     var itemToDelete = repository.getAll()[0];
 
