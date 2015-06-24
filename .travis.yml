@@ -1,4 +1,4 @@
 language: node_js
 script:
-    -ionic login $username $pass
+    -ionic login username pass
     -ionic upload
