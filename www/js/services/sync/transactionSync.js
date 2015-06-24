@@ -25,7 +25,6 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     var data = transactionConverter.convertToPost(TransactionRepository.getAllTransactions());
     var numberOfItens = data.length;
     var itensSaved = 0;
-    toastr.success('Preparando para atualizar '+numberOfItens+' registros!');
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
         itensSaved++;
