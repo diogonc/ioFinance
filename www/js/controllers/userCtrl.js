@@ -6,13 +6,16 @@ angular.module("finance").controller("UserCtrl", function ($scope, $stateParams,
 	$scope.ehEdicao = false;
 	$scope.valid = true;
 	$scope.errors = [];
+
+	$scope.$on('$ionicView.beforeEnter', function () {
+		var guid = $stateParams.Id;
+		if (guid !== '0') {
+			var item = UserRepository.get(guid);
+			$scope.item = item;
+			$scope.ehEdicao = true;
+		}
+	});
 	
-	var guid = $stateParams.Id;
-	if (guid !== '0') {
-		var item = UserRepository.get(guid);
-		$scope.item = item;
-		$scope.ehEdicao = true;
-	}
 
 	function addItem(newItem) {
 		var item = new User(newItem);

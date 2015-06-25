@@ -7,8 +7,10 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
       propertyId: propertyId
     }
     return $http.get(baseUrl + 'getTransactions', { headers: params }).then(function (response) {
-      if (response.data === 'usuário inválido')
-        return;
+      if (response.data === 'usuário inválido'){
+		toastr.success('usuário inválido!');
+		return;
+	}      
 
       var dataConverted = transactionConverter.convertTransaction(response.data);
       TransactionRepository.updateAllData(dataConverted);

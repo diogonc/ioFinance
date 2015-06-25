@@ -10,11 +10,13 @@ var User = function (newItem) {
 			self.guid = newItem.guid;
 			self.login = newItem.login;
 			self.token = hash(newItem.password);
+			self.propertyId = newItem.propertyId;
 		}
 	}
 	else {
 		self.login = '';
-		self.password = '';
+		self.token = '';
+		self.propertyId = 0;
 	}
 
 	function validate(item) {
@@ -23,6 +25,10 @@ var User = function (newItem) {
 
 		if (typeof item.password === 'undefined' || item.password === '')
 			self.errors.push("Senha é obrigatória");
+
+		if (typeof item.propertyId === 'undefined' || item.propertyId === '')
+			self.errors.push("Propriedade é obrigatória");
+
 		self.valid = self.errors.length === 0;
 	}
 

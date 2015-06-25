@@ -3,10 +3,10 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	//var baseUrl = 'http://localhost:50164/Sync/';  
     
 	function importData() {
-		var credentials = UserRepository.getAll()[0];
+		var credentials = UserRepository.getAll()[0];	
 		var username = credentials.login;
 		var token = credentials.token;
-		var propertyId = 1;
+		var propertyId = credentials.propertyId;
 
 		mensagemDeCarregando();
 		AccountSync.getAccounts(username, token, propertyId, baseUrl);
@@ -18,7 +18,7 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		var credentials = UserRepository.getAll()[0];
 		var username = credentials.login;
 		var token = credentials.token;
-		var propertyId = 1;
+		var propertyId = credentials.propertyId;
 
 		mensagemDeCarregando();
 		AccountSync.saveAccounts(username, token, propertyId, baseUrl);
