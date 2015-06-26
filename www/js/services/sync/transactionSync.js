@@ -1,6 +1,6 @@
 angular.module('finance').factory('TransactionSync', function ($http, toastr, TransactionRepository) {
 
-  function getTransactions(username, token, propertyId, baseUrl) {
+  function getTransactions(username, token, propertyId, baseUrl, callback) {
     var params = {
       login: username,
       token: token,
@@ -8,17 +8,19 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     }
     return $http.get(baseUrl + 'getTransactions', { headers: params }).then(function (response) {
       if (response.data === 'usuário inválido'){
-		toastr.success('usuário inválido!');
-		return;
-	}      
+        toastr.success('usuário inválido!');
+        callback();
+        return;
+      }
 
       var dataConverted = transactionConverter.convertTransaction(response.data);
       TransactionRepository.updateAllData(dataConverted);
       toastr.success('lançamentos atualizados!');
+      callback();
     });
   };
 
-  function saveTransactions(username, token, propertyId, baseUrl) {
+  function saveTransactions(username, token, propertyId, baseUrl, callback) {
     var params = {
       login: username,
       token: token,
@@ -27,12 +29,16 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     var data = transactionConverter.convertToPost(TransactionRepository.getAllTransactions());
     var numberOfItens = data.length;
     var itensSaved = 0;
+    if(numberOfItens === 0)
+      deleteTransactions(username, token, propertyId, baseUrl, callback);
+
     data.forEach(function (element) {
       return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
         itensSaved++;
         onSaveTransaction(element, response);
+
         if(itensSaved === numberOfItens)
-          deleteTransactions(username, token, propertyId, baseUrl);
+          deleteTransactions(username, token, propertyId, baseUrl, callback);
       });
     }, this);
   };
@@ -47,7 +53,7 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     }
   };
 
-  function deleteTransactions(username, token, propertyId, baseUrl) {
+  function deleteTransactions(username, token, propertyId, baseUrl, callback) {
     var params = {
       login: username,
       token: token,
@@ -56,14 +62,19 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     var data = transactionConverter.convertToDelete(TransactionRepository.getAllDeleted());
     var numberOfItens = data.length;
     var itensSaved = 0;
+    if(numberOfItens === 0)
+      callback();
+
     data.forEach(function (element) {
       return $http.post(baseUrl + 'DeleteTransaction', element, { headers: params }).then(function (response) {
         itensSaved++;
         if (response.data.Status === 'OK')
-          toastr.success('lançamento excluido!');
-          
-        if(itensSaved === numberOfItens)  
+        toastr.success('lançamento excluido!');
+
+        if(itensSaved === numberOfItens){
           TransactionRepository.clearDeleted();
+          callback();
+        }
       });
     }, this);
   };
