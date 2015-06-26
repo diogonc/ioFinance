@@ -8,7 +8,7 @@
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
         <i class="icon ion-upload atualizar" ng-show='hasUser()' ng-click="exportData()"></i>
-        <i class="icon ion-cloud atualizar download" ng-show='hasUser()' ng-click="importData()"></i>        
+        <i class="icon ion-cloud atualizar download" ng-show='hasUser()' ng-click="importData()"></i>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -22,6 +22,9 @@
       <ion-list>
         <ion-item menu-close href="#/app/transactions">
           Lançamentos
+        </ion-item>
+        <ion-item menu-close href="#/app/balance-per-account">
+          Saldo por conta
         </ion-item>
         <ion-item menu-close href="#/app/categories">
           Categorias
