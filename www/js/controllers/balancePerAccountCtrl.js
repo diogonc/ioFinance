@@ -3,11 +3,10 @@ angular.module("finance").controller("BalancePerAccountCtrl", function ($scope, 
 
 	$scope.$on('$ionicView.beforeEnter', function() {
 
-		$scope.itens = [
-			{account:'CC caixa Diogo', balance:45646.57},
-			{account:'CC caixa Diogo', balance:45646.57},
-			{account:'CC caixa Diogo', balance:45646.57},
-			{account:'CC caixa Diogo', balance:45646.57}
-		];
+		var report = new Report();
+		var dados = TransactionRepository.getAllTransactions();
+		console.log(dados);
+		$scope.itens = report.gerarRelatorio(dados);
+
 	});
 });

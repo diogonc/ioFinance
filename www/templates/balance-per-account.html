@@ -2,7 +2,7 @@
     <ion-content>
         <ion-list>
             <ion-item ng-repeat="item in itens">
-            <b>{{item.account}}</b>:   R$ {{item.balance | number: 2 }}
+            <b>{{item.account.name}}</b>:   R$ {{item.value | number: 2 }}
             </ion-item>
         </ion-list>
     </ion-content>
