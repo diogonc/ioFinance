@@ -7,7 +7,7 @@ var Report = function () {
     lista.forEach(function (element) {
       var posicao = self.estaNaLista(element.account.guid, newLista);
       var multiplicador = 1;
-      if(element.category.type === "Débito")
+      if(element.category.type === "Débito" || element.category.type === "Transferência de débito")
         multiplicador = -1;
 
       if (posicao != -1) {
