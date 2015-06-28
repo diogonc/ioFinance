@@ -1,13 +1,13 @@
-var Report = function () {
+var Report = function() {
   var self = this;
 
-  self.gerarRelatorio = function (lista) {
+  self.gerarRelatorio = function(lista) {
     var newLista = [];
 
-    lista.forEach(function (element) {
+    lista.forEach(function(element) {
       var posicao = self.estaNaLista(element.account.guid, newLista);
       var multiplicador = 1;
-      if(element.category.type === "Débito")
+      if (element.category.type === "Débito")
         multiplicador = -1;
 
       if (posicao != -1) {
@@ -16,7 +16,10 @@ var Report = function () {
         newLista[posicao] = conta;
       } else {
 
-        var newConta = {"account": element.account, "value": element.value * multiplicador};
+        var newConta = {
+          "account": element.account,
+          "value": element.value * multiplicador
+        };
         newLista.push(newConta);
       }
     });
@@ -24,14 +27,12 @@ var Report = function () {
     return newLista;
   };
 
-  self.estaNaLista = function (id,lista){
-    var posicao = -1;
-    for(var i=0; i < lista.length ; i++) {
-      if(lista[i].account.guid  === id){
+  self.estaNaLista = function(id, lista) {
+    for (var i = 0; i < lista.length; i++) {
+      if (lista[i].account.guid === id) {
         return i;
       }
     }
-    return posicao;
-
+    return -1;
   };
 };
