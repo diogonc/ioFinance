@@ -1,0 +1,46 @@
+<ion-view view-title="Configurações">
+  <ion-content overflow-scroll="true" direction="xy">
+    <div class="row bold">
+      <div class="col"></div>
+      <div class="col" ng-repeat="date in itens.dates">
+        {{date}}
+      </div>
+      <div class="col">Média</div>
+      <div class="col">Total</div>
+    </div>
+    <div class="row bold">Créditos</div>
+    <div class="row" ng-repeat="category in itens.creditCategories">
+      <div class="col">{{category.category.name}}</div>
+      <div class="col" ng-repeat="balance in category.balance">
+        {{balance.value}}
+      </div>
+      <div class="col">{{category.average}}</div>
+      <div class="col">{{category.sum}}</div>
+    </div>
+    <div class="row bold">
+      <div class="col">Total</div>
+      <div class="col" ng-repeat="sum in itens.totalCredit.balance">
+        {{sum.value}}
+      </div>
+      <div class="col">{{itens.totalCredit.average}}</div>
+      <div class="col">{{itens.totalCredit.sum}}</div>
+    </div>
+    <div class="row bold">Débitos</div>
+    <div class="row" ng-repeat="category in itens.creditCategories">
+      <div class="col">{{category.category.name}}</div>
+      <div class="col" ng-repeat="balance in category.balance">
+        {{balance.value}}
+      </div>
+      <div class="col">{{category.average}}</div>
+      <div class="col">{{category.sum}}</div>
+    </div>
+    <div class="row bold">
+      <div class="col">Total</div>
+      <div class="col" ng-repeat="sum in itens.totalDebit.balance">
+        {{sum.value}}
+      </div>
+      <div class="col">{{itens.totalCredit.average}}</div>
+      <div class="col">{{itens.totalCredit.sum}}</div>
+    </div>
+  </ion-content>
+</ion-view>

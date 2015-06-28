@@ -120,6 +120,16 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
+  .state('app.balancePerMonth', {
+    url: "/balance-per-month",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/balance-per-month.html",
+        controller: 'BalancePerMonthCtrl'
+      }
+    }
+  })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/transactions/0');
 });

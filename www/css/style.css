@@ -1,8 +1,10 @@
-.atualizar{
-	padding-right: 10px;
-	font-size: 35px;
+.atualizar {
+  padding-right: 10px;
+  font-size: 35px;
 }
-
-.download{
-	padding-right: 30px;
+.download {
+  padding-right: 30px;
+}
+.bold {
+  font-weight: bold;
 }
