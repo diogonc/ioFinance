@@ -1,31 +1,33 @@
-var balancePerMonthReport = function() {
+var BalancePerMonthReport = function() {
   var self = this;
 
-  self.gerarRelatorio = function(lista) {
-    var newLista = [];
-
-    lista.forEach(function(element) {
-      var posicao = self.estaNaLista(element.account.guid, newLista);
-      var multiplicador = 1;
-      if(element.category.type === "Débito" || element.category.type === "Transferência de débito")
-        multiplicador = -1;
-
-      if (posicao != -1) {
-        var conta = newLista[posicao];
-        conta.value += (element.value * multiplicador);
-        newLista[posicao] = conta;
-      } else {
-
-        var newConta = {
-          "account": element.account,
-          "value": element.value * multiplicador
-        };
-        newLista.push(newConta);
-      }
-    });
-
-    return newLista;
+  self.GetBalancePerMonth = function(data) {
+    var dates = self.GetDates();
   };
+
+  self.GetDates = function() {
+    var dates = [];
+    var date = new Date();
+    var numberOfMonths = 5;
+    self.addMonths(date, (numberOfMonths * -1) + 1);
+
+    for (month = 1; month <= numberOfMonths; month++) {
+      self.addMonths(date, 1);
+      dates.push(self.formatDate(date));
+    }
+    return dates;
+  }
+
+  self.addMonths = function(date, numberOfMonths) {
+    date.setDate(1);
+    date.setMonth(date.getMonth() + numberOfMonths);
+    return date;
+  }
+
+  self.formatDate = function(date) {
+    var year = String(date.getFullYear()).substring(2);
+    return (date.getMonth() + 1) + '/' + year;
+  }
 
   self.estaNaLista = function(id, lista) {
     for (var i = 0; i < lista.length; i++) {
