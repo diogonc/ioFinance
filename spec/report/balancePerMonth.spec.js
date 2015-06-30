@@ -104,4 +104,10 @@ describe('Balance per month report', function() {
     expect(dates[0]).toBe('3/15');
     expect(dates[4]).toBe('7/15');
   });
+
+  xit('should group credits by month', function(){
+    var result = report.GetBalancePerMonth(data);
+
+    expect(result.creditCategories[0].category).toBe('Salário');
+  });
 });
