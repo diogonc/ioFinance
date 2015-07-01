@@ -4,7 +4,7 @@ var BalancePerMonthReport = function() {
   self.creditCategories = [];
 
   self.GetBalancePerMonth = function(data) {
-    self.dates = self.GetDates();
+    self.dates = self.getDates();
     var numberOfItens = data.length;
 
     for (var i = 0; i <= numberOfItens; i++) {
@@ -12,31 +12,35 @@ var BalancePerMonthReport = function() {
 
       var type = transaction.category.type;
       if (type === "Crédito") {
-        var index = findIndex(transaction.category.guid, self.creditCategories)
-        if (index < 0) {
-          var item = {
-            category: transaction.category,
-            balance: self.addBalance(transaction),
-            average: 0,
-            sum: 0
-          }
-          self.creditCategories.push(item);
-        }else {
-          var categoy = self.creditCategories[index];
-          var value = transaction.value;
-        }
+        self.AddCredit(transaction);
       }
     }
   };
+
+  self.addCredit = function(transaction){
+      var index = findCategoryIndex(transaction.category.guid, self.creditCategories)
+      if (index < 0) {
+        var item = {
+          category: transaction.category,
+          balance: self.addBalance(transaction),
+          average: 0,
+          sum: 0
+        }
+        self.creditCategories.push(item);
+      }else {
+        var categoy = self.creditCategories[index];
+        var value = transaction.value;
+      }
+  }
 
   self.addBalance = function(transaction){
     var indexOfDate = self.findIndexOfDate(transaction.date);
     self.creditCategories.balance[indexOfDate] += transaction.value;
   }
 
-  self.GetDates = function() {
+  self.getDates = function(year, month) {
     var dates = [];
-    var date = new Date();
+    var date = new Date(year, month-1, 1);
     var numberOfMonths = 5;
     self.addMonths(date, (numberOfMonths * -1) + 1);
 
@@ -58,9 +62,10 @@ var BalancePerMonthReport = function() {
     return (date.getMonth() + 1) + '/' + year;
   }
 
-  self.findIndex = function(id, list) {
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].account.guid === id) {
+  self.findCategoryIndex = function(id, list) {
+    var length = list.length
+    for (var i = 0; i < length; i++) {
+      if (list[i].category.guid === id) {
         return i;
       }
     }

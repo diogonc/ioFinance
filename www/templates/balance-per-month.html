@@ -12,35 +12,35 @@
     <div class="row" ng-repeat="category in itens.creditCategories">
       <div class="col">{{category.category.name}}</div>
       <div class="col" ng-repeat="balance in category.balance">
-        {{balance.value}}
+        {{balance.value | number: 2}}
       </div>
-      <div class="col">{{category.average}}</div>
-      <div class="col">{{category.sum}}</div>
+      <div class="col">{{category.average | number: 2}}</div>
+      <div class="col">{{category.sum | number: 2}}</div>
     </div>
     <div class="row bold">
       <div class="col">Total</div>
       <div class="col" ng-repeat="sum in itens.totalCredit.balance">
-        {{sum.value}}
+        {{sum.value | number: 2}}
       </div>
-      <div class="col">{{itens.totalCredit.average}}</div>
-      <div class="col">{{itens.totalCredit.sum}}</div>
+      <div class="col">{{itens.totalCredit.average | number: 2}}</div>
+      <div class="col">{{itens.totalCredit.sum | number: 2}}</div>
     </div>
     <div class="row bold">Débitos</div>
     <div class="row" ng-repeat="category in itens.creditCategories">
       <div class="col">{{category.category.name}}</div>
       <div class="col" ng-repeat="balance in category.balance">
-        {{balance.value}}
+        {{balance.value | number: 2}}
       </div>
-      <div class="col">{{category.average}}</div>
-      <div class="col">{{category.sum}}</div>
+      <div class="col">{{category.average | number: 2}}</div>
+      <div class="col">{{category.sum | number: 2}}</div>
     </div>
     <div class="row bold">
       <div class="col">Total</div>
       <div class="col" ng-repeat="sum in itens.totalDebit.balance">
-        {{sum.value}}
+        {{sum.value | number: 2}}
       </div>
-      <div class="col">{{itens.totalCredit.average}}</div>
-      <div class="col">{{itens.totalCredit.sum}}</div>
+      <div class="col">{{itens.totalCredit.average | number: 2}}</div>
+      <div class="col">{{itens.totalCredit.sum | number: 2}}</div>
     </div>
   </ion-content>
 </ion-view>

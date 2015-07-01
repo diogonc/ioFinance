@@ -99,13 +99,36 @@ describe('Balance per month report', function() {
   });
 
   it('should show months', function() {
-    var dates = report.GetDates();
+    var dates = report.getDates(2015, 6);
 
     expect(dates[0]).toBe('3/15');
     expect(dates[4]).toBe('7/15');
   });
 
-  xit('should group credits by month', function(){
+  it('should return -1 if item is not in the list', function() {
+    var data = [];
+
+    var index = report.findCategoryIndex(3, data)
+
+    expect(index).toBe(-1);
+  });
+
+  it('should return index if item is in the list', function() {
+    var data = [{
+      category: {
+        guid: 2,
+        name: 'test',
+        type: 'Crédito'
+      },
+      balance: ['04/2015']
+    }];
+
+    var index = report.findCategoryIndex(2, data)
+
+    expect(index).toBe(0);
+  });
+
+  xit('should group credits by month', function() {
     var result = report.GetBalancePerMonth(data);
 
     expect(result.creditCategories[0].category).toBe('Salário');
