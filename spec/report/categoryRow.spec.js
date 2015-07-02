@@ -35,10 +35,10 @@ var data = [{
       "type": "Crédito"
     },
     "account": {
-      "guid": "7",
-      "name": "Carteira Vanessa"
+      "guid": "1",
+      "name": "Carteira Diogo"
     },
-    "date": "2015-06-27T19:39:29.300Z",
+    "date": "2015-07-27T19:39:29.300Z",
     "value": 444,
     "changed": true,
     "guid": "0c37fd68-7c9a-4771-9879-58ce7e540b74"
@@ -101,5 +101,17 @@ describe('Category row', function() {
 
     expect(categoryRow.balance[0].date).toBe('6/15');
     expect(categoryRow.balance[0].value).toBe(transaction.value * 2);
+  });
+
+  it('should split by month', function(){
+    var transaction = data[0];
+    var transactionFromAnotherMonth = data[1];
+
+    categoryRow = new CategoryRow(transaction);
+    categoryRow.addTransaction(transaction);
+    categoryRow.addTransaction(transactionFromAnotherMonth);
+
+    expect(categoryRow.balance[1].date).toBe('7/15');
+    expect(categoryRow.balance[1].value).toBe(transactionFromAnotherMonth.value);
   });
 });

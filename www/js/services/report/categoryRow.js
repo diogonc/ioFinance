@@ -17,7 +17,26 @@ var CategoryRow = function(transaction) {
   };
 
   self.addTransaction = function(transaction) {
-    self.balance[0].value += transaction.value;
+    var date = util.formatDate(transaction.date);
+    var index = self.indexOfDate(date);
+    if (index >= 0)
+    {
+      self.balance[0].value += transaction.value;
+    }
+    else {
+      var item = {date: date, value: transaction.value};
+      self.balance.push(item);
+    }
     self.numberOfItens++;
   };
+
+  self.indexOfDate = function(date){
+    var length = self.balance.length;
+    for (var i = 0; i < length; i++) {
+      if (self.balance[i].date === date) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
