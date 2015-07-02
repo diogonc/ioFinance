@@ -1,6 +1,14 @@
+var fs = require('fs');
+var file = fs.readFileSync('www/js/services/util.js', 'utf-8');
+eval(file);
+
 var fs1 = require('fs');
-var file1 = fs1.readFileSync('www/js/services/report/balancePerMonth.js', 'utf-8');
+var file1 = fs1.readFileSync('www/js/services/report/categoryRow.js', 'utf-8');
 eval(file1);
+
+var fs2 = require('fs');
+var file2 = fs2.readFileSync('www/js/services/report/balancePerMonth.js', 'utf-8');
+eval(file2);
 
 var data = [{
     "valid": true,
@@ -70,7 +78,6 @@ describe('Balance per month report', function() {
   });
 
   it('should create report', function() {
-
     expect(report instanceof BalancePerMonthReport).toBe(true);
   });
 
@@ -126,6 +133,25 @@ describe('Balance per month report', function() {
     var index = report.findCategoryIndex(2, data)
 
     expect(index).toBe(0);
+  });
+
+  it('should create credit if it doesnt exist', function(){
+    var transaction = data[0];
+    report.addCredit(transaction);
+    var credits = report.creditCategories;
+
+    expect(credits[0].category.guid).toBe('3');
+    expect(credits.length).toBe(1);
+  });
+
+  it('shouldnt create credit if it already exist', function(){
+    var transaction = data[0];
+    report.addCredit(transaction);
+    report.addCredit(transaction);
+    var credits = report.creditCategories;
+
+    expect(credits[0].category.guid).toBe('3');
+    expect(credits.length).toBe(1);
   });
 
   xit('should group credits by month', function() {
