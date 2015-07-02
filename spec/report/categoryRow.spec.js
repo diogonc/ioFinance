@@ -73,18 +73,18 @@ describe('Category row', function() {
     expect(categoryRow instanceof CategoryRow).toBe(true);
   });
 
-  it('should create with category', function(){
-      var transaction = data[0];
+  it('should create with category', function() {
+    var transaction = data[0];
 
-      categoryRow = new CategoryRow(transaction);
+    categoryRow = new CategoryRow(transaction);
 
-      expect(categoryRow.category.guid).toBe(transaction.category.guid);
-      expect(categoryRow.balance.length).toBe(1);
-      expect(categoryRow.average).toBe(transaction.value);
-      expect(categoryRow.sum).toBe(transaction.value);
+    expect(categoryRow.category.guid).toBe(transaction.category.guid);
+    expect(categoryRow.balance.length).toBe(1);
+    expect(categoryRow.average()).toBe(transaction.value);
+    expect(categoryRow.sum).toBe(transaction.value);
   });
 
-  it('should create a balance per month', function(){
+  it('should create a balance per month', function() {
     var transaction = data[0];
 
     categoryRow = new CategoryRow(transaction);
@@ -93,4 +93,13 @@ describe('Category row', function() {
     expect(categoryRow.balance[0].value).toBe(transaction.value);
   });
 
+  it('should add transaction', function() {
+    var transaction = data[0];
+
+    categoryRow = new CategoryRow(transaction);
+    categoryRow.addTransaction(transaction);
+
+    expect(categoryRow.balance[0].date).toBe('6/15');
+    expect(categoryRow.balance[0].value).toBe(transaction.value * 2);
+  });
 });
