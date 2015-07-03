@@ -3,7 +3,7 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, Tra
 
   $scope.$on('$ionicView.beforeEnter', function() {
     var dates = ["06/14", "07/14", "08/14", "09/14"];
-    var creditData = [{
+    var creditCategories = [{
       category: {
         "guid": "1",
         "name": "Aluguel",
@@ -64,7 +64,7 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, Tra
       sum: 234234
     };
 
-    var debitData = [{
+    var debitCategories = [{
       category: {
         "guid": "3",
         "name": "Alice",
@@ -128,9 +128,9 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, Tra
 
     $scope.itens = {
       dates: dates,
-      creditCategories: creditData,
+      creditCategories: creditCategories,
       totalCredit: totalCredit,
-      debitCategories: debitData,
+      debitCategories: debitCategories,
       totalDebit: totalDebit
     };
   });

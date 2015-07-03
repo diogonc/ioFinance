@@ -135,28 +135,30 @@ describe('Balance per month report', function() {
     expect(index).toBe(0);
   });
 
-  it('should create credit if it doesnt exist', function(){
+  it('should create credit if it doesnt exist', function() {
     var transaction = data[0];
-    report.addCredit(transaction);
+    report.addItem(transaction, report.creditCategories);
     var credits = report.creditCategories;
 
     expect(credits[0].category.guid).toBe('3');
     expect(credits.length).toBe(1);
   });
 
-  it('shouldnt create credit if it already exist', function(){
+  it('shouldnt create credit if it already exist', function() {
     var transaction = data[0];
-    report.addCredit(transaction);
-    report.addCredit(transaction);
+    report.addItem(transaction, report.creditCategories);
+    report.addItem(transaction, report.creditCategories);
     var credits = report.creditCategories;
 
     expect(credits[0].category.guid).toBe('3');
     expect(credits.length).toBe(1);
   });
 
-  xit('should group credits by month', function() {
+  it('should group credits by month', function() {
     var result = report.GetBalancePerMonth(data);
 
-    expect(result.creditCategories[0].category).toBe('Salário');
+    expect(result.creditCategories[0].category.name).toBe('Salário');
+    expect(result.debitCategories[0].category.name).toBe('Alice');
+    expect(result.debitCategories[1].category.name).toBe('Carro');
   });
 });
