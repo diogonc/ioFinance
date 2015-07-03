@@ -108,8 +108,8 @@ describe('Balance per month report', function() {
   it('should show months', function() {
     var dates = report.getDates(2015, 6);
 
-    expect(dates[0]).toBe('3/15');
-    expect(dates[4]).toBe('7/15');
+    expect(dates[0]).toBe('1/15');
+    expect(dates[4]).toBe('5/15');
   });
 
   it('should return -1 if item is not in the list', function() {
