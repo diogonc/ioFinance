@@ -26,7 +26,8 @@ var BalancePerMonthReport = function() {
     var index = self.findCategoryIndex(transaction.category.guid, list);
 
     if (index < 0) {
-      var item = new CategoryRow(transaction);
+      var item = new CategoryRow(transaction.category, self.dates);
+      item.addTransaction(transaction);
       list.push(item);
     } else {
       var category = list[index];

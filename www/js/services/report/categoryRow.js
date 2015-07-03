@@ -1,36 +1,44 @@
-var CategoryRow = function(transaction) {
+var CategoryRow = function(category, dates) {
   var self = this;
+  self.balance = [];
   self.sum = 0;
-  self.numberOfItens = 1;
 
-  if (typeof transaction !== 'undefined') {
-    self.category = transaction.category;
-    self.balance = [{
-      date: util.formatDate(new Date(transaction.date)),
-      value: transaction.value
-    }];
-    self.sum = transaction.value;
+  if (typeof category !== 'undefined') {
+    self.category = category;
+
+    var length = dates.length;
+    for (var i = 0; i < length; i++) {
+      var date = dates[i];
+      self.balance.push({
+        date: date,
+        value: 0
+      });
+    }
   }
 
   self.average = function() {
-    return self.sum / self.numberOfItens;
+    if (self.balance.length === 0)
+      return 0;
+
+    return self.sum / self.balance.length;
   };
 
   self.addTransaction = function(transaction) {
     var date = util.formatDate(transaction.date);
     var index = self.indexOfDate(date);
-    if (index >= 0)
-    {
-      self.balance[0].value += transaction.value;
-    }
-    else {
-      var item = {date: date, value: transaction.value};
+    if (index >= 0) {
+      self.balance[index].value += transaction.value;
+    } else {
+      var item = {
+        date: date,
+        value: transaction.value
+      };
       self.balance.push(item);
     }
-    self.numberOfItens++;
+    self.sum += transaction.value;
   };
 
-  self.indexOfDate = function(date){
+  self.indexOfDate = function(date) {
     var length = self.balance.length;
     for (var i = 0; i < length; i++) {
       if (self.balance[i].date === date) {

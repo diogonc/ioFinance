@@ -62,8 +62,9 @@ var data = [{
     "changed": true,
     "guid": "0c37fd68-7c9a-4771-9879-58ce7e540b75"
   }
-
 ];
+
+var dates = ['6/15', '7/15'];
 
 describe('Category row', function() {
 
@@ -76,18 +77,20 @@ describe('Category row', function() {
   it('should create with category', function() {
     var transaction = data[0];
 
-    categoryRow = new CategoryRow(transaction);
+    categoryRow = new CategoryRow(transaction.category, dates);
+    categoryRow.addTransaction(transaction);
 
     expect(categoryRow.category.guid).toBe(transaction.category.guid);
-    expect(categoryRow.balance.length).toBe(1);
-    expect(categoryRow.average()).toBe(transaction.value);
+    expect(categoryRow.balance.length).toBe(2);
+    expect(categoryRow.average()).toBe(transaction.value/2);
     expect(categoryRow.sum).toBe(transaction.value);
-  });
+ });
 
   it('should create a balance per month', function() {
     var transaction = data[0];
 
-    categoryRow = new CategoryRow(transaction);
+    categoryRow = new CategoryRow(transaction.category, dates);
+    categoryRow.addTransaction(transaction);
 
     expect(categoryRow.balance[0].date).toBe('6/15');
     expect(categoryRow.balance[0].value).toBe(transaction.value);
@@ -96,18 +99,30 @@ describe('Category row', function() {
   it('should add transaction', function() {
     var transaction = data[0];
 
-    categoryRow = new CategoryRow(transaction);
+    categoryRow = new CategoryRow(transaction.category, dates);
+    categoryRow.addTransaction(transaction);
     categoryRow.addTransaction(transaction);
 
     expect(categoryRow.balance[0].date).toBe('6/15');
     expect(categoryRow.balance[0].value).toBe(transaction.value * 2);
   });
 
+  it('should create all dates on creating', function(){
+    var transaction = data[0];
+    var dates = ['4/15', '5/15', '6/15', '7/15'];
+
+    categoryRow = new CategoryRow(transaction.category, dates);
+
+    expect(categoryRow.balance[0].date).toBe('4/15');
+    expect(categoryRow.balance[3].date).toBe('7/15');
+  });
+
   it('should split by month', function(){
     var transaction = data[0];
     var transactionFromAnotherMonth = data[1];
 
-    categoryRow = new CategoryRow(transaction);
+    categoryRow = new CategoryRow(transaction.category, dates);
+    categoryRow.addTransaction(transaction);
     categoryRow.addTransaction(transaction);
     categoryRow.addTransaction(transactionFromAnotherMonth);
 
