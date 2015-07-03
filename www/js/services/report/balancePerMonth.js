@@ -37,8 +37,13 @@ var BalancePerMonthReport = function() {
 
   self.getDates = function(year, month) {
     var dates = [];
-    var date = new Date(year, month - 1, 1);
-    var numberOfMonths = 5;
+    if(typeof year === 'undefined'){
+      var date = new Date();
+      date = self.addMonths(date, -1);
+    }
+    else
+      var date = new Date(year, month - 1, 1);
+    var numberOfMonths = 7;
     self.addMonths(date, (numberOfMonths * -1) + 1);
 
     for (month = 1; month <= numberOfMonths; month++) {
