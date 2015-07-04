@@ -1,22 +1,33 @@
 <ion-view view-title="Lançamentos">
-    <ion-content>
-        <button class="button button-block button-positive" ng-click="newItem()">Novo</button>
-        <form>
-            <div class="list">
-                <label class="item item-input">
-                    <input type="number" step="1" min="1" max="12" ng-model="item.month" placeholder="Mês"></input>
-                </label>
-                <label class="item item-input">
-                    <input type="number" step="1" min="2000" max="2050" ng-model="item.year" placeholder="Ano"></input>
-                </label>
-            </div>
-            <button class="button button-block button-positive" ng-click="search(item)">Buscar</button>
-        </form>
-        <ion-list>
-            <ion-item ng-repeat="item in itens" href="#/app/transactions/{{item.guid}}">
-                R$ {{item.value | number: 2 }} - {{item.category.name}}
-                <i class="icon ion-arrow-graph-up-right" ng-show="{{item.changed}}"></i>
-            </ion-item>
-        </ion-list>
-    </ion-content>
+  <ion-content>
+    <button class="button button-block button-positive" ng-click="newItem()">Novo</button>
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <div class="input-label">Mês</div>
+          <input max="12" min="1" ng-model="item.month" placeholder="Mês" step="1" type="number"></input>
+        </label>
+        <label class="item item-input">
+          <div class="input-label">Ano</div>
+          <input max="2050" min="2000" ng-model="item.year" placeholder="Ano" step="1" type="number"></input>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">Categoria</div>
+          <select ng-model="item.category" ng-options="category.name for category in categories track by category.guid"></select>
+        </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="search(item)">
+        Buscar
+      </button>
+    </form>
+    <ion-list>
+      <ion-item href="#/app/transactions/{{item.guid}}" ng-repeat="item in itens">
+        R$
+        {{item.value | number: 2 }}
+        -
+        {{item.category.name}}
+        <i class="icon ion-arrow-graph-up-right" ng-show="{{item.changed}}"/>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-view>

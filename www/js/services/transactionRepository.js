@@ -1,7 +1,7 @@
 angular.module("finance").factory("TransactionRepository", function () {
 	var transactionRepository = new Repository('transaction', storage);
 
-	var getAll = function (year, month) {
+	var getAll = function (year, month, categoryGuid) {
 		var filteredItens = [];
 		var itens = transactionRepository.getAll();
 		var length = itens.length;
@@ -13,9 +13,10 @@ angular.module("finance").factory("TransactionRepository", function () {
 			var yearOfTransaction = date.getFullYear();
 
 			if (yearOfTransaction === year && monthOfTransaction === month - 1)
-				filteredItens.push(transaction);
+				if(categoryGuid == 0 || String(transaction.category.guid) === categoryGuid)
+					filteredItens.push(transaction);
 		}
-		
+
 		var orderedItens = filteredItens.sort(function(item, anotherItem){
 			return new Date(anotherItem.date) - new Date(item.date);
 		});
