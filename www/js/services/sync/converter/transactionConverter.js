@@ -22,7 +22,7 @@ transactionConverter.convertTransaction = function (serverData) {
 		};
 
 		function convertDate(serverDate) {
-			return new Date(serverDate);
+			return new Date(serverDate+'T12:00:00.000Z');
 		}
 	}
 };

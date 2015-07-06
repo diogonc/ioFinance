@@ -19,7 +19,14 @@ var BalancePerMonthReport = function() {
       }
     }
 
-    return{dates: self.dates, creditCategories: self.creditCategories, debitCategories: self.debitCategories};
+    self.debitCategories = self.debitCategories.sort(OrdernarPorNome);
+    self.creditCategories = self.creditCategories.sort(OrdernarPorNome);
+
+    return {
+      dates: self.dates,
+      creditCategories: self.creditCategories,
+      debitCategories: self.debitCategories
+    };
   };
 
   self.addItem = function(transaction, list) {
@@ -37,11 +44,10 @@ var BalancePerMonthReport = function() {
 
   self.getDates = function(year, month) {
     var dates = [];
-    if(typeof year === 'undefined'){
+    if (typeof year === 'undefined') {
       var date = new Date();
       date = self.addMonths(date, -1);
-    }
-    else
+    } else
       var date = new Date(year, month - 1, 1);
     var numberOfMonths = 7;
     self.addMonths(date, (numberOfMonths * -1) + 1);
@@ -68,4 +74,16 @@ var BalancePerMonthReport = function() {
     }
     return -1;
   };
+
+  function OrdernarPorNome(item, anotherItem) {
+    var A = item.category.name.toLowerCase();
+    var B = anotherItem.category.name.toLowerCase();
+    if (A < B) {
+      return -1;
+    } else if (A > B) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 };
