@@ -12,3 +12,7 @@
 .align-rigth{
   text-align: right;
 }
+
+.wide-as-needed {
+  white-space: nowrap;
+}
