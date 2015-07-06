@@ -15,22 +15,14 @@ transactionConverter.convertTransaction = function (serverData) {
 		return {
 			guid: String(serverItem.Id),
 			description: serverItem.Description,
-			date: convertDate(serverItem.Date),
+			date: convertDate(serverItem.DateInString),
 			value: serverItem.Value,
 			category: categoryConverter.convertItem(serverItem.Category),
 			account: accountConverter.convertItem(serverItem.Account)
 		};
 
 		function convertDate(serverDate) {
-			/*
-			String.prototype.toDateFromAspNet = function() {
-    var dte = eval("new " + this.replace(/\//g, '') + ";");
-    dte.setMinutes(dte.getMinutes() - dte.getTimezoneOffset());
-    return dte;
-}
-			*/
-			var dateInNumbers = parseInt(serverDate.match(/\d+/)[0]);
-			return new Date(dateInNumbers);
+			return new Date(serverDate);
 		}
 	}
 };

@@ -8,13 +8,7 @@
 .bold {
   font-weight: bold;
 }
-.fixed-width{
-  width: 260px;
-}
-.wide-as-needed {
-  overflow: scroll;
-  white-space: nowrap;
-}
-.scroll {
-  min-width: 110%;
+
+.align-rigth{
+  text-align: right;
 }
