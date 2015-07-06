@@ -1,46 +1,48 @@
 <ion-view view-title="Saldo por mês">
   <ion-content>
-    <div class="row bold">
-      <div class="col"></div>
-      <div class="col" ng-repeat="date in itens.dates">
-        {{date}}
+    <ion-scroll direction="x" class="wide-as-needed">
+      <div class="row bold">
+        <div class="col col-20"></div>
+        <div class="col col-20" ng-repeat="date in itens.dates">
+          {{date}}
+        </div>
+        <div class="col col-20">Média</div>
+        <div class="col col-20">Total</div>
       </div>
-      <div class="col">Média</div>
-      <div class="col">Total</div>
-    </div>
-    <div class="row bold">Créditos</div>
-    <div class="row" ng-repeat="category in itens.creditCategories">
-      <div class="col">{{category.category.name}}</div>
-      <div class="col" ng-repeat="balance in category.balance">
-        {{balance.value | number: 2}}
+      <div class="row bold">Créditos</div>
+      <div class="row" ng-repeat="category in itens.creditCategories">
+        <div class="col col-20">{{category.category.name}}</div>
+        <div class="col col-20" ng-repeat="balance in category.balance">
+          {{balance.value | number: 2}}
+        </div>
+        <div class="col col-20">{{category.average() | number: 2}}</div>
+        <div class="col col-20">{{category.sum | number: 2}}</div>
       </div>
-      <div class="col">{{category.average() | number: 2}}</div>
-      <div class="col">{{category.sum | number: 2}}</div>
-    </div>
-    <div class="row bold">
-      <div class="col">Total</div>
-      <div class="col" ng-repeat="sum in itens.totalCredit.balance">
-        {{sum.value | number: 2}}
+      <div class="row bold">
+        <div class="col col-20">Total</div>
+        <div class="col col-20" ng-repeat="sum in itens.totalCredit.balance">
+          {{sum.value | number: 2}}
+        </div>
+        <div class="col col-20">{{itens.totalCredit.average() | number: 2}}</div>
+        <div class="col col-20">{{itens.totalCredit.sum | number: 2}}</div>
       </div>
-      <div class="col">{{itens.totalCredit.average() | number: 2}}</div>
-      <div class="col">{{itens.totalCredit.sum | number: 2}}</div>
-    </div>
-    <div class="row bold">Débitos</div>
-    <div class="row" ng-repeat="category in itens.debitCategories">
-      <div class="col">{{category.category.name}}</div>
-      <div class="col" ng-repeat="balance in category.balance">
-        {{balance.value | number: 2}}
+      <div class="row bold">Débitos</div>
+      <div class="row" ng-repeat="category in itens.debitCategories">
+        <div class="col col-20">{{category.category.name}}</div>
+        <div class="col col-20" ng-repeat="balance in category.balance">
+          {{balance.value | number: 2}}
+        </div>
+        <div class="col col-20">{{category.average() | number: 2}}</div>
+        <div class="col col-20">{{category.sum | number: 2}}</div>
       </div>
-      <div class="col">{{category.average() | number: 2}}</div>
-      <div class="col">{{category.sum | number: 2}}</div>
-    </div>
-    <div class="row bold">
-      <div class="col">Total</div>
-      <div class="col" ng-repeat="sum in itens.totalDebit.balance">
-        {{sum.value | number: 2}}
+      <div class="row bold">
+        <div class="col col-20">Total</div>
+        <div class="col col-20" ng-repeat="sum in itens.totalDebit.balance">
+          {{sum.value | number: 2}}
+        </div>
+        <div class="col col-20">{{itens.totalCredit.average | number: 2}}</div>
+        <div class="col col-20">{{itens.totalCredit.sum | number: 2}}</div>
       </div>
-      <div class="col">{{itens.totalCredit.average | number: 2}}</div>
-      <div class="col">{{itens.totalCredit.sum | number: 2}}</div>
-    </div>
+    </ion-scroll>
   </ion-content>
 </ion-view>

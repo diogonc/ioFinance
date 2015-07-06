@@ -22,6 +22,13 @@ transactionConverter.convertTransaction = function (serverData) {
 		};
 
 		function convertDate(serverDate) {
+			/*
+			String.prototype.toDateFromAspNet = function() {
+    var dte = eval("new " + this.replace(/\//g, '') + ";");
+    dte.setMinutes(dte.getMinutes() - dte.getTimezoneOffset());
+    return dte;
+}
+			*/
 			var dateInNumbers = parseInt(serverDate.match(/\d+/)[0]);
 			return new Date(dateInNumbers);
 		}
@@ -75,4 +82,3 @@ transactionConverter.convertItemToDelete = function (item) {
 		transactionId: item.guid
 	};
 };
-
