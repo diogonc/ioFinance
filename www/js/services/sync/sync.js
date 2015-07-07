@@ -19,6 +19,7 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 
 	function exportData() {
 		var credentials = UserRepository.getAll()[0];
+		var baseUrl = credentials.url;
 		var username = credentials.login;
 		var token = credentials.token;
 		var propertyId = credentials.propertyId;
