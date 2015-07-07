@@ -1,9 +1,8 @@
 angular.module('finance').factory('Sync', function ($ionicLoading, UserRepository, AccountSync, CategorySync, TransactionSync) {
-	var baseUrl = 'http://diogonc.azurewebsites.net/Sync/';
-	//var baseUrl = 'http://localhost:50164/Sync/';
 
 	function importData() {
 		var credentials = UserRepository.getAll()[0];
+		var baseUrl = credentials.url;
 		var username = credentials.login;
 		var token = credentials.token;
 		var propertyId = credentials.propertyId;

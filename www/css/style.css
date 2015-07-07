@@ -16,3 +16,7 @@
 .wide-as-needed {
   white-space: nowrap;
 }
+
+.fixed-height{
+  height:800px
+}

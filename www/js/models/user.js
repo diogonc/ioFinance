@@ -10,12 +10,14 @@ var User = function (newItem) {
 			self.guid = newItem.guid;
 			self.login = newItem.login;
 			self.token = hash(newItem.password);
+			self.url = newItem.url;
 			self.propertyId = newItem.propertyId;
 		}
 	}
 	else {
 		self.login = '';
 		self.token = '';
+		self.url = '';
 		self.propertyId = 0;
 	}
 
@@ -38,5 +40,3 @@ var User = function (newItem) {
 		return shaObj.getHash("HEX");
 	}
 }
-
-
