@@ -1,6 +1,6 @@
 <ion-view view-title="Saldo por mês">
   <ion-content overflow-scroll="true">
-    <ion-scroll direction="xy" zooming="true" class="fixed-height">
+    <ion-scroll class="fixed-height" direction="xy" zooming="true">
       <ion-list>
         <div class="row bold">
           <div class="col col-20"></div>
@@ -23,11 +23,11 @@
         </div>
         <div class="row bold">
           <div class="col col-20">Total</div>
-          <div class="col col-20 align-rigth" ng-repeat="sum in itens.totalCredit.balance">
+          <div class="col col-20 align-rigth" ng-repeat="sum in itens.totalCredits.balance">
             {{sum.value | number: 2}}
           </div>
-          <div class="col col-20 align-rigth">{{itens.totalCredit.average() | number: 2}}</div>
-          <div class="col col-20 align-rigth">{{itens.totalCredit.sum | number: 2}}</div>
+          <div class="col col-20 align-rigth">{{itens.totalCredits.average() | number: 2}}</div>
+          <div class="col col-20 align-rigth">{{itens.totalCredits.sum | number: 2}}</div>
         </div>
         <div class="row bold">Débitos</div>
         <div class="row" ng-repeat="category in itens.debitCategories">
@@ -42,11 +42,23 @@
         </div>
         <div class="row bold">
           <div class="col col-20">Total</div>
-          <div class="col col-20 align-rigth" ng-repeat="sum in itens.totalDebit.balance">
+          <div class="col col-20 align-rigth" ng-repeat="sum in itens.totalDebits.balance">
             {{sum.value | number: 2}}
           </div>
-          <div class="col col-20 align-rigth">{{itens.totalCredit.average | number: 2}}</div>
-          <div class="col col-20 align-rigth">{{itens.totalCredit.sum | number: 2}}</div>
+          <div class="col col-20 align-rigth">{{itens.totalDebits.average() | number: 2}}</div>
+          <div class="col col-20 align-rigth">{{itens.totalDebits.sum | number: 2}}</div>
+        </div>
+        <div class="row bold">
+          <div class="col col-20">Saldo</div>
+          <div class="col col-20 align-rigth" ng-repeat="sum in itens.totalDebits.balance track by $index">
+            {{(itens.totalCredits.balance[$index].value - sum.value) | number: 2}}
+          </div>
+          <div class="col col-20 align-rigth">
+            {{(itens.totalCredits.average() - itens.totalDebits.average()) | number: 2}}
+            </div>
+          <div class="col col-20 align-rigth">
+            {{(itens.totalCredits.sum - itens.totalDebits.sum) | number: 2}}
+            </div>
         </div>
       </ion-list>
     </ion-scroll>

@@ -3,9 +3,13 @@ var BalancePerMonthReport = function() {
   self.dates = [];
   self.creditCategories = [];
   self.debitCategories = [];
+  self.totalCredits = [];
+  self.totalDebits = [];
 
   self.GetBalancePerMonth = function(data) {
     self.dates = self.getDates();
+    self.totalCredits = new CategoryRow({name: 'Total'}, self.dates);
+    self.totalDebits = new CategoryRow({name: 'Total'}, self.dates);
     var numberOfItens = data.length;
 
     for (var i = 0; i < numberOfItens; i++) {
@@ -13,9 +17,11 @@ var BalancePerMonthReport = function() {
       var type = transaction.category.type;
       if (type === "Crédito") {
         self.addItem(transaction, self.creditCategories);
+        self.addTotal(transaction, self.totalCredits);
       }
       if (type == "Débito") {
         self.addItem(transaction, self.debitCategories);
+        self.addTotal(transaction, self.totalDebits);
       }
     }
 
@@ -25,7 +31,9 @@ var BalancePerMonthReport = function() {
     return {
       dates: self.dates,
       creditCategories: self.creditCategories,
-      debitCategories: self.debitCategories
+      debitCategories: self.debitCategories,
+      totalDebits: self.totalDebits,
+      totalCredits: self.totalCredits
     };
   };
 
@@ -40,6 +48,10 @@ var BalancePerMonthReport = function() {
       var category = list[index];
       category.addTransaction(transaction);
     }
+  }
+
+  self.addTotal = function(transaction, list){
+    list.addTransaction(transaction);
   }
 
   self.getDates = function(year, month) {

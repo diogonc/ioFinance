@@ -29,13 +29,7 @@ var CategoryRow = function(category, dates) {
     if (index >= 0) {
       self.balance[index].value += transaction.value;
       self.sum += transaction.value;
-    /*} else {
-      var item = {
-        date: date,
-        value: transaction.value
-      };
-      self.balance.push(item);*/
-    }    
+    }
   };
 
   self.indexOfDate = function(date) {
