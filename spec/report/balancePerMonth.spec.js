@@ -106,10 +106,13 @@ describe('Balance per month report', function() {
   });
 
   it('should show months', function() {
-    var dates = report.getDates(2015, 6);
+    var dates = report.getDates(5);
+    var now = new Date();
+    var nowFormated = util.formatDate(now);
+    initialDate = util.formatDate(report.addMonths(now, -4));
 
-    expect(dates[0]).toBe('1/15');
-    expect(dates[4]).toBe('5/15');
+    expect(dates[0]).toBe(initialDate);
+    expect(dates[4]).toBe(nowFormated);
   });
 
   it('should return -1 if item is not in the list', function() {

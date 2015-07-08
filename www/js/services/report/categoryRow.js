@@ -9,8 +9,11 @@ var CategoryRow = function(category, dates) {
     var length = dates.length;
     for (var i = 0; i < length; i++) {
       var date = dates[i];
+      var dateParts = date.split("/");
       self.balance.push({
         date: date,
+        month: dateParts[0],
+        year: dateParts[1],
         value: 0
       });
     }

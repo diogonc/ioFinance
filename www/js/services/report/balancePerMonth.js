@@ -6,10 +6,14 @@ var BalancePerMonthReport = function() {
   self.totalCredits = [];
   self.totalDebits = [];
 
-  self.GetBalancePerMonth = function(data) {
-    self.dates = self.getDates();
-    self.totalCredits = new CategoryRow({name: 'Total'}, self.dates);
-    self.totalDebits = new CategoryRow({name: 'Total'}, self.dates);
+  self.GetBalancePerMonth = function(data, numberOfMonths) {
+    self.dates = self.getDates(numberOfMonths);
+    self.totalCredits = new CategoryRow({
+      name: 'Total'
+    }, self.dates);
+    self.totalDebits = new CategoryRow({
+      name: 'Total'
+    }, self.dates);
     var numberOfItens = data.length;
 
     for (var i = 0; i < numberOfItens; i++) {
@@ -50,18 +54,14 @@ var BalancePerMonthReport = function() {
     }
   }
 
-  self.addTotal = function(transaction, list){
+  self.addTotal = function(transaction, list) {
     list.addTransaction(transaction);
   }
 
-  self.getDates = function(year, month) {
+  self.getDates = function(numberOfMonths) {
     var dates = [];
-    if (typeof year === 'undefined') {
-      var date = new Date();
-      date = self.addMonths(date, -1);
-    } else
-      var date = new Date(year, month - 1, 1);
-    var numberOfMonths = 7;
+    var date = new Date();
+    date = self.addMonths(date, -1);
     self.addMonths(date, (numberOfMonths * -1) + 1);
 
     for (month = 1; month <= numberOfMonths; month++) {
