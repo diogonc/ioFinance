@@ -26,6 +26,8 @@
         {{item.value | number: 2 }}
         -
         {{item.category.name}}
+        -
+        {{item.date | date:"dd/MM/yy"}}
         <i class="icon ion-arrow-graph-up-right" ng-show="{{item.changed}}"/>
       </ion-item>
     </ion-list>

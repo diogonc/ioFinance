@@ -25,7 +25,7 @@
   "cordovaPlatforms": [
     "android"
   ],
-  "scripts":{
+  "scripts": {
     "test": "jasmine"
   }
 }
