@@ -1,5 +1,14 @@
 language: node_js
 script:
-    - npm test
-    - npm i -g cordova ionic
-    - ionic upload --email $email --password $pass
+- npm test
+- npm i -g cordova ionic
+- ionic upload --email $email --password $pass
+deploy:
+  provider: openshift
+  user: diogonc@gmail.com
+  password:
+    secure: f3q7gZ9yG9897a9Mf86j9/jdh5mGMsuKnOY14wTcJPBpvqlQPn8CGcEzenNsksvxccGta5Zc1WtPbh1ZmzLBIoGqYeQNdhycmJNOukBHxztDDcJkqwLWu/Ujv//yfbdJX3s7hjD4HPwNW6odTvrWBdSdL/F96dIgxW/4JZKOiMczca5665YWxejL1VdNTlfcEPDa3RjMQffL3Z7yKE6wEh/b7Lwc4ysYtUvjZfC93ewijvVanf7uJFVDLwOIGc7d5OEN43ghBMs5ByK9KaYZs1TbsT+FTGO3GQkTC1z4MI80yx28xSpskLeQQJrkzl0YeJ/vKrtS32/Z7HTfe8V+KNXuuoMMtJ6D+SLUySLnpVg3ajA4W5dKtqpqf0LmwLfIVcc41sAyJ/JC7W0Xp8OC3m3SUK8VHTWNUJv0S6QCh4yQqNXyLw0P9iPLDWFPjQ+bmj1f/IAshhvKXQUK3Wwgic9mgUAXahih+VCW9X2mpyK+F4zVk5z3a6PKdeuqQCGSap200RKCXYuZNCKV2npIVZ5eXD5MygZYBY+xaeXGd5V7e1C7BrvzdqF9m1oBXFxP7Ug0igTjnGQ7ShRrbixzSPNR2SdOcOqP9VReF/9d/7DG+vUOkQ5NkHCe5ojOPNgE/lDIp0faSJy56SI8ydzNyZrwj+eNLqHhsSnVRPX3GBA=
+  app: ioFinance
+  domain: diogonc
+  on:
+    repo: diogonc/ioFinance
