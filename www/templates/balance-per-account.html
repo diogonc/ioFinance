@@ -1,9 +1,20 @@
 <ion-view view-title="Saldo por conta">
-    <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="item in itens">
-            <b>{{item.account.name}}</b>:   R$ {{item.value | number: 2 }}
-            </ion-item>
-        </ion-list>
-    </ion-content>
+  <ion-content>
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <div class="input-label">Data</div>
+          <input type="date" ng-model="item.date">
+        </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="search(item)">
+        Buscar
+      </button>
+    </form>
+    <ion-list>
+      <ion-item ng-repeat="item in itens">
+        <b>{{item.account.name}}</b>: R$ {{item.value | number: 2 }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-view>

@@ -111,7 +111,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
   })
 
   .state('app.balancePerAccount', {
-    url: "/balance-per-account",
+    url: "/balance-per-account?date",
     views: {
       'menuContent': {
         templateUrl: "templates/balance-per-account.html",
