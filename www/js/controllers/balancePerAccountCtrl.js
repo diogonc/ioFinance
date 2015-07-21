@@ -1,4 +1,4 @@
-angular.module("finance").controller("BalancePerAccountCtrl", function($scope,$stateParams, $location, TransactionRepository) {
+angular.module("finance").controller("BalancePerAccountCtrl", function($scope, $stateParams, $location, TransactionRepository) {
   $scope.itens = [];
   $scope.item = {
     date: new Date()
@@ -15,7 +15,7 @@ angular.module("finance").controller("BalancePerAccountCtrl", function($scope,$s
     if (typeof $stateParams.date !== 'undefined')
       $scope.item.date = util.usToDate($stateParams.date);
     var report = new Report();
-    var dados = TransactionRepository.getAllTransactions($scope.item.date);
-    $scope.itens = report.gerarRelatorio(dados);
+    var data = TransactionRepository.getAllTransactions();
+    $scope.itens = report.getReport(data, $scope.item.date);
   });
 });

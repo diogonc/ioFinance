@@ -61,7 +61,7 @@ var data = [{
       "guid": "7",
       "name": "Carteira Vanessa"
     },
-    "date": "2015-06-27T19:49:29.300Z",
+    "date": "2015-06-28T19:49:29.300Z",
     "value": 444,
     "changed": true,
     "guid": "0c37fd68-7c9a-4771-9879-58ce7e540b75"

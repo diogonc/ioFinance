@@ -1,8 +1,12 @@
+var fs = require('fs');
+var file = fs.readFileSync('www/js/services/util.js', 'utf-8');
+eval(file);
+
 var fs1 = require('fs');
 var file1 = fs1.readFileSync('www/js/services/report/balancePerAccount.js', 'utf-8');
 eval(file1);
 
-var dados = [
+var data = [
   {"valid":true,
    "errors":[],
    "description":"34535",
@@ -28,12 +32,14 @@ var dados = [
    "description":"34343",
    "category":{"guid":"1002","name":"Carro","type":"Débito"},
    "account":{"guid":"7","name":"Carteira Vanessa"},
-   "date":"2015-06-27T19:49:29.300Z",
+   "date":"2015-06-28T19:49:29.300Z",
    "value":444,
    "changed":true,
    "guid":"0c37fd68-7c9a-4771-9879-58ce7e540b75"}
 
  ];
+
+var date = new Date(2015,07,28);
 
 describe('teste do relatorio', function () {
 
@@ -44,30 +50,37 @@ describe('teste do relatorio', function () {
   });
 
   it('should create report', function () {
-
     expect(report instanceof Report).toBe(true);
   });
 
-  it('deve agrupar por conta', function() {
-    var listaDados = report.gerarRelatorio(dados);
-    expect(listaDados.length).toBe(2);
+  it('should group by account', function() {
+    var list = report.getReport(data, date);
+    expect(list.length).toBe(2);
   });
 
-  it('deve conter o nome da conta', function () {
-
-    var listaDados = report.gerarRelatorio(dados);
-    expect(listaDados[0].account.name).toBe("Carteira Diogo");
+  it('should contain accout name', function () {
+    var list = report.getReport(data, date);
+    expect(list[0].account.name).toBe("Carteira Diogo");
   });
 
-  it('conta deve estar na lista', function() {
-    var dados = [{"account":{"guid":"7","name":"Carteira Vanessa"}, "value": 0}];
-    var posicao = report.estaNaLista("7",dados);
+  it('account should be on list', function() {
+    var data = [{"account":{"guid":"7","name":"Carteira Vanessa"}, "value": 0}];
+    var posicao = report.findById("7",data);
     expect(0).toBe(posicao);
   });
 
   it('deve somar valor conta agrupada', function() {
-    var listaagrupada = report.gerarRelatorio(dados);
-    expect(-3453).toBe(listaagrupada[0].value);
-    expect(0).toBe(listaagrupada[1].value);
-  })
+    var list = report.getReport(data, date);
+
+    expect(-3453).toBe(list[0].value);
+    expect(0).toBe(list[1].value);
+  });
+
+  it('should show until date', function(){
+    var date = new Date(2015,5,27);
+
+    var list = report.getReport(data, date);
+
+    expect(list[1].value).toBe(444);
+  });
 });
