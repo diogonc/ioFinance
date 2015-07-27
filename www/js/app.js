@@ -91,7 +91,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
   })
 
   .state('app.transactions', {
-    url: "/transactions?year&month&categoryGuid",
+    url: "/transactions?year&month&categoryGuid&accountGuid",
     views: {
       'menuContent': {
         templateUrl: "templates/transactionList.html",
