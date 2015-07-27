@@ -47,10 +47,10 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
   }
 
   function back() {
-    if (history.length > 0)
+    if ($window.history.length > 1)
       $window.history.back();
 		else
-			$location.path('app/accounts');
+			$location.path('app/transactions');
   }
 
   //'2015-06-19T00:00:00.000Z'
