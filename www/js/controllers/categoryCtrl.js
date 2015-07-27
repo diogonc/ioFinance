@@ -1,5 +1,5 @@
-angular.module("finance").controller("CategoryCtrl", function ($scope, $location, $stateParams, toastr, CategoryRepository) {
-	$scope.types = ['Crédito', 'Débito', 'Transferência de crédito', 'Transferência de débito'];	
+angular.module("finance").controller("CategoryCtrl", function ($scope, $window, $stateParams, toastr, CategoryRepository) {
+	$scope.types = ['Crédito', 'Débito', 'Transferência de crédito', 'Transferência de débito'];
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
@@ -7,7 +7,7 @@ angular.module("finance").controller("CategoryCtrl", function ($scope, $location
 	$scope.ehEdicao = false;
 	$scope.valid = true;
 	$scope.errors = [];
-	
+
 	var guid = $stateParams.Id;
 	if (guid !== '0') {
 		var item = CategoryRepository.get(guid);
@@ -24,7 +24,7 @@ angular.module("finance").controller("CategoryCtrl", function ($scope, $location
 			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;		
+		$scope.errors = item.errors;
 	};
 
 	function deleteItem(item) {
@@ -34,6 +34,6 @@ angular.module("finance").controller("CategoryCtrl", function ($scope, $location
 	}
 
 	function back() {
-		$location.path('app/categories');
+		$window.history.back();
 	}
 });

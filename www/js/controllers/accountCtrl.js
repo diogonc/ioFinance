@@ -1,4 +1,4 @@
-angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, toastr, $location, AccountRepository) {
+angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, toastr, $window, AccountRepository) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
@@ -6,7 +6,7 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 	$scope.ehEdicao = false;
 	$scope.valid = true;
 	$scope.errors = [];
-		
+
 	var guid = $stateParams.Id;
 	if (guid !== '0') {
 		var item = AccountRepository.get(guid);
@@ -23,7 +23,7 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;		
+		$scope.errors = item.errors;
 	};
 
 	function deleteItem(item) {
@@ -33,6 +33,6 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 	}
 
 	function back() {
-		$location.path('app/accounts');
+		$window.history.back();
 	}
 });

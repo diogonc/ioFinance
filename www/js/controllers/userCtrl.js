@@ -1,4 +1,4 @@
-angular.module("finance").controller("UserCtrl", function ($scope, $stateParams, $location,  UserRepository) {
+angular.module("finance").controller("UserCtrl", function ($scope, $stateParams, $window,  UserRepository) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
@@ -15,7 +15,6 @@ angular.module("finance").controller("UserCtrl", function ($scope, $stateParams,
 			$scope.ehEdicao = true;
 		}
 	});
-	
 
 	function addItem(newItem) {
 		var item = new User(newItem);
@@ -25,7 +24,7 @@ angular.module("finance").controller("UserCtrl", function ($scope, $stateParams,
 			back();
 		}
 		$scope.valid = item.valid;
-		$scope.errors = item.errors;		
+		$scope.errors = item.errors;
 	};
 
 	function deleteItem(item) {
@@ -35,6 +34,6 @@ angular.module("finance").controller("UserCtrl", function ($scope, $stateParams,
 	}
 
 	function back() {
-		$location.path('app/users');
+		$window.history.back();
 	}
 });
