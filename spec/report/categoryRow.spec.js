@@ -82,7 +82,6 @@ describe('Category row', function() {
 
     expect(categoryRow.category.guid).toBe(transaction.category.guid);
     expect(categoryRow.balance.length).toBe(2);
-    expect(categoryRow.average()).toBe(transaction.value/2);
     expect(categoryRow.sum).toBe(transaction.value);
  });
 

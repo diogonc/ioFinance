@@ -1,5 +1,6 @@
 var CategoryRow = function(category, dates) {
   var self = this;
+  self.firstDate = new Date();
   self.balance = [];
   self.sum = 0;
 
@@ -20,10 +21,11 @@ var CategoryRow = function(category, dates) {
   }
 
   self.average = function() {
-    if (self.balance.length === 0)
+    var quantityOfMonths = util.getQuantityOfMonths(self.firstDate);
+    if (quantityOfMonths === 0)
       return 0;
 
-    return self.sum / self.balance.length;
+    return self.sum / quantityOfMonths;
   };
 
   self.addTransaction = function(transaction) {
@@ -31,9 +33,16 @@ var CategoryRow = function(category, dates) {
     var index = self.indexOfDate(date);
     if (index >= 0) {
       self.balance[index].value += transaction.value;
-      self.sum += transaction.value;
     }
+    self.sum += transaction.value;
+    self.updateFirstDate(date);
   };
+
+  self.updateFirstDate = function(formatedDate){
+    var date  = util.monthYearToDate(formatedDate);
+    if (date < self.firstDate)
+      self.firstDate = date;
+  }
 
   self.indexOfDate = function(date) {
     var length = self.balance.length;
