@@ -28,3 +28,7 @@ a, a:visited{
 .report{
   height: 1200px;
 }
+
+.report :hover{
+  background-color: #ddd;
+}
