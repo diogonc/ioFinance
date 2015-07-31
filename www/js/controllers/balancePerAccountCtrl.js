@@ -17,5 +17,6 @@ angular.module("finance").controller("BalancePerAccountCtrl", function($scope, $
     var report = new Report();
     var data = TransactionRepository.getAllTransactions();
     $scope.itens = report.getReport(data, $scope.item.date);
+    $scope.total = report.getTotal();
   });
 });

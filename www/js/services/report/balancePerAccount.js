@@ -1,8 +1,9 @@
 var Report = function() {
   var self = this;
+  self.list = [];
 
   self.getReport = function(list, date) {
-    var newlist = [];
+    self.list = [];
     var length = list.length;
 
     for(i=0; i< length; i++){
@@ -11,24 +12,34 @@ var Report = function() {
       if(util.usToDate(element.date) > date)
         continue;
 
-      var position = self.findById(element.account.guid, newlist);
+      var position = self.findById(element.account.guid, self.list);
       var multiplier = self.getMultiplier(element.category.type);
 
       if (position != -1) {
-        var account = newlist[position];
+        var account = self.list[position];
         account.value += (element.value * multiplier);
-        newlist[position] = account;
+        self.list[position] = account;
       } else {
         var newConta = {
           "account": element.account,
           "value": element.value * multiplier
         };
-        newlist.push(newConta);
+        self.list.push(newConta);
       }
     }
 
-    return newlist;
+    return self.list;
   };
+
+  self.getTotal = function () {
+    var total = 0;
+    var length = self.list.length;
+    for (var i = 0; i < length; i++) {
+      total += self.list[i].value;
+      console.log(total);
+    }
+    return total;
+  }
 
   self.findById = function(id, list) {
     for (var i = 0; i < list.length; i++) {
