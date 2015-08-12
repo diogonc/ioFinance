@@ -17,7 +17,7 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		});
 	};
 
-	function exportData() {
+	function exportData(callback) {
 		var credentials = UserRepository.getAll()[0];
 		var baseUrl = credentials.url;
 		var username = credentials.login;
@@ -29,9 +29,14 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 			CategorySync.saveCategories(username, token, propertyId, baseUrl, function(){
 				TransactionSync.saveTransactions(username, token, propertyId, baseUrl, function(){
 					excluirMensagemDeCarregando();
+					callback();
 				});
 			});
 		});
+	}
+
+	function update(){
+		exportData(importData);
 	}
 
 	function mensagemDeCarregando(){
@@ -46,7 +51,6 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	}
 
 	return {
-		importData: importData,
-		exportData: exportData
+		update: update
 	};
 });
