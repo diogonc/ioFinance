@@ -13,7 +13,6 @@ angular.module('finance.controllers', []).controller('AppCtrl', function ($scope
 	}
 
 	function importData(){
-		console.log('do');
 		Sync.importData(Sync.excluirMensagemDeCarregando);
 	}
 	
