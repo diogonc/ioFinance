@@ -1,6 +1,6 @@
 angular.module('finance').factory('Sync', function ($ionicLoading, UserRepository, AccountSync, CategorySync, TransactionSync) {
 
-	function importData() {
+	function importData(callback) {
 		var credentials = UserRepository.getAll()[0];
 		var baseUrl = credentials.url;
 		var username = credentials.login;
@@ -11,7 +11,7 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		AccountSync.getAccounts(username, token, propertyId, baseUrl, function(){
 			CategorySync.getCategories(username, token, propertyId, baseUrl, function(){
 				TransactionSync.getTransactions(username, token, propertyId, baseUrl, function(){
-					excluirMensagemDeCarregando();
+					callback();
 				});
 			});
 		});
@@ -28,7 +28,6 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		AccountSync.saveAccounts(username, token, propertyId, baseUrl, function(){
 			CategorySync.saveCategories(username, token, propertyId, baseUrl, function(){
 				TransactionSync.saveTransactions(username, token, propertyId, baseUrl, function(){
-					excluirMensagemDeCarregando();
 					callback();
 				});
 			});
@@ -36,7 +35,9 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	}
 
 	function update(){
-		exportData(importData);
+		exportData( function() {
+			importData(excluirMensagemDeCarregando);
+		});
 	}
 
 	function mensagemDeCarregando(){
@@ -51,6 +52,9 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	}
 
 	return {
-		update: update
+		update: update,
+		exportData : exportData,
+		importData: importData,
+		excluirMensagemDeCarregando: excluirMensagemDeCarregando
 	};
 });

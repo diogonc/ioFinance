@@ -36,7 +36,6 @@ var Report = function() {
     var length = self.list.length;
     for (var i = 0; i < length; i++) {
       total += self.list[i].value;
-      console.log(total);
     }
     return total;
   }
