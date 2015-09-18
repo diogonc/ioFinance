@@ -55,7 +55,7 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	function mensagemDeCarregando(){
 		$ionicLoading.show({
 			template: 'Carregando...',
-			duration : 50000
+			duration : 5000
 		});
 	}
 

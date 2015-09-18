@@ -40,6 +40,6 @@ accountConverter.convertItemToPost = function (item) {
 			name: item.name,
 			propertyUuid: 1
 		},
-		new: item.created === true		
+		new: item.created === true
 	};
 };

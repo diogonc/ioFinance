@@ -1,6 +1,6 @@
 var categoryConverter = {};
 
-categoryConverter.convertCategory = function(serverData) {
+categoryConverter.convertFromServer = function(serverData) {
 	var result = [];
 	var quantityOfItens = serverData.length;
 
@@ -32,7 +32,7 @@ categoryConverter.convertItem = function(serverItem) {
 	};
 };
 
-categoryConverter.convertToPost = function (itens) {
+categoryConverter.convertToServer = function (itens) {
 	var result = [];
 	var quantityOfItens = itens.length;
 
@@ -48,10 +48,14 @@ categoryConverter.convertToPost = function (itens) {
 
 categoryConverter.convertItemToPost = function (item) {
 	return {
-		uuid: String(item.guid),
-		name: item.name,
-		categoryType: convertType(item.type),
-		propertyUuid: 1
+		data: {
+			uuid: String(item.guid),
+			name: item.name,
+			categoryType: convertType(item.type),
+			propertyUuid: 1	
+		},
+		new: item.created === true
+		
 	};
 	
 	function convertType(type){

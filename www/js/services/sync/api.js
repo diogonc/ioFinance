@@ -2,8 +2,9 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
 
   self = this;
 
-  function init(baseUrl, auth, name, repository, converter){
+  function init(baseUrl, auth, name, nickName, repository, converter){
     self.name = name;
+    self.nickName = nickName;
     self.baseUrl = baseUrl;
     self.auth = auth;
     self.repository = repository;
@@ -24,7 +25,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
 
       var dataConverted = self.converter.convertFromServer(response.data);
       self.repository.updateAllData(dataConverted);
-      toastr.success('contas atualizadas!');
+      toastr.success(self.nickName + ' atualizadas!');
       callback();
     });
   };
@@ -37,26 +38,26 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     if(numberOfItens === 0)
       callback();
 
-    for (i = 0; i<= numberOfItens; i++){
+    for (i = 0; i< numberOfItens; i++){
       var element = data[i];
 
       if(element.new){
-          return $http.post(self.baseUrl + self.name, element.data, { headers: self.auth }).then(function (response) {
+          $http.post(self.baseUrl + self.name, element.data, { headers: self.auth }).then(function (response) {
             itensSaved++;
             if (response.status === 201)
-              toastr.success('conta ' + element.data.name + ' salva!');
+              toastr.success(self.nickName + ' ' + element.data.name + ' criada!');
 
             if(itensSaved === numberOfItens)
               callback();
           });
       }
       else{
-       return $http.put(self.baseUrl + self.name + '/' + element.data.uuid , element.data, { headers: self.auth })
+       $http.put(self.baseUrl + self.name + '/' + element.data.uuid , element.data, { headers: self.auth })
                    .then(function (response) 
         {
           itensSaved++;
-          if (response.status === 201)
-            toastr.success('conta ' + element.data.name + ' salva!');
+          if (response.status === 200)
+            toastr.success(self.nickName + ' ' + element.data.name + ' atualizada!');
 
           if(itensSaved === numberOfItens)
             callback();
