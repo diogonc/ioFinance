@@ -13,10 +13,10 @@ transactionConverter.convertTransaction = function (serverData) {
 
 	function convertItem(serverItem) {
 		return {
-			guid: String(serverItem.Id),
-			description: serverItem.Description,
-			date: convertDate(serverItem.DateInString),
-			value: serverItem.Value,
+			guid: String(serverItem.uuid),
+			description: serverItem.description,
+			date: serverItem.date,
+			value: serverItem.value,
 			category: categoryConverter.convertItem(serverItem.Category),
 			account: accountConverter.convertItem(serverItem.Account)
 		};
@@ -43,12 +43,14 @@ transactionConverter.convertToPost = function (itens) {
 
 transactionConverter.convertItemToPost = function (item) {
 	return {
-		Id: item.guid,
-		Description: item.description,
-		Date: convertDate(item.date),
-		Value: String(item.value),
-		CategoryId: item.category.guid,
-		AccountId: item.account.guid
+		uuid: item.guid,
+		description: item.description,
+		date: item.date,
+		value: String(item.value),
+		category: item.category.guid,
+		account: item.account.guid,
+		payed: 'true',
+		propertyUuid: 1
 	};
 
 	function convertDate(localDate) {

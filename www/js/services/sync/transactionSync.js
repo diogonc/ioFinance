@@ -1,12 +1,7 @@
 angular.module('finance').factory('TransactionSync', function ($http, toastr, TransactionRepository) {
 
-  function getTransactions(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    }
-    return $http.get(baseUrl + 'getTransactions', { headers: params }).then(function (response) {
+  function getTransactions(auth, baseUrl, callback) {
+    return $http.get(baseUrl + 'transaction', { headers: auth }).then(function (response) {
       if (response.data === 'usuário inválido'){
         toastr.success('usuário inválido!');
         callback();
@@ -20,25 +15,21 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     });
   };
 
-  function saveTransactions(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
+  function saveTransactions(auth, baseUrl, callback) {
     var data = transactionConverter.convertToPost(TransactionRepository.getAllTransactions());
     var numberOfItens = data.length;
     var itensSaved = 0;
+    
     if(numberOfItens === 0)
-      deleteTransactions(username, token, propertyId, baseUrl, callback);
+      deleteTransactions(auth, baseUrl, callback);
 
     data.forEach(function (element) {
-      return $http.post(baseUrl + 'SaveTransaction', element, { headers: params }).then(function (response) {
+      return $http.post(baseUrl + 'transaction', element, { headers: auth }).then(function (response) {
         itensSaved++;
         onSaveTransaction(element, response);
 
         if(itensSaved === numberOfItens)
-          deleteTransactions(username, token, propertyId, baseUrl, callback);
+          deleteTransactions(auth, baseUrl, callback);
       });
     }, this);
   };
@@ -53,20 +44,16 @@ angular.module('finance').factory('TransactionSync', function ($http, toastr, Tr
     }
   };
 
-  function deleteTransactions(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
+  function deleteTransactions(auth, baseUrl, callback) {
     var data = transactionConverter.convertToDelete(TransactionRepository.getAllDeleted());
     var numberOfItens = data.length;
     var itensSaved = 0;
+
     if(numberOfItens === 0)
       callback();
 
     data.forEach(function (element) {
-      return $http.post(baseUrl + 'DeleteTransaction', element, { headers: params }).then(function (response) {
+      return $http.post(baseUrl + 'DeleteTransaction', element, { headers: auth }).then(function (response) {
         itensSaved++;
         if (response.data.Status === 'OK')
         toastr.success('lançamento excluido!');

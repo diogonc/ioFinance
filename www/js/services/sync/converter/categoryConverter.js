@@ -14,9 +14,9 @@ categoryConverter.convertCategory = function(serverData) {
 
 categoryConverter.convertItem = function(serverItem) {
 		return {
-			guid: String(serverItem.Id),
-			name: serverItem.Name,
-			type: convertType(serverItem.TransactionType)
+			guid: String(serverItem.uuid),
+			name: serverItem.name,
+			type: convertType(serverItem.categoryType)
 		};
 
 	function convertType(type){
@@ -48,20 +48,21 @@ categoryConverter.convertToPost = function (itens) {
 
 categoryConverter.convertItemToPost = function (item) {
 	return {
-		Id: String(item.guid),
-		Name: item.name,
-		TransactionType: convertType(item.type)
+		uuid: String(item.guid),
+		name: item.name,
+		categoryType: convertType(item.type),
+		propertyUuid: 1
 	};
 	
 	function convertType(type){
 		if(type === 'Débito')
-			return 0;
+			return 'debit';
 		else if (type === 'Crédito')
-			return 1;
+			return 'credit';
 		else if (type === 'Transferência de crédito')
-			return 2;
+			return 'creditTransfer';
 		else if (type === 'Transferência de débito')
-			return 3;
-		else return 0;
+			return 'debitTransfer';
+		else return 'debit';
 	}
 };

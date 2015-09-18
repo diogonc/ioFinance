@@ -1,12 +1,7 @@
 angular.module('finance').factory('CategorySync', function ($http, toastr, CategoryRepository) {
 
-  function getCategories(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
-    return $http.get(baseUrl + 'getCategories', { headers: params }).then(function (response) {
+  function getCategories(auth, baseUrl, callback) {
+    return $http.get(baseUrl + 'category', { headers: auth }).then(function (response) {
       if (response.data === 'usuário inválido'){
         callback();
         return;
@@ -18,12 +13,7 @@ angular.module('finance').factory('CategorySync', function ($http, toastr, Categ
     });
   };
 
-  function saveCategories(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
+  function saveCategories(auth, baseUrl, callback) {
     var data = categoryConverter.convertToPost(CategoryRepository.getAll());
     var numberOfItens = data.length;
     var itensSaved = 0;
@@ -31,7 +21,7 @@ angular.module('finance').factory('CategorySync', function ($http, toastr, Categ
       callback();
 
     data.forEach(function (element) {
-      return $http.post(baseUrl + 'SaveCategory', element, { headers: params }).then(function (response) {
+      return $http.post(baseUrl + 'category', element, { headers: auth }).then(function (response) {
         if (response.data === 'OK')
           toastr.success('categoria ' + element.Name + ' salva!');
 

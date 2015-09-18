@@ -1,12 +1,8 @@
 angular.module('finance').factory('AccountSync', function ($http, toastr, AccountRepository) {
 
-  function getAccounts(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
-    return $http.get(baseUrl + 'getAccounts', { headers: params }).then(function (response) {
+  function getAccounts(auth, baseUrl, callback) {
+    
+    return $http.get(baseUrl + 'account', { headers: auth }).then(function (response) {
       if (response.data === 'usuário inválido'){
         callback();
         return;
@@ -19,12 +15,7 @@ angular.module('finance').factory('AccountSync', function ($http, toastr, Accoun
     });
   };
 
-  function saveAccounts(username, token, propertyId, baseUrl, callback) {
-    var params = {
-      login: username,
-      token: token,
-      propertyId: propertyId
-    };
+  function saveAccounts(auth, baseUrl, callback) {
     var data = accountConverter.convertToPost(AccountRepository.getAll());
     var numberOfItens = data.length;
     var itensSaved = 0;
@@ -32,14 +23,28 @@ angular.module('finance').factory('AccountSync', function ($http, toastr, Accoun
       callback();
 
     data.forEach(function (element) {
-      return $http.post(baseUrl + 'SaveAccount', element, { headers: params }).then(function (response) {
-        itensSaved++;
-        if (response.data === 'OK')
-          toastr.success('conta ' + element.Name + ' salva!');
+      console.log(element);
+      if(element.new)
+      {
+        return $http.post(baseUrl + 'account', element.data, { headers: auth }).then(function (response) {
+          itensSaved++;
+          if (response.status === 201)
+            toastr.success('conta ' + element.data.name + ' salva!');
 
-        if(itensSaved === numberOfItens)
-          callback();
-      });
+          if(itensSaved === numberOfItens)
+            callback();
+        });
+      }
+      else{
+       return $http.put(baseUrl + 'account/' + element.data.uuid , element.data, { headers: auth }).then(function (response) {
+          itensSaved++;
+          if (response.status === 201)
+            toastr.success('conta ' + element.data.name + ' salva!');
+
+          if(itensSaved === numberOfItens)
+            callback();
+        }); 
+      }
     }, this);
   };
 

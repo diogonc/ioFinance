@@ -7,10 +7,16 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		var token = credentials.token;
 		var propertyId = credentials.propertyId;
 
+		var authParams = {
+	      username: username,
+	      token: token,
+	      propertyUuid: propertyId
+	    };
+
 		mensagemDeCarregando();
-		AccountSync.getAccounts(username, token, propertyId, baseUrl, function(){
-			CategorySync.getCategories(username, token, propertyId, baseUrl, function(){
-				TransactionSync.getTransactions(username, token, propertyId, baseUrl, function(){
+		AccountSync.getAccounts(authParams, baseUrl, function(){
+			CategorySync.getCategories(authParams, baseUrl, function(){
+				TransactionSync.getTransactions(authParams, baseUrl, function(){
 					callback();
 				});
 			});
@@ -24,10 +30,16 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		var token = credentials.token;
 		var propertyId = credentials.propertyId;
 
+		var authParams = {
+	      username: username,
+	      token: token,
+	      propertyUuid: propertyId
+	    };
+
 		mensagemDeCarregando();
-		AccountSync.saveAccounts(username, token, propertyId, baseUrl, function(){
-			CategorySync.saveCategories(username, token, propertyId, baseUrl, function(){
-				TransactionSync.saveTransactions(username, token, propertyId, baseUrl, function(){
+		AccountSync.saveAccounts(authParams, baseUrl, function(){
+			CategorySync.saveCategories(authParams, baseUrl, function(){
+				TransactionSync.saveTransactions(authParams, baseUrl, function(){
 					callback();
 				});
 			});

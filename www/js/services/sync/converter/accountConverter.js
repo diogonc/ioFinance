@@ -14,8 +14,8 @@ accountConverter.convertAccount = function (serverData) {
 
 accountConverter.convertItem = function (serverItem) {
 	return {
-		guid: String(serverItem.Id),
-		name: serverItem.Name
+		guid: String(serverItem.uuid),
+		name: serverItem.name
 	};
 };
 
@@ -35,7 +35,11 @@ accountConverter.convertToPost = function (itens) {
 
 accountConverter.convertItemToPost = function (item) {
 	return {
-		Id: String(item.guid),
-		Name: item.name
+		data: {
+			uuid: String(item.guid),
+			name: item.name,
+			propertyUuid: 1
+		},
+		new: item.created === true		
 	};
 };

@@ -14,13 +14,16 @@ var Repository = function (keyName, storage) {
   self.save = function (item) {
     var itemToAdd = copy(item);
     var itens = self.getAll();
+    
     itemToAdd.changed = true;
     if (typeof itemToAdd.guid === 'undefined') {
+      itemToAdd.created = true;
       itemToAdd.guid = generateGuid();
       itens.push(itemToAdd);
     }
-    else {
+    else {      
       var index = findIndex(itemToAdd.guid);
+      itemToAdd.created = itens[index].created;
       itens.splice(index, 1, itemToAdd);
     }
     storage.setItem(self.key, itens);
