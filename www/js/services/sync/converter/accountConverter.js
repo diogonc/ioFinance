@@ -1,6 +1,6 @@
 var accountConverter = {};
 
-accountConverter.convertAccount = function (serverData) {
+accountConverter.convertFromServer = function (serverData) {
 	var result = [];
 	var quantityOfItens = serverData.length;
 
@@ -19,7 +19,7 @@ accountConverter.convertItem = function (serverItem) {
 	};
 };
 
-accountConverter.convertToPost = function (itens) {
+accountConverter.convertToServer = function (itens) {
 	var result = [];
 	var quantityOfItens = itens.length;
 
