@@ -1,11 +1,13 @@
 angular.module("finance").factory("CategoryRepository", function(){
-	var categoryRepository = new Repository('category', storage);
+	var repository = new Repository('category', storage);
 				
 	return {
-		getAll: categoryRepository.getAll,
-		save: categoryRepository.save,
-		get: categoryRepository.get,
-		delete: categoryRepository.delete, 
-		updateAllData : categoryRepository.updateAllData
+		getAll: repository.getAll,
+		getAllDeleted: repository.getAllDeleted,
+		save: repository.save,
+		get: repository.get,
+		delete: repository.delete, 
+		updateAllData : repository.updateAllData,
+		clearDeleted: repository.clearDeleted
 	}
 });

@@ -1,11 +1,13 @@
 angular.module("finance").factory("AccountRepository", function(){
-	var accountRepository = new Repository('account', storage);
+	var repository = new Repository('account', storage);
 				
 	return {
-		getAll: accountRepository.getAll,
-		save: accountRepository.save,
-		get: accountRepository.get,
-		delete: accountRepository.delete,
-		updateAllData: accountRepository.updateAllData
+		getAll: repository.getAll,
+		getAllDeleted: repository.getAllDeleted,
+		save: repository.save,
+		get: repository.get,
+		delete: repository.delete,
+		updateAllData: repository.updateAllData,
+		clearDeleted: repository.clearDeleted
 	}
 });

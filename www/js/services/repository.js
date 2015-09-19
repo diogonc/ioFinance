@@ -30,22 +30,16 @@ var Repository = function (keyName, storage) {
     return copy(itemToAdd);
   };
 
-  self.changeId = function (guid, id) {
-    var itens = self.getAll();
-    var index = findIndex(guid);
-    var item = itens[index];
-    item.guid = id;
-    item.changed = false;
-    storage.setItem(self.key, itens);
-  };
-
   self.delete = function (item) {
     var itens = self.getAll();
     var index = findIndex(item.guid);
 
     if (index >= 0) {
       var deleted = self.getAllDeleted();
-      deleted.push(copy(itens[index]));
+      var itemDeleted = copy(itens[index]);
+      itemDeleted.changed = true;
+      deleted.push(itemDeleted);
+
       itens.splice(index, 1);
       storage.setItem(deletedKey, deleted);
       storage.setItem(self.key, itens);

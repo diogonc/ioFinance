@@ -1,6 +1,6 @@
 var transactionConverter = {};
 
-transactionConverter.convertTransaction = function (serverData) {
+transactionConverter.convertFromServer = function (serverData) {
 	var result = [];
 	var quantityOfItens = serverData.length;
 
@@ -27,7 +27,7 @@ transactionConverter.convertTransaction = function (serverData) {
 	}
 };
 
-transactionConverter.convertToPost = function (itens) {
+transactionConverter.convertToServer = function (itens) {
 	var result = [];
 	var quantityOfItens = itens.length;
 

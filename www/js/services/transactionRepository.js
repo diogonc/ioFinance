@@ -1,9 +1,9 @@
 angular.module("finance").factory("TransactionRepository", function () {
-	var transactionRepository = new Repository('transaction', storage);
+	var repository = new Repository('transaction', storage);
 
 	var getAll = function (year, month, categoryGuid, accountGuid) {
 		var filteredItens = [];
-		var itens = transactionRepository.getAll();
+		var itens = repository.getAll();
 		var length = itens.length;
 
 		for (var index = 0; index < length; index++) {
@@ -30,13 +30,12 @@ angular.module("finance").factory("TransactionRepository", function () {
 
 	return {
 		getAll: getAll,
-		getAllDeleted: transactionRepository.getAllDeleted,
-		getAllTransactions: transactionRepository.getAll,
-		save: transactionRepository.save,
-		delete: transactionRepository.delete,
-		get: transactionRepository.get,
-		updateAllData: transactionRepository.updateAllData,
-		changeId: transactionRepository.changeId,
-		clearDeleted: transactionRepository.clearDeleted
+		getAllDeleted: repository.getAllDeleted,
+		getAllTransactions: repository.getAll,
+		save: repository.save,
+		delete: repository.delete,
+		get: repository.get,
+		updateAllData: repository.updateAllData,
+		clearDeleted: repository.clearDeleted
 	}
 });

@@ -36,34 +36,64 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     var itensSaved = 0;
 
     if(numberOfItens === 0)
-      callback();
+      deleteItens(callback);
 
     for (i = 0; i< numberOfItens; i++){
       var element = data[i];
 
       if(element.new){
-          $http.post(self.baseUrl + self.name, element.data, { headers: self.auth }).then(function (response) {
-            itensSaved++;
-            if (response.status === 201)
-              toastr.success(self.nickName + ' ' + element.data.name + ' criada!');
-
-            if(itensSaved === numberOfItens)
-              callback();
-          });
+        $http.post(self.baseUrl + self.name, element.data, { headers: self.auth }).then(function (response) {
+          showMessage(element, response);
+          
+          itensSaved++;
+          if(itensSaved === numberOfItens)
+            deleteItens(callback);
+        });
       }
       else{
-       $http.put(self.baseUrl + self.name + '/' + element.data.uuid , element.data, { headers: self.auth })
-                   .then(function (response) 
+        $http.put(self.baseUrl + self.name + '/' + element.data.uuid , element.data, { headers: self.auth })
+        .then(function (response) 
         {
+          showMessage(element, response);
+          
           itensSaved++;
-          if (response.status === 200)
-            toastr.success(self.nickName + ' ' + element.data.name + ' atualizada!');
-
           if(itensSaved === numberOfItens)
-            callback();
+            deleteItens(callback);
         });  
       }
     }
+  };
+
+
+  function deleteItens(callback) {
+    var data = self.converter.convertToServer(self.repository.getAllDeleted());
+    var numberOfItens = data.length;
+    var itensSaved = 0;
+
+    if(numberOfItens === 0)
+      callback();
+
+    for (i = 0; i< numberOfItens; i++){
+      var element = data[i];
+
+      $http.delete(self.baseUrl + self.name + '/' + element.data.uuid, element.data, { headers: self.auth })
+      .then(function (response) {
+        showMessage(element, response);
+        
+        itensSaved++;
+        if(itensSaved === numberOfItens){
+          self.repository.clearDeleted();
+          callback();
+        }
+      });
+    }    
+  };
+
+  function showMessage(element, response){
+    if (response.status === 201 || response.status === 200)
+      toastr.success(self.nickName + ' ' + element.data.name + ' atualizada!');
+    else 
+      toastr.warning(response.data.Message);
   };
 
   return {

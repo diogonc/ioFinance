@@ -70,3 +70,4 @@ categoryConverter.convertItemToPost = function (item) {
 		else return 'debit';
 	}
 };
+
