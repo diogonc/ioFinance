@@ -40,7 +40,7 @@ angular.module("finance").controller("TransactionListCtrl", function ($scope, $s
 		var account = $scope.accounts[indexOfAccount];
 
 		$scope.item = {year: year , month: month, category: category, account: account};
-		$scope.itens = TransactionRepository.getAll($scope.item.year, $scope.item.month, $scope.item.category.guid, $scope.item.account.guid);
+		$scope.itens = TransactionRepository.getAllWithFilters($scope.item.year, $scope.item.month, $scope.item.category.guid, $scope.item.account.guid);
 	});
 
 	function findIndex(guid, itens) {

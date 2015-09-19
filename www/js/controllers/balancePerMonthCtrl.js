@@ -13,7 +13,7 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, $st
 
   $scope.$on('$ionicView.beforeEnter', function() {
     var report = new BalancePerMonthReport();
-    var data = TransactionRepository.getAllTransactions();
+    var data = TransactionRepository.getAll();
 
     var numberOfMonths = 1;
     if (typeof $stateParams.months !== 'undefined')

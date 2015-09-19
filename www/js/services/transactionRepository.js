@@ -1,7 +1,7 @@
 angular.module("finance").factory("TransactionRepository", function () {
 	var repository = new Repository('transaction', storage);
 
-	var getAll = function (year, month, categoryGuid, accountGuid) {
+	var getAllWithFilters = function (year, month, categoryGuid, accountGuid) {
 		var filteredItens = [];
 		var itens = repository.getAll();
 		var length = itens.length;
@@ -29,9 +29,9 @@ angular.module("finance").factory("TransactionRepository", function () {
 	};
 
 	return {
-		getAll: getAll,
+		getAll: repository.getAll,
 		getAllDeleted: repository.getAllDeleted,
-		getAllTransactions: repository.getAll,
+		getAllWithFilters: getAllWithFilters,
 		save: repository.save,
 		delete: repository.delete,
 		get: repository.get,

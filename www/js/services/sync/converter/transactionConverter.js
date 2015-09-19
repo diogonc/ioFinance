@@ -17,13 +17,9 @@ transactionConverter.convertFromServer = function (serverData) {
 			description: serverItem.description,
 			date: serverItem.date,
 			value: serverItem.value,
-			category: categoryConverter.convertItem(serverItem.Category),
-			account: accountConverter.convertItem(serverItem.Account)
+			category: categoryConverter.convertItem(serverItem.category),
+			account: accountConverter.convertItem(serverItem.account)
 		};
-
-		function convertDate(serverDate) {
-			return new Date(serverDate+'T12:00:00.000Z');
-		}
 	}
 };
 
@@ -43,21 +39,18 @@ transactionConverter.convertToServer = function (itens) {
 
 transactionConverter.convertItemToPost = function (item) {
 	return {
-		uuid: item.guid,
-		description: item.description,
-		date: item.date,
-		value: String(item.value),
-		category: item.category.guid,
-		account: item.account.guid,
-		payed: 'true',
-		propertyUuid: 1
+		data:{
+			uuid: item.guid,
+			description: item.description,
+			date: item.date,
+			value: String(item.value),
+			category: item.category.guid,
+			account: item.account.guid,
+			payed: 'true',
+			propertyUuid: 1	
+		},
+		new: item.created === true		
 	};
-
-	function convertDate(localDate) {
-		var date = new Date(localDate);
-		var serverDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-		return serverDate;
-	}
 };
 
 transactionConverter.convertToDelete = function(itens){

@@ -54,8 +54,7 @@ categoryConverter.convertItemToPost = function (item) {
 			categoryType: convertType(item.type),
 			propertyUuid: 1	
 		},
-		new: item.created === true
-		
+		new: item.created === true		
 	};
 	
 	function convertType(type){
