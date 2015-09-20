@@ -7,40 +7,40 @@ eval(file1);
 
 var serverData = [
   {
-    "Name": "Cartão de crédito financiamento",
-    "Property": {
-      "Name": "Piazza do Bosque",
-      "Id": 1
+    "name": "Cartão de crédito financiamento",
+    "property": {
+      "name": "Piazza do Bosque",
+      "uuid": 1
     },
-    "Id": '12'
+    "uuid": '12'
   },
   {
-    "Name": "Cartão de crédito inativo Diogo",
-    "Property": {
-      "Name": "Piazza do Bosque",
-      "Id": 1
+    "name": "Cartão de crédito inativo Diogo",
+    "property": {
+      "name": "Piazza do Bosque",
+      "uuid": 1
     },
-    "Id": 6
+    "uuid": 6
   }
 ];
 
 describe('account sync test', function () {
 
   it('should convert data', function () {
-    var result = accountConverter.convertAccount(serverData);
-
-    expect(result[0].guid).toBe(serverData[0].Id);
-    expect(result[0].name).toBe(serverData[0].Name);
+    var result = accountConverter.convertFromServer(serverData);
+    
+    expect(result[0].guid).toBe(serverData[0].uuid);
+    expect(result[0].name).toBe(serverData[0].name);
     expect(result.length).toBe(2);
   });
 
   it('should convert data to post', function () {
     var account = new Account({ name: 'nome', guid: '3' });
 
-    var result = accountConverter.convertAccount(serverData);
+    var result = accountConverter.convertFromServer(serverData);
 
-    expect(result[0].guid).toBe(serverData[0].Id);
-    expect(result[0].name).toBe(serverData[0].Name);
+    expect(result[0].guid).toBe(serverData[0].uuid);
+    expect(result[0].name).toBe(serverData[0].name);
     expect(result.length).toBe(2);
   });
 });
