@@ -13,13 +13,13 @@ categoryConverter.convertFromServer = function(serverData) {
 };
 
 categoryConverter.convertTypeFromServer = function (type){
-	if(type === 0)
+	if(type === 'debit')
 		return 'Débito';
-	else if (type === 1)
+	else if (type === 'credit')
 		return 'Crédito';
-	else if (type === 2)
+	else if (type === 'creditTransfer')
 		return 'Transferência de crédito';
-	else if (type === 3)
+	else if (type === 'debitTransfer')
 		return 'Transferência de débito';
 	else return 'Débito';
 };
