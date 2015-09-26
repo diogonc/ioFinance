@@ -4,7 +4,7 @@ node_js:
 script:
 - npm test
 - npm i -g cordova ionic
-- ionic upload --email $email --password $pass
+- ionic upload --email $email  --password $pass
 deploy:
   provider: openshift
   user: diogonc@gmail.com
