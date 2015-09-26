@@ -75,7 +75,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     for (i = 0; i< numberOfItens; i++){
       var element = data[i];
 
-      $http.delete(self.baseUrl + self.name + '/' + element.data.uuid, element.data, { headers: self.auth })
+      $http.delete(self.baseUrl + self.name + '/' + element.data.uuid, { headers: self.auth })
       .then(function (response) {
         showMessage(element, response);
         

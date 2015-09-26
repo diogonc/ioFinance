@@ -17,8 +17,15 @@ transactionConverter.convertFromServer = function (serverData) {
 			description: serverItem.description,
 			date: serverItem.date,
 			value: serverItem.value,
-			category: categoryConverter.convertItem(serverItem.category),
-			account: accountConverter.convertItem(serverItem.account)
+			category: categoryConverter.convertItem(
+				{	uuid: serverItem.categoryUuid, 
+					name: serverItem.categoryName, 
+					type: serverItem.categoryType
+				}	),
+			account: accountConverter.convertItem(
+				{	uuid: serverItem.accountUuid,
+					name: serverItem.accountName
+				})
 		};
 	}
 };
@@ -44,8 +51,11 @@ transactionConverter.convertItemToPost = function (item) {
 			description: item.description,
 			date: item.date,
 			value: String(item.value),
-			category: item.category.guid,
-			account: item.account.guid,
+			categoryUuid: item.category.guid,
+			categoryName: item.category.name,
+			categoryType: categoryConverter.convertTypeToServer(item.category.type),
+			accountUuid: item.account.guid,
+			accountName: item.account.name,
 			payed: 'true',
 			propertyUuid: 1	
 		},

@@ -12,24 +12,24 @@ categoryConverter.convertFromServer = function(serverData) {
 	return result;
 };
 
+categoryConverter.convertTypeFromServer = function (type){
+	if(type === 0)
+		return 'Débito';
+	else if (type === 1)
+		return 'Crédito';
+	else if (type === 2)
+		return 'Transferência de crédito';
+	else if (type === 3)
+		return 'Transferência de débito';
+	else return 'Débito';
+};
+
 categoryConverter.convertItem = function(serverItem) {
 		return {
 			guid: String(serverItem.uuid),
 			name: serverItem.name,
-			type: convertType(serverItem.categoryType)
+			type: this.convertTypeFromServer(serverItem.categoryType)
 		};
-
-	function convertType(type){
-		if(type === 0)
-			return 'Débito';
-		else if (type === 1)
-			return 'Crédito';
-		else if (type === 2)
-			return 'Transferência de crédito';
-		else if (type === 3)
-			return 'Transferência de débito';
-		else return 'Débito';
-	};
 };
 
 categoryConverter.convertToServer = function (itens) {
@@ -46,18 +46,7 @@ categoryConverter.convertToServer = function (itens) {
 	return result;
 };
 
-categoryConverter.convertItemToPost = function (item) {
-	return {
-		data: {
-			uuid: String(item.guid),
-			name: item.name,
-			categoryType: convertType(item.type),
-			propertyUuid: 1	
-		},
-		new: item.created === true		
-	};
-	
-	function convertType(type){
+categoryConverter.convertTypeToServer = function (type){
 		if(type === 'Débito')
 			return 'debit';
 		else if (type === 'Crédito')
@@ -67,6 +56,17 @@ categoryConverter.convertItemToPost = function (item) {
 		else if (type === 'Transferência de débito')
 			return 'debitTransfer';
 		else return 'debit';
-	}
+};
+
+categoryConverter.convertItemToPost = function (item) {
+	return {
+		data: {
+			uuid: String(item.guid),
+			name: item.name,
+			categoryType: this.convertTypeToServer(item.type),
+			propertyUuid: 1	
+		},
+		new: item.created === true		
+	};
 };
 
