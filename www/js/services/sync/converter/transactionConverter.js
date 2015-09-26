@@ -20,7 +20,7 @@ transactionConverter.convertFromServer = function (serverData) {
 			category: categoryConverter.convertItem(
 				{	uuid: serverItem.categoryUuid, 
 					name: serverItem.categoryName, 
-					type: serverItem.categoryType
+					categoryType: serverItem.categoryType
 				}	),
 			account: accountConverter.convertItem(
 				{	uuid: serverItem.accountUuid,
