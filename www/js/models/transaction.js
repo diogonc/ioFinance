@@ -20,6 +20,9 @@ var Transaction = function (newItem) {
 		self.account =  0;
 		self.date = new Date();			
 	}	
+
+	if(self.date instanceof Date)
+		self.date.setHours(0,0,0,0)
 	
 	function validate(item) {
 		if (typeof item.date === 'undefined' || item.date == null)
