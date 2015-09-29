@@ -7,16 +7,19 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     self.nickName = nickName;
     self.baseUrl = baseUrl;
     self.auth = auth;
+    self.propertyFilter = '?where={"propertyUuid":"1"}';
     self.repository = repository;
     self.converter = converter;
     self.get = get;
     self.save = save;
-    
+
     return self;
   };
 
   function get(callback) {
-    return $http.get(self.baseUrl + self.name, { headers: self.auth }).then(function (response) {
+  
+
+    return $http.get(self.baseUrl + self.name + self.propertyFilter, { headers: self.auth }).then(function (response) {
       if (response.data === 'usuário inválido'){
         callback();
         return;
