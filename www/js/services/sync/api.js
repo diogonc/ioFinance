@@ -7,7 +7,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     self.nickName = nickName;
     self.baseUrl = baseUrl;
     self.auth = auth;
-    self.propertyFilter = '?where={"propertyUuid":"1"}';
+    self.propertyFilter = '?where={"propertyUuid":"'+auth.propertyUuid+'"}';
     self.repository = repository;
     self.converter = converter;
     self.get = get;
@@ -17,8 +17,6 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
   };
 
   function get(callback) {
-  
-
     return $http.get(self.baseUrl + self.name + self.propertyFilter, { headers: self.auth }).then(function (response) {
       if (response.data === 'usuário inválido'){
         callback();
