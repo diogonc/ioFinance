@@ -1,4 +1,4 @@
-angular.module("finance").controller("UserCtrl", function ($scope, $stateParams, $window,  UserRepository) {
+angular.module("finance").controller("UserCtrl", function ($scope, $stateParams, $window, UserRepository, Sync) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;

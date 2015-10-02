@@ -10,15 +10,19 @@ var User = function (newItem) {
 			self.guid = newItem.guid;
 			self.login = newItem.login;
 			self.token = hash(newItem.password);
+			self.password = newItem.password;
 			self.url = newItem.url;
 			self.propertyId = newItem.propertyId;
+			self.active = true;
 		}
 	}
 	else {
 		self.login = '';
 		self.token = '';
+		self.password = '';
 		self.url = '';
 		self.propertyId = 0;
+		self.active = false;
 	}
 
 	function validate(item) {

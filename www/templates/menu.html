@@ -1,5 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content>
+  
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
       </ion-nav-back-button>
@@ -7,6 +8,7 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">        </button>
       </ion-nav-buttons>
       <ion-nav-buttons side="right">
+        <h1>{{user.login}}</h1>
         <i class="icon ion-loop atualizar download" ng-show='hasUser()' ng-click="update()"></i>
       </ion-nav-buttons>
     </ion-nav-bar>

@@ -1,7 +1,7 @@
 angular.module('finance').factory('Sync', function ($ionicLoading, UserRepository, AccountSync, CategorySync, TransactionSync) {
 
 	function importData(callback) {
-		var credentials = UserRepository.getAll()[0];
+		var credentials = UserRepository.getActive();
 		var baseUrl = credentials.url;
 		var username = credentials.login;
 		var token = credentials.token;
@@ -46,9 +46,14 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		});
 	}
 
-	function update(){
+	function update(callback){
 		exportData( function() {
-			importData(excluirMensagemDeCarregando);
+			importData( function(){
+				excluirMensagemDeCarregando();
+
+				if( typeof callback === 'function')
+					callback();
+			});
 		});
 	}
 

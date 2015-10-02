@@ -1,3 +1,8 @@
+h1{
+  font-size: 150%;
+  padding: 4px 10px
+}
+
 .atualizar {
   padding-right: 10px;
   font-size: 35px;
@@ -31,4 +36,9 @@ a, a:visited{
 
 .report :hover{
   background-color: #ddd;
+}
+
+.activate{
+  cursor: pointer;
+  font-weight: bold;
 }
