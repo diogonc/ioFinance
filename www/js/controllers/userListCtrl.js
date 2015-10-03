@@ -12,6 +12,7 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 	});
 
 	function activate(item){
+		//TODO rever quando alterar uma informação e depois ativar outra conta
 		UserRepository.activate(item);
 
 		Sync.update(function(){

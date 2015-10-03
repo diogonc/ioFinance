@@ -2,6 +2,7 @@ angular.module("finance").controller("TransferCtrl", function($scope, $window, $
   $scope.convertDate = convertDate;
   $scope.itens = TransactionRepository.getAll();
   $scope.accounts = AccountRepository.getAll();
+  $scope.addItem = addItem;
   $scope.back = back;
   $scope.item = {
     date: new Date()
@@ -9,22 +10,40 @@ angular.module("finance").controller("TransferCtrl", function($scope, $window, $
   $scope.valid = true;
   $scope.errors = [];
 
-  $scope.$on('$ionicView.beforeEnter', function() {
+  function addItem(newItem, goBack) {
+    var creditCategory = CategoryRepository.getCreditTransfer();
+    var debitCategory = CategoryRepository.getDebitTransfer();
 
-  });
+    var creditTransfer = new Transaction({      
+      description: newItem.description,
+      category: creditCategory,
+      account: newItem.destinyAccount,
+      date: newItem.date,
+      value: newItem.value
+    });
 
-  function addItem(newItem) {
-    var item = new Transaction(newItem);
-    if (item.valid) {
-      TransactionRepository.save(item);
-      $scope.item = {};
+    var debitTransfer = new Transaction({      
+      description: newItem.description,
+      category: debitCategory,
+      account: newItem.originAccount,
+      date: newItem.date,
+      value: newItem.value
+    });
+
+    if (creditTransfer.valid && debitTransfer.valid) {
+      TransactionRepository.save(debitTransfer);
+      TransactionRepository.save(creditTransfer);
+
+      $scope.item = {date: new Date()};
+
       toastr.success('Registro gravado com sucesso!');
-      back();
+      
+      if(goBack)
+        back();
     }
-    $scope.valid = item.valid;
-    $scope.errors = item.errors;
+    $scope.valid = debitTransfer.valid;
+    $scope.errors = debitTransfer.errors;
   };
-
 
   function back() {
     if ($window.history.length > 1)
