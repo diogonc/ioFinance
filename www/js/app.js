@@ -6,14 +6,14 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' ])
 
-  .run(function ($ionicPlatform) {
+.run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if (window.StatusBar) {
+  if (window.cordova && window.cordova.plugins.Keyboard) {
+    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  }
+  if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
@@ -23,7 +23,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
 .config(function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state('app', {
+  .state('app', {
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
@@ -40,7 +40,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
-    .state('app.user', {
+  .state('app.user', {
     url: "/users/:Id",
     views: {
       'menuContent': {
@@ -50,7 +50,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
-    .state('app.accounts', {
+  .state('app.accounts', {
     url: "/accounts",
     views: {
       'menuContent': {
@@ -60,7 +60,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
-    .state('app.account', {
+  .state('app.account', {
     url: "/accounts/:Id",
     views: {
       'menuContent': {
@@ -80,7 +80,7 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
-    .state('app.category', {
+  .state('app.category', {
     url: "/categories/:Id",
     views: {
       'menuContent': {
@@ -100,12 +100,22 @@ angular.module('finance', ['ionic', 'finance.controllers','ngAnimate', 'toastr' 
     }
   })
 
-    .state('app.transaction', {
+  .state('app.transaction', {
     url: "/transactions/:Id",
     views: {
       'menuContent': {
         templateUrl: "templates/transaction.html",
         controller: 'TransactionCtrl'
+      }
+    }
+  })
+
+  .state('app.transfer', {
+    url: "/transfer",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/transfer.html",
+        controller: 'TransferCtrl'
       }
     }
   })

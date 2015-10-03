@@ -3,10 +3,15 @@ angular.module("finance").controller("TransactionListCtrl", function ($scope, $s
 	$scope.accounts = [];
 	$scope.itens = [];
 	$scope.newItem = newItem;
+	$scope.newTransfer = newTransfer;
 	$scope.search = search;
 
 	function newItem(){
 		$location.path('app/transactions/0');
+	};
+
+	function newTransfer(){
+		$location.path('app/transfer');
 	};
 
 	function search(item){
