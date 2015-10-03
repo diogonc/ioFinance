@@ -26,7 +26,8 @@
           <span class="input-label">Valor</span>
           <input type="number" step="0.01" min="0" ng-model="item.value"></input>
         </label>
-        <button class="button button-block button-positive" ng-click="addItem(item)">Salvar</button>
+        <button class="button button-block button-positive" ng-click="addItem(item, true)">Salvar</button>
+        <button class="button button-block button-positive" ng-click="addItem(item, false)">Salvar e novo</button>
         <button class="button button-block button-assertive" ng-click="deleteItem(item)" ng-show="ehEdicao">Excluir</button>
         <button class="button button-block button-stable" ng-click="back()">Voltar</button>
       </div>

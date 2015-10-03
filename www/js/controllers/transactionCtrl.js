@@ -28,13 +28,15 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
     }
   });
 
-  function addItem(newItem) {
+  function addItem(newItem, goBack) {
     var item = new Transaction(newItem);
     if (item.valid) {
       TransactionRepository.save(item);
-      $scope.item = {};
+      $scope.item = {date: new Date()};
       toastr.success('Registro gravado com sucesso!');
-      back();
+      
+      if(goBack)
+        back();
     }
     $scope.valid = item.valid;
     $scope.errors = item.errors;
