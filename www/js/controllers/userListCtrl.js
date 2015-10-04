@@ -12,11 +12,13 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 	});
 
 	function activate(item){
-		//TODO rever quando alterar uma informação e depois ativar outra conta
-		UserRepository.activate(item);
+		Sync.exportData( function() {
+			UserRepository.activate(item);	
 
-		Sync.update(function(){
-			$window.location.reload();	
-		});		
+			Sync.importData( function(){
+				Sync.excluirMensagemDeCarregando();
+				$window.location.reload();
+			});
+		});
 	}
 });

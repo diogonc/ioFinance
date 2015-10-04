@@ -4,6 +4,15 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, $st
     months: 1
   };
   $scope.search = search;
+  $scope.searchTransaction = searchTransaction;
+
+  function searchTransaction (year, month, categoryGuid){
+    $location.path('app/transactions').search({
+      year: '20' + year,
+      month: month,
+      categoryGuid: categoryGuid
+    });
+  }
 
   function search(item) {
     $location.path('app/balance-per-month').search({

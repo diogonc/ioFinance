@@ -8,8 +8,7 @@ angular.module('finance.controllers', []).controller('AppCtrl', function ($scope
 	};
 
 	function hasUser(){
-		var users = UserRepository.getAll();
-		return users.length > 0;
+		return currentUser().guid !== undefined;
 	}
 
 	function currentUser(){
@@ -18,6 +17,6 @@ angular.module('finance.controllers', []).controller('AppCtrl', function ($scope
 		if(user.guid !== undefined)
 			return user;
 		else
-			return {login: 'teste'};
+			return {};
 	}
 });

@@ -49,9 +49,6 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
   }
 
   function back() {
-    if ($window.history.length > 1)
-      $window.history.back();
-		else
 			$location.path('app/transactions');
   }
 

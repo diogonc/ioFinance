@@ -24,7 +24,10 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 	};
 
 	function exportData(callback) {
-		var credentials = UserRepository.getAll()[0];
+		var credentials = UserRepository.getActive();
+		if(credentials === undefined)
+			return callback();
+
 		var baseUrl = credentials.url;
 		var username = credentials.login;
 		var token = credentials.token;

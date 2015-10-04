@@ -13,7 +13,7 @@ var User = function (newItem) {
 			self.password = newItem.password;
 			self.url = newItem.url;
 			self.propertyId = newItem.propertyId;
-			self.active = true;
+			self.active = false;
 		}
 	}
 	else {

@@ -4,10 +4,11 @@
           Novo
         </button>
         <ion-list>
-            <ion-item ng-repeat="item in itens" href="#/app/users/{{item.guid}}">
+            <ion-item ng-class="{'bold': item.active}" ng-repeat="item in itens" href="#/app/users/{{item.guid}}">
             {{item.login}}
             <span ng-show="item.active"> - ativo</span>
-            <a class="activate" ng-hide="item.active" href="#" ng-click="activate(item)">ativar</a>
+            <span ng-hide="item.active"> - inativo</span>
+            <a class="activate" ng-hide="item.active" href="#" ng-click="activate(item)">Ativar</a>
             </ion-item>
         </ion-list>
     </ion-content>

@@ -4,6 +4,11 @@ h1{
   color: #fff;
 }
 
+a, a:visited{
+  color:black;
+  text-decoration: none;
+}
+
 .atualizar {
   padding-right: 10px;
   font-size: 35px;
@@ -23,10 +28,6 @@ h1{
   white-space: nowrap;
 }
 
-a, a:visited{
-  color:black;
-  text-decoration: none;
-}
 .scroll{
   height:100%;
 }
@@ -41,5 +42,10 @@ a, a:visited{
 
 .activate{
   cursor: pointer;
+  font-weight: bold;
+  float: right;
+}
+
+.bold{
   font-weight: bold;
 }

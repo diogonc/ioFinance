@@ -27,7 +27,9 @@
             {{ category.category.name | limitTo: 10 }}{{category.category.name.length > 10 ? '...' : ''}}
           </div>
           <div class="col align-rigth" ng-repeat="balance in category.balance">
-            <a href="/#/app/transactions?year=20{{balance.year}}&month={{balance.month}}&categoryGuid={{category.category.guid}}">{{balance.value | number: 2}}</a>
+            <a ng-click="searchTransaction(balance.year, balance.month, category.category.guir)">
+              {{balance.value | number: 2}}
+            </a>
           </div>
           <div class="col align-rigth">{{category.average() | number: 2}}</div>
           <div class="col align-rigth">{{category.sum | number: 2}}</div>
