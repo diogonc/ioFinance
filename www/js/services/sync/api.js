@@ -22,7 +22,6 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
         callback();
         return;
       }
-
       var dataConverted = self.converter.convertFromServer(response.data);
       self.repository.updateAllData(dataConverted);
       toastr.success(self.nickName + ' atualizadas!');
@@ -31,7 +30,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
   };
 
   function save(callback) {
-    var data = self.converter.convertToServer(self.repository.getAll());
+    var data = self.converter.convertToServer(self.repository.getAll(), self.auth.propertyUuid);
     var numberOfItens = data.length;
     var itensSaved = 0;
 

@@ -10,11 +10,13 @@ var Category = function (newItem) {
 			self.guid = newItem.guid;
 			self.name = newItem.name;
 			self.type = newItem.type;	
+			self.priority = newItem.priority;
 		}			
 	}
 	else{	
 		self.name =  '';
-		self.type = 'debit';		
+		self.type = 'debit';
+		self.priority = 1;
 	}	
 	
 	function validate(item) {

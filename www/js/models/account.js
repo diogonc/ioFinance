@@ -7,6 +7,7 @@ var Account = function (newItem) {
 	if(self.valid){
 		self.guid = newItem.guid;
 		self.name = newItem.name;
+		self.priority = newItem.priority;
 	}	
 	
 	function validate(item) {

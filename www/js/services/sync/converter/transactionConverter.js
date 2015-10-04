@@ -30,21 +30,21 @@ transactionConverter.convertFromServer = function (serverData) {
 	}
 };
 
-transactionConverter.convertToServer = function (itens) {
+transactionConverter.convertToServer = function (itens, propertyUuid) {
 	var result = [];
 	var quantityOfItens = itens.length;
 
 	for (var i = 0; i < quantityOfItens; i++) {
 		var localItem = itens[i];
 		if (localItem.changed) {
-			var item = this.convertItemToPost(localItem);
+			var item = this.convertItemToPost(localItem, propertyUuid);
 			result.push(item);
 		}
 	}
 	return result;
 };
 
-transactionConverter.convertItemToPost = function (item) {
+transactionConverter.convertItemToPost = function (item, propertyUuid) {
 	return {
 		data:{
 			uuid: item.guid,
@@ -57,7 +57,7 @@ transactionConverter.convertItemToPost = function (item) {
 			accountUuid: item.account.guid,
 			accountName: item.account.name,
 			payed: 'true',
-			propertyUuid: 1	
+			propertyUuid: propertyUuid	
 		},
 		new: item.created === true		
 	};
