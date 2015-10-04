@@ -17,8 +17,18 @@ angular.module("finance").factory("CategoryRepository", function(){
 		});
 	};
 
+	var getAll = function (){
+		var categories = repository.getAll();
+
+		var orderedItens = categories.sort(function(item, anotherItem){
+			return anotherItem.priority - item.priority;
+		});
+
+		return orderedItens;
+	};
+
 	return {
-		getAll: repository.getAll,
+		getAll: getAll,
 		getAllDeleted: repository.getAllDeleted,
 		save: repository.save,
 		get: repository.get,
