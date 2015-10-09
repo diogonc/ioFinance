@@ -14,7 +14,7 @@ angular.module('finance.controllers', []).controller('AppCtrl', function ($scope
 	function currentUser(){
 		var	user = UserRepository.getActive();
 
-		if(user.guid !== undefined)
+		if(user !== undefined)
 			return user;
 		else
 			return {};
