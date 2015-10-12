@@ -1,4 +1,4 @@
-angular.module("finance").controller("TransactionListCtrl", function ($scope, $stateParams, $location, TransactionRepository, CategoryRepository, AccountRepository) {
+angular.module("finance").controller("TransactionListCtrl", function ($scope, $stateParams, $location, TransactionRepository, CategoryRepository, AccountRepository, Auth) {
 	$scope.categories = [];
 	$scope.accounts = [];
 	$scope.itens = [];
@@ -19,6 +19,8 @@ angular.module("finance").controller("TransactionListCtrl", function ($scope, $s
 	};
 
 	$scope.$on('$ionicView.beforeEnter', function() {
+		Auth.verify();
+
 		$scope.categories = CategoryRepository.getAll();
 		$scope.categories.push({guid:0, name:'Todas'});
 		$scope.accounts = AccountRepository.getAll();

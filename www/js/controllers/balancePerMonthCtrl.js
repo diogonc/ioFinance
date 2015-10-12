@@ -1,4 +1,4 @@
-angular.module("finance").controller("BalancePerMonthCtrl", function($scope, $stateParams, $location, TransactionRepository) {
+angular.module("finance").controller("BalancePerMonthCtrl", function($scope, $stateParams, $location, TransactionRepository, Auth) {
   $scope.itens = [];
   $scope.item = {
     months: 1
@@ -21,6 +21,8 @@ angular.module("finance").controller("BalancePerMonthCtrl", function($scope, $st
   };
 
   $scope.$on('$ionicView.beforeEnter', function() {
+    Auth.verify();
+    
     var report = new BalancePerMonthReport();
     var data = TransactionRepository.getAll();
 

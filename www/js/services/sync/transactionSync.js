@@ -1,4 +1,4 @@
-angular.module('finance').factory('TransactionSync', function ($http, toastr, TransactionRepository, ApiSync) {
+ angular.module('finance').factory('TransactionSync', function ($http, toastr, TransactionRepository, ApiSync) {
 
   function getTransactions(auth, baseUrl, callback) {
     var api = ApiSync.init(baseUrl, auth, 'transaction', 'lançamento', TransactionRepository, transactionConverter);

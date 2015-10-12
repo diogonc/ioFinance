@@ -1,4 +1,4 @@
-angular.module("finance").controller("TransactionCtrl", function($scope, $window, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository) {
+angular.module("finance").controller("TransactionCtrl", function($scope, $window, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository, Auth) {
   $scope.convertDate = convertDate;
   $scope.itens = TransactionRepository.getAll();
   $scope.categories = CategoryRepository.getAll();
@@ -14,6 +14,7 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
   $scope.errors = [];
 
   $scope.$on('$ionicView.beforeEnter', function() {
+    Auth.verify();
 
     var guid = $stateParams.Id;
     if (guid !== '0') {
@@ -49,7 +50,10 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
   }
 
   function back() {
-			$location.path('app/transactions');
+		if ($window.history.length > 1)
+      $window.history.back();
+    else
+      $location.path('app/transactions');
   }
 
   //'2015-06-19T00:00:00.000Z'

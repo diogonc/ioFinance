@@ -1,4 +1,4 @@
-angular.module("finance").controller("TransferCtrl", function($scope, $window, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository) {
+angular.module("finance").controller("TransferCtrl", function($scope, $window, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository, Auth) {
   $scope.convertDate = convertDate;
   $scope.itens = TransactionRepository.getAll();
   $scope.accounts = AccountRepository.getAll();
@@ -9,6 +9,8 @@ angular.module("finance").controller("TransferCtrl", function($scope, $window, $
   };
   $scope.valid = true;
   $scope.errors = [];
+
+  Auth.verify();
 
   function addItem(newItem, goBack) {
     var creditCategory = CategoryRepository.getCreditTransfer();

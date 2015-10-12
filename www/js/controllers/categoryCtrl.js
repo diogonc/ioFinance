@@ -1,4 +1,4 @@
-angular.module("finance").controller("CategoryCtrl", function ($scope, $window, $stateParams, toastr, CategoryRepository) {
+angular.module("finance").controller("CategoryCtrl", function ($scope, $window, $stateParams, toastr, CategoryRepository, Auth) {
 	$scope.types = ['Crédito', 'Débito', 'Transferência de crédito', 'Transferência de débito'];
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
@@ -7,6 +7,8 @@ angular.module("finance").controller("CategoryCtrl", function ($scope, $window, 
 	$scope.ehEdicao = false;
 	$scope.valid = true;
 	$scope.errors = [];
+
+	Auth.verify();
 
 	var guid = $stateParams.Id;
 	if (guid !== '0') {

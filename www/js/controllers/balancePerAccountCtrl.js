@@ -1,4 +1,4 @@
-angular.module("finance").controller("BalancePerAccountCtrl", function($scope, $stateParams, $location, TransactionRepository) {
+angular.module("finance").controller("BalancePerAccountCtrl", function($scope, $stateParams, $location, TransactionRepository, Auth) {
   $scope.itens = [];
   $scope.item = {
     date: new Date()
@@ -12,6 +12,8 @@ angular.module("finance").controller("BalancePerAccountCtrl", function($scope, $
   };
 
   $scope.$on('$ionicView.beforeEnter', function() {
+    Auth.verify();
+
     if (typeof $stateParams.date !== 'undefined')
       $scope.item.date = util.usToDate($stateParams.date);
     var report = new Report();

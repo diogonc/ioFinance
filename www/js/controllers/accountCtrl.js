@@ -1,4 +1,4 @@
-angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, toastr, $window, AccountRepository) {
+angular.module("finance").controller("AccountCtrl", function ($scope, $stateParams, toastr, $window, AccountRepository, Auth) {
 	$scope.addItem = addItem;
 	$scope.deleteItem = deleteItem;
 	$scope.back = back;
@@ -7,6 +7,7 @@ angular.module("finance").controller("AccountCtrl", function ($scope, $statePara
 	$scope.valid = true;
 	$scope.errors = [];
 
+	Auth.verify();
 	var guid = $stateParams.Id;
 	if (guid !== '0') {
 		var item = AccountRepository.get(guid);

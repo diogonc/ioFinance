@@ -1,4 +1,4 @@
-angular.module("finance").controller("CategoryListCtrl", function ($scope, $location, CategoryRepository) {
+angular.module("finance").controller("CategoryListCtrl", function ($scope, $location, CategoryRepository, Auth) {
 	$scope.itens = [];
 	$scope.newItem = newItem;
 	
@@ -7,6 +7,8 @@ angular.module("finance").controller("CategoryListCtrl", function ($scope, $loca
 	};
 
 	$scope.$on('$ionicView.beforeEnter', function() {
+		Auth.verify();
+
 		$scope.itens = CategoryRepository.getAll();
 	});
 });
