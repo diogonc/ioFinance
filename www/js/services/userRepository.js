@@ -25,6 +25,7 @@ angular.module("finance").factory("UserRepository", function(){
 		save: userRepository.save,
 		get: userRepository.get,
 		delete: userRepository.delete,
+		updateAllData: userRepository.updateAllData,
 		activate: activate,
 		getActive: getActive
 	}

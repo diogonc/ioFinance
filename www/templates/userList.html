@@ -3,6 +3,9 @@
         <button class="button button-block button-positive" ng-click="newItem()">
           Novo
         </button>
+        <button class="button button-block button-assertive" ng-click="reset()">
+          Limpar tudo
+        </button>
         <ion-list>
             <ion-item ng-class="{'bold': item.active}" ng-repeat="item in itens" href="#/app/users/{{item.guid}}">
             {{item.login}}
