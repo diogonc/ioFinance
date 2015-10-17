@@ -8,7 +8,7 @@ var Transaction = function (newItem) {
 		
 		if(self.valid){
 			self.guid = newItem.guid;
-			self.description = newItem.description;
+			self.description = newItem.description == undefined ? '' : newItem.description;
 			self.category = newItem.category;
 			self.account = newItem.account;
 			self.date = newItem.date;

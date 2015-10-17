@@ -17,6 +17,7 @@ angular.module("finance").controller("UserListCtrl", function ($scope, $location
 		CategoryRepository.updateAllData([]);
 		AccountRepository.updateAllData([]);
 		TransactionRepository.updateAllData([]);
+		$window.location.reload();
 	};
 
 	function activate(item){
