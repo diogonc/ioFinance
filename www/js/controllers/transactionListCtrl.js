@@ -42,9 +42,9 @@ angular.module("finance").controller("TransactionListCtrl", function ($scope, $s
 		 	accountGuid = String($stateParams.accountGuid);
 
 		var index = findIndex(categoryGuid, $scope.categories);
-		var category = index > 0 ? $scope.categories[index] : {guid: 0};
+		var category = index >= 0 ? $scope.categories[index] : {guid: 0};
 		var indexOfAccount = findIndex(accountGuid, $scope.accounts);
-		var account = indexOfAccount >0 ? $scope.accounts[indexOfAccount] : {guid: 0};
+		var account = indexOfAccount >= 0 ? $scope.accounts[indexOfAccount] : {guid: 0};
 
 		$scope.item = {year: year , month: month, category: category, account: account};
 		$scope.itens = TransactionRepository.getAllWithFilters($scope.item.year, $scope.item.month, $scope.item.category.guid, $scope.item.account.guid);
