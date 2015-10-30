@@ -15,9 +15,14 @@ angular.module("finance").factory("UserRepository", function(){
 
 	var getActive = function(){
 		var users = userRepository.getAll();
-		return users.find(function(item){
-			return item.active;
-		});
+		var user = {};
+
+
+		for (var i = users.length - 1; i >= 0; i--) {
+			if(users[i].active)
+				user = users[i];
+		};
+		return user;
 	}
 
 	return {
