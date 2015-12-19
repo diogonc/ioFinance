@@ -11,9 +11,11 @@ var User = function (newItem) {
 			self.login = newItem.login;
 			self.token = hash(newItem.password);
 			self.password = newItem.password;
-			self.url = newItem.url;
+			self.url = newItem.url !== undefined ? newItem.url : 'http://financeserver-diogonc.rhcloud.com/';
 			self.propertyId = newItem.propertyId;
 			self.active = false;
+
+			self.propertyId = fixPropertyId(self.login);
 		}
 	}
 	else {
@@ -32,9 +34,6 @@ var User = function (newItem) {
 		if (typeof item.password === 'undefined' || item.password === '')
 			self.errors.push("Senha é obrigatória");
 
-		if (typeof item.propertyId === 'undefined' || item.propertyId === '')
-			self.errors.push("Propriedade é obrigatória");
-
 		self.valid = self.errors.length === 0;
 	}
 
@@ -42,5 +41,12 @@ var User = function (newItem) {
 		var shaObj = new jsSHA("SHA-1", "TEXT");
 		shaObj.update(text);
 		return shaObj.getHash("HEX");
+	}
+
+	function fixPropertyId(login){
+		if(login === 'cervinho')
+			return 1002;
+		if(login === 'laranjeira')
+			return 1003
 	}
 }

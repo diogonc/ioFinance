@@ -17,16 +17,24 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
   };
 
   function get(callback) {
-    return $http.get(self.baseUrl + self.name + self.propertyFilter, { headers: self.auth }).then(function (response) {
-      if (response.data === 'usuário inválido'){
+    return $http.get(self.baseUrl + self.name + self.propertyFilter, { headers: self.auth }).then(
+      function (response) {
+        if (response.data === 'usuário inválido'){
+          callback();
+          return;
+        }
+        var dataConverted = self.converter.convertFromServer(response.data);
+        self.repository.updateAllData(dataConverted);
+        toastr.success(self.nickName + ' atualizadas!');
         callback();
-        return;
-      }
-      var dataConverted = self.converter.convertFromServer(response.data);
-      self.repository.updateAllData(dataConverted);
-      toastr.success(self.nickName + ' atualizadas!');
-      callback();
-    });
+      }, 
+      function (error){
+        console.log(error);
+        if(error.status === 403){
+          toastr.error('usuario ou senha invalidos');
+          return;
+        }
+      });
   };
 
   function save(callback) {
