@@ -29,7 +29,7 @@ var User = function (newItem) {
 
 	function validate(item) {
 		if (typeof item.login === 'undefined' || item.login === '')
-			self.errors.push("Login é obrigatório");
+			self.errors.push("Login é obrigatório");	
 
 		if (typeof item.password === 'undefined' || item.password === '')
 			self.errors.push("Senha é obrigatória");

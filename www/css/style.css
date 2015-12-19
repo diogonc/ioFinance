@@ -51,3 +51,8 @@ a, a:visited{
 .bold{
   font-weight: bold;
 }
+
+.error{
+  background-color: #bd362f;
+  color: #fff;
+}

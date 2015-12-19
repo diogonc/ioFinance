@@ -66,4 +66,20 @@ describe('Transaction', function () {
     expect(transaction.valid).toBe(false);
     expect(transaction.errors[0]).toBe('Categoria é obrigatória');
   });
+
+  it('shoult treat value with comma', function(){
+    item.value = '2,34';
+
+    var transaction = new Transaction(item);
+
+    expect(transaction.value).toBe(2.34);
+  });
+
+  it('shoult treat value with comma and period', function(){
+    item.value = '2.232,34';
+
+    var transaction = new Transaction(item);
+
+    expect(transaction.value).toBe(2232.34);
+  })
 });

@@ -12,7 +12,7 @@ var Transaction = function (newItem) {
 			self.category = newItem.category;
 			self.account = newItem.account;
 			self.date = newItem.date;
-			self.value = newItem.value;	
+			self.value = validateValue(newItem.value);	
 		}			
 	}
 	else{	
@@ -35,7 +35,27 @@ var Transaction = function (newItem) {
 			self.errors.push("Categoria é obrigatória");
 			
 		self.valid = self.errors.length === 0;
-	}
+	};
+
+	function validateValue(value){
+	
+		if (typeof value === "number")
+			return value;
+
+		var firstPeriodIndex = value.indexOf('.');
+		value = value.replace(',', '.');
+
+		var firstPeriodIndex = value.indexOf('.');
+		var lastPeriodIndex = value.lastIndexOf('.');
+
+		if(firstPeriodIndex !== lastPeriodIndex)
+		{
+			value = value.slice(0, firstPeriodIndex) + value.slice(firstPeriodIndex+1, value.length)
+			return validateValue(value);
+		}
+
+		return Number(value);
+	};
 }
 
 

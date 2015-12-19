@@ -55,6 +55,12 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
           itensSaved++;
           if(itensSaved === numberOfItens)
             deleteItens(callback);
+        }, 
+        function (error){
+          if(error.status === 400 ){
+            toastr.error('Erro ao processar ' + element.data.description);
+            return;
+          }
         });
       }
       else{
@@ -66,6 +72,11 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
           itensSaved++;
           if(itensSaved === numberOfItens)
             deleteItens(callback);
+        },function (error){
+          if(error.status === 400 ){
+            toastr.error('Erro ao processar ' + element.data.description);
+            return;
+          }
         });  
       }
     }
@@ -83,10 +94,17 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     for (i = 0; i< numberOfItens; i++){
       var element = data[i];
 
+
       $http.delete(self.baseUrl + self.name + '/' + element.data.uuid, { headers: self.auth })
       .then(function (response) {
         showMessage(element, response);
         
+        itensSaved++;
+        if(itensSaved === numberOfItens){
+          self.repository.clearDeleted();
+          callback();
+        }
+      }, function (error){
         itensSaved++;
         if(itensSaved === numberOfItens){
           self.repository.clearDeleted();
@@ -104,6 +122,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     toastr.warning(response.data.Message);
   };
 
+  
   return {
     init: init,
     get: get,
