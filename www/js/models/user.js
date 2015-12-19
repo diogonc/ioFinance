@@ -12,10 +12,9 @@ var User = function (newItem) {
 			self.token = hash(newItem.password);
 			self.password = newItem.password;
 			self.url = newItem.url !== undefined ? newItem.url : 'http://financeserver-diogonc.rhcloud.com/';
-			self.propertyId = newItem.propertyId;
 			self.active = false;
 
-			self.propertyId = fixPropertyId(self.login);
+			self.propertyId = fixPropertyId(self.login, newItem.propertyId);
 		}
 	}
 	else {
@@ -43,10 +42,11 @@ var User = function (newItem) {
 		return shaObj.getHash("HEX");
 	}
 
-	function fixPropertyId(login){
+	function fixPropertyId(login, propertyId){
 		if(login === 'cervinho')
 			return 1002;
 		if(login === 'laranjeira')
 			return 1003
+		return propertyId;
 	}
 }
