@@ -14,16 +14,9 @@
           <span class="input-label">Senha</span>
           <input type="password" ng-model="item.password">
         </label>
-        <label class="item item-input">
-          <span class="input-label">Propriedade</span>
-          <input type="number" step="1" ng-model="item.propertyId">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Url</span>
-          <input type="text" ng-model="item.url">
-        </label>
         <button class="button button-block button-positive" ng-click="addItem(item)">Salvar</button>
-        <button class="button button-block button-assertive" ng-click="deleteItem(item)" ng-show="ehEdicao">Excluir</button>
+        <button class="button button-block button-assertive" ng-click="deleteItem(item)" ng-show="ehEdicao">  Excluir
+        </button>
         <button class="button button-block button-stable" ng-click="back()">Voltar</button>
       </div>
     </form>

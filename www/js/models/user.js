@@ -11,7 +11,7 @@ var User = function (newItem) {
 			self.login = newItem.login;
 			self.token = hash(newItem.password);
 			self.password = newItem.password;
-			self.url = newItem.url !== undefined ? newItem.url : 'http://financeserver-diogonc.rhcloud.com/';
+			self.url = 'http://financeserver-diogonc.rhcloud.com/';
 			self.active = false;
 
 			self.propertyId = fixPropertyId(self.login, newItem.propertyId);
@@ -47,6 +47,8 @@ var User = function (newItem) {
 			return 1002;
 		if(login === 'laranjeira')
 			return 1003
+		if(login === 'diogonc')
+			return 1
 		return propertyId;
 	}
 }
