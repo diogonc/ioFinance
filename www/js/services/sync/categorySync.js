@@ -3,7 +3,7 @@ angular.module('finance').factory('CategorySync', function ($http, toastr, Categ
   function getCategories(auth, baseUrl, callback) {
     var api = ApiSync.init(baseUrl, auth, 'category', 'categoria', CategoryRepository, categoryConverter);
 
-    return api.get(callback);
+    return api.get(callback, false);
   };
 
   function saveCategories(auth, baseUrl, callback) {

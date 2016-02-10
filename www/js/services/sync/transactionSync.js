@@ -3,7 +3,7 @@
   function getTransactions(auth, baseUrl, callback) {
     var api = ApiSync.init(baseUrl, auth, 'transaction', 'lançamento', TransactionRepository, transactionConverter);
 
-    return api.get(callback);
+    return api.get(callback, true);
   };
 
   function saveTransactions(auth, baseUrl, callback) {

@@ -1,4 +1,7 @@
-angular.module("finance").controller("TransactionCtrl", function($scope, $window, $location, $stateParams, toastr, TransactionRepository, AccountRepository, CategoryRepository, Auth) {
+angular.module("finance").controller("TransactionCtrl", function($scope, $window, 
+        $location, $stateParams, toastr, TransactionRepository, AccountRepository,
+        CategoryRepository, Auth, Sync)
+{
   $scope.convertDate = convertDate;
   $scope.itens = TransactionRepository.getAll();
   $scope.categories = CategoryRepository.getAll();
@@ -27,6 +30,9 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
       $scope.item.value = item.value;
       $scope.ehEdicao = true;
     }
+
+    if($scope.accounts.length === 1)
+      $scope.item.account = $scope.accounts[0];
   });
 
   function addItem(newItem, goBack) {
@@ -36,6 +42,8 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
       $scope.item = {date: new Date()};
       toastr.success('Registro gravado com sucesso!');
       
+      Sync.update();
+
       if(goBack)
         back();
     }
@@ -46,13 +54,11 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
   function deleteItem(item) {
     TransactionRepository.delete(item);
     $scope.item = {};
+    Sync.update();
     back();
   }
 
   function back() {
-		if ($window.history.length > 1)
-      $window.history.back();
-    else
       $location.path('app/transactions');
   }
 

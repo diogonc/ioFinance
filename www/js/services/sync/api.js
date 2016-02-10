@@ -16,7 +16,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     return self;
   };
 
-  function get(callback) {
+  function get(callback, show) {
     return $http.get(self.baseUrl + self.name + self.propertyFilter, { headers: self.auth }).then(
       function (response) {
         if (response.data === 'usuário inválido'){
@@ -25,7 +25,10 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
         }
         var dataConverted = self.converter.convertFromServer(response.data);
         self.repository.updateAllData(dataConverted);
-        toastr.success(self.nickName + ' atualizadas!');
+        
+        if(show)
+          toastr.success(self.nickName + ' atualizados!');
+        
         callback();
       }, 
       function (error){

@@ -3,7 +3,7 @@ angular.module('finance').factory('AccountSync', function ($http, toastr, Accoun
   function getAccounts(auth, baseUrl, callback) {
     var api = ApiSync.init(baseUrl, auth, 'account', 'conta', AccountRepository, accountConverter);
 
-    return api.get(callback);
+    return api.get(callback, false);
   };
 
   function saveAccounts(auth, baseUrl, callback) {

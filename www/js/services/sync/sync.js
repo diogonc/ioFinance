@@ -43,7 +43,10 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		AccountSync.saveAccounts(authParams, baseUrl, function(){
 			CategorySync.saveCategories(authParams, baseUrl, function(){
 				TransactionSync.saveTransactions(authParams, baseUrl, function(){
-					callback();
+					if( typeof callback === 'function')
+						callback();
+					else
+						excluirMensagemDeCarregando();
 				});
 			});
 		});
