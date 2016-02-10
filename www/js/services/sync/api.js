@@ -120,7 +120,7 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
   function showMessage(element, response){
     if (response.status === 201 || response.status === 200){
       var text = element.data.name !== undefined ?  element.data.name :  element.data.description;
-      toastr.success(self.nickName + ' ' + text + ' atualizada!');
+      toastr.success(self.nickName + ' ' + text + ' atualizado!');
     }else 
     toastr.warning(response.data.Message);
   };
