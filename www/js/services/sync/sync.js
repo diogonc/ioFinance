@@ -52,15 +52,22 @@ angular.module('finance').factory('Sync', function ($ionicLoading, UserRepositor
 		});
 	}
 
-	function update(callback){
-		exportData( function() {
-			importData( function(){
-				excluirMensagemDeCarregando();
-
-				if( typeof callback === 'function')
-					callback();
-			});
-		});
+	function update(callback, callbackDeErro){
+		try {
+			exportData( function() {
+				importData( function(){
+					excluirMensagemDeCarregando();
+	
+					if( typeof callback === 'function')
+						callback();
+				});
+			});	
+		} catch (error) {
+			if( typeof callbackDeErro === 'function')
+				callbackDeErro(error);
+				
+		}
+		
 	}
 
 	function mensagemDeCarregando(){

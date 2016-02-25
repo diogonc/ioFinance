@@ -48,7 +48,7 @@ transactionConverter.convertItemToPost = function (item, propertyUuid) {
 	return {
 		data:{
 			uuid: item.guid,
-			description: item.description,
+			description: (item.description == "")? "#" : item.description,
 			date: item.date,
 			value: String(item.value),
 			categoryUuid: item.category.guid,

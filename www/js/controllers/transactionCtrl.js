@@ -39,7 +39,7 @@ angular.module("finance").controller("TransactionCtrl", function($scope, $window
     var item = new Transaction(newItem);
     if (item.valid) {
       TransactionRepository.save(item);
-      $scope.item = {date: new Date()};
+      $scope.item = {date: newItem.date};
       toastr.success('Registro gravado com sucesso!');
       
       Sync.update();

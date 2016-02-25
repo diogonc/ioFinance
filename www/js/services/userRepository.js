@@ -25,6 +25,11 @@ angular.module("finance").factory("UserRepository", function(){
 		return user;
 	}
 
+	var hasActive = function(){
+		var user = getActive();
+		return user.guid !== undefined;
+	}
+
 	return {
 		getAll: userRepository.getAll,
 		save: userRepository.save,
@@ -32,6 +37,7 @@ angular.module("finance").factory("UserRepository", function(){
 		delete: userRepository.delete,
 		updateAllData: userRepository.updateAllData,
 		activate: activate,
-		getActive: getActive
+		getActive: getActive, 
+		hasActive: hasActive
 	}
 });
