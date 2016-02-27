@@ -61,8 +61,9 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
         }, 
         function (error){
           if(error.status === 400 ){
-            toastr.error('Erro ao processar ' + element.data.description);
-            return;
+              tratarEnvioQueJaEstaSalvo(error, function(){deleteItens(callback)}, function(descricao){
+              toastr.error('Erro ao processar ' + descricao);
+            });
           }
         });
       }
@@ -124,6 +125,22 @@ angular.module('finance').factory('ApiSync', function ($http, toastr) {
     }else 
     toastr.warning(response.data.Message);
   };
+
+  function tratarEnvioQueJaEstaSalvo(error, callbackSucesso, callbackErro){
+    var uuid = error.config.data.uuid;
+    var descricao = (error.config.data.name === undefined) ? error.config.data.description : error.config.data.name
+
+    var query = '?where={"propertyUuid":"'+self.auth.propertyUuid+'", "uuid": "'+ uuid +'"}';
+
+    return $http.get(self.baseUrl + self.name + query, { headers: self.auth }).then(
+      function (response) {
+        if(response.data.length >= 1){
+          console.log("registro ja existe: ", uuid, descricao);
+          callbackSucesso();
+        }else
+          callbackErro(descricao);
+      });    
+  }
 
   
   return {
