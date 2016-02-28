@@ -60,3 +60,8 @@ a, a:visited{
 .ion-search{
   color: #fff;
 }
+
+.relatorio{
+  width: 95%;
+  margin: 10px auto 30px;
+}

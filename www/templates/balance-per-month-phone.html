@@ -1,0 +1,82 @@
+<ion-view view-title="Saldo por mês">
+  <ion-content overflow-scroll="true">
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <div class="input-label">Número de meses</div>
+          <input max="12" min="1" ng-model="item.months" placeholder="Mêses" step="3" type="number"></input>
+        </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="search(item)">
+        <i class="icon ion-search placeholder-icon"></i>
+        Buscar
+      </button>
+    </form>
+    <ion-scroll direction="xy" zooming="true" class="scroll">
+      <div class="report">
+        <div class="row bold">
+          <div class="col"></div>
+          <div class="col align-rigth" ng-repeat="date in itens.dates">
+            {{date}}
+          </div>
+          <div class="col align-rigth">Média</div>
+          <div class="col align-rigth">Total</div>
+        </div>
+        <div class="row bold">Créditos</div>
+        <div class="row" ng-repeat="category in itens.creditCategories">
+          <div class="col">
+            {{ category.category.name | limitTo: 10 }}{{category.category.name.length > 10 ? '...' : ''}}
+          </div>
+          <div class="col align-rigth" ng-repeat="balance in category.balance">
+            <a ng-click="searchTransaction(balance.year, balance.month, category.category.guid)">
+              {{balance.value | number: 2}}
+            </a>
+          </div>
+          <div class="col align-rigth">{{category.average() | number: 2}}</div>
+          <div class="col align-rigth">{{category.sum | number: 2}}</div>
+        </div>
+        <div class="row bold">
+          <div class="col">Total</div>
+          <div class="col align-rigth" ng-repeat="sum in itens.totalCredits.balance">
+            {{sum.value | number: 2}}
+          </div>
+          <div class="col align-rigth">{{itens.totalCredits.average() | number: 2}}</div>
+          <div class="col align-rigth">{{itens.totalCredits.sum | number: 2}}</div>
+        </div>
+        <div class="row bold">Débitos</div>
+        <div class="row" ng-repeat="category in itens.debitCategories">
+          <div class="col">
+            {{ category.category.name | limitTo: 10 }}{{category.category.name.length > 10 ? '...' : ''}}
+          </div>
+          <div class="col align-rigth" ng-repeat="balance in category.balance">
+            <a href="/#/app/transactions?year=20{{balance.year}}&month={{balance.month}}&categoryGuid={{category.category.guid}}">
+              {{balance.value | number: 2}}
+            </a>
+          </div>
+          <div class="col align-rigth">{{category.average() | number: 2}}</div>
+          <div class="col align-rigth">{{category.sum | number: 2}}</div>
+        </div>
+        <div class="row bold">
+          <div class="col">Total</div>
+          <div class="col align-rigth" ng-repeat="sum in itens.totalDebits.balance">
+            {{sum.value | number: 2}}
+          </div>
+          <div class="col align-rigth">{{itens.totalDebits.average() | number: 2}}</div>
+          <div class="col align-rigth">{{itens.totalDebits.sum | number: 2}}</div>
+        </div>
+        <div class="row bold">
+          <div class="col">Saldo</div>
+          <div class="col align-rigth" ng-repeat="sum in itens.totalDebits.balance track by $index">
+            {{(itens.totalCredits.balance[$index].value - sum.value) | number: 2}}
+          </div>
+          <div class="col align-rigth">
+            {{(itens.totalCredits.average() - itens.totalDebits.average()) | number: 2}}
+          </div>
+          <div class="col align-rigth">
+            {{(itens.totalCredits.sum - itens.totalDebits.sum) | number: 2}}
+          </div>
+        </div>
+      </div>
+    </ion-scroll>
+  </ion-content>
+</ion-view>
